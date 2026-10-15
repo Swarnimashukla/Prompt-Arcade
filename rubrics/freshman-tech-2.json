@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-2",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 2,
+  "title": "Explain transformer attention from the paper",
+  "brand": "‘Attention is All You Need’",
+  "domain": "ML paper",
+  "persona": "Sara, MS student preparing a reading-group talk",
+  "scenario": "You're presenting Vaswani et al.'s ‘Attention is All You Need’ in your reading group on Saturday. Half the room knows ML, half are CS undergrads who've only seen RNNs. You don't want to drown in equations OR oversimplify to the point of being wrong. You need an explanation that builds from RNNs (what attention replaces), shows one worked example, and flags 2 things the paper hand-waves that students will ask about.",
+  "techniques": [
+    "Audience modelling",
+    "Worked example",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "explain transformer attention",
+  "badOutput": "Attention is a mechanism that allows a model to focus on different parts of the input. In transformers, self-attention computes weighted relationships between all input tokens. This enables parallel processing and captures long-range dependencies, unlike RNNs which process sequentially.",
+  "hints": [
+    {
+      "title": "Anchor the audience explicitly",
+      "body": "‘Half know ML, half only know RNNs.’ Without this, AI defaults to either too-technical or too-cartoon explanations."
+    },
+    {
+      "title": "Force a worked example AND honesty",
+      "body": "‘Give one worked example with actual numbers, AND name 2 things the paper hand-waves.’ Honesty about gaps beats a glossy tour."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "explain|explanat|walk through|teach|present",
+          "tip": "Frame the artifact, an explanation for a reading group."
+        },
+        {
+          "pattern": "attention|transformer|self.?attention|qkv|paper",
+          "tip": "Anchor the concept, transformer attention from the original paper."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "rnn|sequential|recurrent|prior|before|replace",
+          "tip": "Anchor the bridge from RNNs, that's what attention replaces."
+        },
+        {
+          "pattern": "reading group|undergrad|talk|present|audience|saturday",
+          "tip": "Reference the audience, mixed reading group on Saturday."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not.{0,12}drown|don.?t.{0,12}equation|simplif|cartoon|wrong",
+          "tip": "Force the balance, no equation drowning, no cartoon oversimplification."
+        },
+        {
+          "pattern": "hand.?wave|gap|skip|skim|simplifi",
+          "tip": "Demand 2 things the paper hand-waves. Honesty about gaps."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "build from|bridge|start|begin|foundation",
+          "tip": "Force a bridge from what students already know, RNNs."
+        },
+        {
+          "pattern": "worked|example|actual|number|illustrat|concrete",
+          "tip": "Demand a worked example with actual numbers, not abstract description."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|step|format|order|sequence",
+          "tip": "Specify the structure, RNN bridge → worked example → hand-waves."
+        },
+        {
+          "pattern": "minute|short|tight|under|word",
+          "tip": "Lock the length, ‘15-min talk’, otherwise it sprawls."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Paper explanations from AI either drown in math or oversimplify. The unlock is anchoring the audience precisely (mixed RNN/ML), demanding a worked example with numbers, AND forcing honesty about what the paper hand-waves. Good teaching admits gaps.",
+  "goldPrompt": "Act as a teaching partner for a mixed-skill audience. I'm Sara, MS student presenting Vaswani et al. 'Attention is All You Need' Saturday. Half the room knows ML, half only RNNs. Output: (1) Open by stating what attention REPLACES in RNNs in 3 sentences. (2) One worked example: a 4-token input through a single attention head, with actual numbers (Q, K, V, softmax). (3) Name 2 things the paper hand-waves (e.g., why √d_k specifically, the choice of 8 heads). Refuse to oversimplify by skipping the math; refuse to drown in math by skipping intuition.",
+  "guideAnchor": "advanced"
+}

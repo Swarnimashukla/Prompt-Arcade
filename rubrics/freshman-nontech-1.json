@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-1",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 1,
+  "title": "Summarise a Foucault chapter for tutorial",
+  "brand": "Sociology reading",
+  "domain": "Humanities",
+  "persona": "Naina, 2nd-year sociology major",
+  "scenario": "Tomorrow's tutorial covers chapter 3 of Foucault's ‘Discipline and Punish’. You skimmed it. Your tutor asks pointed questions and reads any AI-summary smell from across the room. You want a summary that names the actual concepts (panopticon, disciplinary power, docile bodies), gives one concrete example from the chapter, and flags 2 questions you'd ask in tutorial that show you read it. No ‘in conclusion, this is important’ filler.",
+  "techniques": [
+    "Constraint naming",
+    "Refusal handling",
+    "Output definition"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "summarize chapter 3 of foucault's discipline and punish",
+  "badOutput": "Chapter 3 of Discipline and Punish discusses how modern institutions exercise power through observation and discipline. Foucault introduces concepts like the panopticon to illustrate surveillance. The chapter explores how power has shifted from physical punishment to subtle control, shaping behavior through visibility.",
+  "hints": [
+    {
+      "title": "Name the concepts you want in",
+      "body": "List ‘panopticon, disciplinary power, docile bodies’. AI summaries skip names without prompting and give vibes."
+    },
+    {
+      "title": "Force discussion-ready questions",
+      "body": "‘Give 2 questions a tutor would think show I read it.’ Beats the AI-summary smell."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "summary|summari|recap|brief|notes",
+          "tip": "Frame the artifact, a tutorial summary."
+        },
+        {
+          "pattern": "foucault|discipline|punish|chapter",
+          "tip": "Anchor the source, specific Foucault chapter."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "tutorial|tutor|seminar|class|discussion",
+          "tip": "Reference the audience, tutor reading any AI smell."
+        },
+        {
+          "pattern": "tomorrow|deadline|prep|read",
+          "tip": "Anchor the urgency, tomorrow."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "panopticon|disciplinary|docile|biopower|concept",
+          "tip": "Force named concepts, panopticon, disciplinary power, docile bodies."
+        },
+        {
+          "pattern": "no.{0,16}filler|no conclusion|don.?t|avoid|skip",
+          "tip": "Add a no-filler negative, no ‘in conclusion, this is important’."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "question|ask|tutor|discuss|debate",
+          "tip": "Force 2 discussion-ready questions a tutor would respect."
+        },
+        {
+          "pattern": "concrete|example|specific|cite|page",
+          "tip": "Demand one concrete example from the chapter."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|format|bullet|structure|outline",
+          "tip": "Specify the structure, concepts + example + questions."
+        },
+        {
+          "pattern": "word|under|short|tight|brief",
+          "tip": "Lock a length budget, ‘under 250 words’ keeps it tutorial-ready."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "AI summaries of theory texts get caught because they generalise. The unlock is naming the actual concepts (panopticon, docile bodies), demanding one concrete example, AND 2 tutor-grade questions. ‘Show me you read it’ is the prompt's job.",
+  "goldPrompt": "Act as a tutorial-prep partner. I'm Naina, 2nd-year sociology. Tomorrow's tutorial covers Discipline and Punish chapter 3. My tutor reads AI-summary smell from across the room. Output: (1) the actual concepts named — panopticon, disciplinary power, docile bodies — defined in 1 sentence each, (2) ONE concrete example from THIS chapter (not from elsewhere in the book), (3) 2 questions a tutor would think show I read it (e.g., 'how does Foucault distinguish discipline from sovereign power'). Refuse 'in conclusion this is important' filler. Cap at 250 words.",
+  "guideAnchor": "basics"
+}

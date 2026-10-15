@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-6",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 6,
+  "title": "Pitch driver-app redesign to eng",
+  "brand": "Ola Maps",
+  "domain": "Mobility",
+  "persona": "Sneha, senior designer on Ola driver app",
+  "scenario": "You want to redesign the driver-app home screen, the 4-tile grid that's been there since 2018. Drivers say it's noisy, eng says it's fine. You have 8 minutes in the platform review with a notoriously skeptical eng lead. You need a pitch that leads with the user pain (not the design vision), shows one concrete before/after, names the smallest possible scope to ship, and pre-empts the 3 objections eng will raise.",
+  "techniques": [
+    "Audience modelling",
+    "Adversarial prompting",
+    "Scope framing"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "help me pitch a redesign of the ola driver app home screen",
+  "badOutput": "Pitch: Redesign Driver App Home\n\nThe current home screen is outdated. A new design will improve usability, reduce cognitive load, and align with our brand. Benefits include faster task completion, better satisfaction, and a more modern look.",
+  "hints": [
+    {
+      "title": "Lead with pain, not vision",
+      "body": "‘Open with one driver quote or one metric, not with the redesign idea.’ Skeptical eng leads tune out vision-first pitches."
+    },
+    {
+      "title": "Pre-empt objections",
+      "body": "‘List the 3 objections eng will raise and answer them in advance.’ Adversarial prompting kills the back-and-forth before it starts."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "pitch|propos|argument|case|sell",
+          "tip": "Frame the artifact, a pitch, not a design doc."
+        },
+        {
+          "pattern": "redesign|home screen|tile|grid",
+          "tip": "Anchor the surface, driver-app home, 4-tile grid."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "skeptic|eng lead|engineer|pushback|review",
+          "tip": "Reference the audience, skeptical eng lead, 8-minute slot."
+        },
+        {
+          "pattern": "driver|noisy|2018|current|legacy|pain",
+          "tip": "Anchor the current state and user pain, drivers say it's noisy."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "lead with|open with|start with|pain|user|metric",
+          "tip": "Force ‘pain first, not vision first’."
+        },
+        {
+          "pattern": "smallest|scope|mvp|minimum|ship",
+          "tip": "Demand the smallest shippable scope, eng leads care about cost."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "objection|pushback|counter|argue against|adversari",
+          "tip": "Demand the 3 objections eng will raise, with answers."
+        },
+        {
+          "pattern": "before|after|concret|specific|example",
+          "tip": "Demand one concrete before/after, not abstract claims."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "8.?min|short|tight|brief|under",
+          "tip": "Lock the length, 8-minute pitch, otherwise it sprawls."
+        },
+        {
+          "pattern": "structure|format|order|sequence|section",
+          "tip": "Specify the order, pain → before/after → scope → objections."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Pitching to skeptical eng fails when designers lead with vision. The unlock is pain-first + smallest-scope + pre-empted objections. Adversarial framing, ‘what will eng say no to first’, is the difference between a yes and a 4-week debate.",
+  "goldPrompt": "Act as a pitch-writing partner. I'm Sneha, senior designer on Ola driver app. I have 8 minutes with a notoriously skeptical eng lead to pitch a redesign of the home-screen 4-tile grid. Open with one driver quote OR one usage metric, NOT with the redesign. Show one before/after of a single tile. State the smallest possible scope to ship in 2 weeks. Then list the 3 objections eng will raise (likely: backend API change, A/B test cost, regression risk) and answer each in advance with one sentence. Output as a 1-pager. Cap at 200 words.",
+  "guideAnchor": "advanced"
+}

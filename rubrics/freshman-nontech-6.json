@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-6",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 6,
+  "title": "Email professor for a 3-day extension",
+  "brand": "Missed deadline",
+  "domain": "Soft email",
+  "persona": "Shaurya, 4th-year liberal arts",
+  "scenario": "You missed the paper deadline by a day, dengue, you actually had it, but you also missed two earlier deadlines this semester (without dengue). You need a 3-day extension. The professor is fair but won't tolerate excuse-stacking. You want an email that's short, owns the prior misses without grovelling, makes one specific ask (3 days), and proposes a concrete way to make up for it. No ‘I deeply apologise for any inconvenience caused’.",
+  "techniques": [
+    "Tone calibration",
+    "Honesty framing",
+    "Constraint naming"
+  ],
+  "tokenBudget": 240,
+  "badPrompt": "write an email asking my professor for an extension",
+  "badOutput": "Dear Professor,\n\nI hope this email finds you well. I am writing to request an extension on my recent paper. Due to unforeseen circumstances, I was unable to complete the assignment on time. I deeply apologise for any inconvenience and would greatly appreciate your understanding.\n\nWarm regards,\nShaurya",
+  "hints": [
+    {
+      "title": "Ban the corporate-grovel phrases",
+      "body": "‘No ‘deeply apologise’, no ‘any inconvenience’, no ‘unforeseen circumstances’.’ Professors recognise these as filler instantly."
+    },
+    {
+      "title": "Acknowledge the prior misses honestly",
+      "body": "‘Mention the previous misses briefly, take ownership.’ Hiding them reads worse than acknowledging."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "email|message|note|request",
+          "tip": "Frame the artifact, an email."
+        },
+        {
+          "pattern": "extension|deadline|extra|paper|due",
+          "tip": "Anchor the ask, a 3-day extension on a paper."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "dengue|sick|illness|medical|fever",
+          "tip": "Anchor the actual reason, dengue."
+        },
+        {
+          "pattern": "prior|earlier|2|two|missed before|history",
+          "tip": "Surface the prior misses honestly, that's the politically loaded part."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}apologi|no.{0,16}inconvenien|no.{0,16}unforeseen|cliché|grovel|corporate",
+          "tip": "Ban corporate-grovel phrases."
+        },
+        {
+          "pattern": "short|brief|tight|under|word|concise",
+          "tip": "Lock a short length, ‘under 120 words’."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "3 day|three day|specific|concret|exact",
+          "tip": "Force one specific ask, 3 days, not vague ‘some extension’."
+        },
+        {
+          "pattern": "make up|compensat|propose|offer|trade",
+          "tip": "Demand a concrete make-up offer, attend extra office hours, etc."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "tone|own|honest|direct|respectful",
+          "tip": "Force a respectful + direct tone, no grovelling, no entitlement."
+        },
+        {
+          "pattern": "subject|line|greeting|sign.?off",
+          "tip": "Specify the structure, subject line + greeting + body + sign-off."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Extension emails fail when they lean on corporate grovelling. The unlock is banning the cliché phrases (‘deeply apologise’, ‘any inconvenience’), forcing a specific ask (3 days), AND owning the prior misses. Honesty + brevity beats theatre + length.",
+  "goldPrompt": "Act as a writing partner who knows professors detect filler. I'm Shaurya, 4th-year liberal arts. I missed yesterday's paper deadline — dengue, real, but I also missed two earlier deadlines this term WITHOUT dengue. Need a 3-day extension. Banned phrases: 'deeply apologise', 'any inconvenience', 'unforeseen circumstances', 'hope this finds you well'. Output an email under 120 words that: (1) names the situation in one line, (2) acknowledges the prior misses honestly without grovelling, (3) asks for exactly 3 days (specific date), (4) proposes one concrete way to make up for the pattern. Subject line included.",
+  "guideAnchor": "basics"
+}

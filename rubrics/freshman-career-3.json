@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-3",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 3,
+  "title": "Prep 5 STAR-format behavioural answers",
+  "brand": "Day-1 placement",
+  "domain": "Interview prep",
+  "persona": "Mehak, final-year, day-1 placements next week",
+  "scenario": "You have day-1 placements next week. Top 5 behavioural questions you'll get: ‘tell me about yourself’, ‘a time you led without authority’, ‘a time you failed’, ‘a conflict you resolved’, ‘why this company’. You want STAR-format answers (Situation, Task, Action, Result), each under 90 seconds spoken, that don't sound rehearsed, with one ‘what I learned’ moment at the end of failure/conflict ones. No ‘perfectionism is my biggest weakness’.",
+  "techniques": [
+    "Tone calibration",
+    "Structured framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 360,
+  "badPrompt": "give me 5 behavioural interview answers in STAR format",
+  "badOutput": "1. Tell me about yourself: I am a passionate final-year student with strong academic record and leadership experience.\n2. Lead without authority: In my college club, I motivated the team to deliver a successful event.\n3. Failure: I once missed a deadline but learned to manage time better.\n4. Conflict: I resolved a disagreement through open communication.\n5. Why this company: I am inspired by your culture and growth opportunities.",
+  "hints": [
+    {
+      "title": "Force the 90-second test",
+      "body": "‘Each answer ≤ 90 seconds spoken. Cut anything that sounds rehearsed.’ Long answers tank your behavioural round."
+    },
+    {
+      "title": "Ban the ‘perfectionism’ cliché",
+      "body": "‘No “perfectionism is my biggest weakness” energy. Real failures, real lessons.’ Interviewers grade on credibility."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "star|situation|task|action|result",
+          "tip": "Frame the artifact, STAR-format answers."
+        },
+        {
+          "pattern": "behavioural|behavior|interview|hr|round",
+          "tip": "Anchor the round, behavioural interview."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "day.?1|placement|final year|campus|recruit",
+          "tip": "Anchor the context, day-1 placements."
+        },
+        {
+          "pattern": "tell me|leader|fail|conflict|why",
+          "tip": "Name the 5 specific questions, not generic."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "90 second|under|short|time|spoken",
+          "tip": "Lock the spoken length, 90 seconds per answer."
+        },
+        {
+          "pattern": "no.{0,16}perfection|no.{0,16}cliché|don.?t.{0,12}rehears|natural",
+          "tip": "Ban the perfectionism cliché and rehearsed-sounding answers."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "learn|takeaway|lesson|grew|reflect",
+          "tip": "Demand a ‘what I learned’ on failure/conflict answers."
+        },
+        {
+          "pattern": "specific|real|concrete|true|honest|genuine",
+          "tip": "Force specific, real situations."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|format|structure|each|per",
+          "tip": "Specify the structure, S+T+A+R+learning per answer."
+        },
+        {
+          "pattern": "voice|natural|conversational|sound|speak",
+          "tip": "Force a spoken-natural voice, not written-formal."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Behavioural prep from AI sounds AI because it's too polished. The unlock is the 90-second cap, banning the perfectionism cliché, AND demanding real specific situations + a ‘what I learned’ tag on failure/conflict ones. Interviewers grade on credibility, not vocabulary.",
+  "goldPrompt": "Act as an interview coach. I'm Mehak, day-1 placements next week. Output STAR-format answers (Situation, Task, Action, Result + Learning where relevant) for the 5 questions: 'tell me about yourself', 'a time you led without authority', 'a time you failed', 'a conflict you resolved', 'why this company'. Constraints: each answer ≤ 90 seconds spoken (~180 words). Banned: 'perfectionism is my biggest weakness', 'I'm a people person'. Failure and conflict answers must end with one specific lesson. Before drafting, ask me for ONE real situation per question — refuse to invent stories I didn't live.",
+  "guideAnchor": "basics"
+}

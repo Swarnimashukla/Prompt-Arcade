@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-3",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 3,
+  "title": "Cohort retention readout for January signups",
+  "brand": "cult.fit",
+  "domain": "Fitness",
+  "persona": "Ishita, retention analyst at cult.fit",
+  "scenario": "January 2026 New-Year cohort signed up at 2.4× the December baseline. By week 8, 61% have stopped attending classes, vs 42% for the December cohort. You owe a retention readout for the leadership review: what's the same, what's structurally different about this cohort, and which 2 levers (not 12) would actually move the needle on week-12 retention.",
+  "techniques": [
+    "Hypothesis framing",
+    "Constraint naming",
+    "Decision framing"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "write a cohort retention analysis for cult.fit january signups",
+  "badOutput": "Cohort Analysis: January 2026\n\nThe January cohort showed strong initial signups but lower retention compared to December. Possible reasons include New Year resolutions wearing off, schedule conflicts, and engagement issues. Recommendations: improve onboarding, add reminders, enhance class variety.",
+  "hints": [
+    {
+      "title": "Force structural differentiation",
+      "body": "‘What's structurally different about this cohort, not just bigger.’ Without this, AI rehashes generic retention causes."
+    },
+    {
+      "title": "Lock the lever count",
+      "body": "‘2 levers, not 12. Argue why these two beat the others.’ Decision-grade memos don't list everything."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "readout|analysis|memo|review|report",
+          "tip": "Frame the artifact, a retention readout."
+        },
+        {
+          "pattern": "cohort|retention|attend|churn|drop",
+          "tip": "Anchor the metric, cohort retention, week-8 attendance."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "january|new.?year|2.?4|baseline|signup",
+          "tip": "Anchor the cohort, January 2026 New-Year, 2.4× signup volume."
+        },
+        {
+          "pattern": "61|42|week 8|drop|attend",
+          "tip": "Use the actual numbers, 61% vs 42%, week 8."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "structural|different|why|root|cause",
+          "tip": "Force structural differentiation, what's different, not just bigger."
+        },
+        {
+          "pattern": "2 lever|two lever|exactly|not 12|not all",
+          "tip": "Lock the count, 2 levers, with reasoning for why these beat the others."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "leadership|review|exec|deadline",
+          "tip": "Reference the audience, leadership review."
+        },
+        {
+          "pattern": "argue|defend|why|reason|justif",
+          "tip": "Demand reasoning for why these two levers beat alternatives."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|same|different|lever|format",
+          "tip": "Specify sections, same / structurally different / 2 levers."
+        },
+        {
+          "pattern": "1.?pager|page|word|under|short",
+          "tip": "Lock the length, 1-pager."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Retention analyses get rehashy because LLMs reach for generic causes. The unlock is forcing structural differentiation (what's different about THIS cohort) and locking the lever count to 2 with explicit reasoning for why those two.",
+  "goldPrompt": "You're a retention analyst. I'm Ishita at cult.fit. January 2026 New-Year cohort signed at 2.4× December baseline; 61% have stopped attending by week 8 (vs 42% for December). Output: (1) 'What's the same' vs December — 3 bullets, (2) 'What's structurally different' — 4 bullets with hypothesised mechanisms, NOT generic causes, (3) 'Two levers (not 12)' to move week-12 retention. For each lever, argue why it beats two alternatives I'd otherwise reach for. Refuse to list more than 2 levers.",
+  "guideAnchor": "advanced"
+}

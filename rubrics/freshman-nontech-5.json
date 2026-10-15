@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-5",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 5,
+  "title": "Argue both sides: AI tutors replacing TAs",
+  "brand": "Debate prep",
+  "domain": "Argumentation",
+  "persona": "Ira, on her college debate team",
+  "scenario": "Debate motion: ‘This house believes universities should replace teaching assistants with AI tutors.’ You're prepping both sides because you don't know which you'll draw. You need 3 strong arguments per side, the empirical evidence (real or where to look), the most likely rebuttal, AND your steelman of the other side, the version even your opponent would respect. No ‘both sides have merit’ both-siding.",
+  "techniques": [
+    "Adversarial prompting",
+    "Steelman framing",
+    "Constraint naming"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "give me arguments for and against AI tutors replacing TAs",
+  "badOutput": "For: AI tutors are scalable, available 24/7, consistent in quality, cheaper than human TAs.\n\nAgainst: AI lacks empathy, can't handle nuanced questions, may have biases, removes human jobs.\n\nBoth sides have valid points. The decision depends on the specific context.",
+  "hints": [
+    {
+      "title": "Force a steelman per side",
+      "body": "‘Steelman the other side, the version even your opponent would respect.’ Beats the cardboard ‘pros vs cons’ AI defaults to."
+    },
+    {
+      "title": "Demand evidence, not assertions",
+      "body": "‘For each argument, name the empirical study or where I'd find one. Flag if you're not sure it exists.’ Stops fabricated stats."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "debate|argument|case|position|side",
+          "tip": "Frame the artifact, debate prep, not a balanced essay."
+        },
+        {
+          "pattern": "ai tutor|ta|teaching assistant|replace",
+          "tip": "Anchor the motion, AI tutors replacing TAs."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "both side|don.?t know|either|prep|either side",
+          "tip": "Anchor the context, prepping both because you don't know your side."
+        },
+        {
+          "pattern": "debate team|college|round|opponent",
+          "tip": "Reference the debate-format context."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "3|three|exactly|cap|per side",
+          "tip": "Lock the count, 3 arguments per side."
+        },
+        {
+          "pattern": "no.{0,16}both side|no.{0,16}merit|don.?t.{0,16}straddle|take a side",
+          "tip": "Add a no-both-siding negative."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "steelman|strongest|even.{0,8}respect|opponent",
+          "tip": "Force a steelman per side, the version that even an opponent would respect."
+        },
+        {
+          "pattern": "evidence|study|data|cite|empiric",
+          "tip": "Demand empirical evidence, not assertions."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "rebuttal|counter|response|comeback",
+          "tip": "Demand the most likely rebuttal per argument."
+        },
+        {
+          "pattern": "table|format|column|structure",
+          "tip": "Specify a table, side + argument + evidence + rebuttal + steelman."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Debate prep from AI defaults to cardboard pros/cons. The unlock is forcing steelmen, demanding empirical evidence (or honest ‘not sure if this exists’), and banning ‘both sides have merit’. The strongest debaters argue the opponent's case better than the opponent.",
+  "goldPrompt": "Act as a debate coach. I'm Ira on the college team. Motion: 'This house believes universities should replace TAs with AI tutors.' I prep both sides. For EACH side output: (1) 3 strong arguments, each with ONE empirical study or data source named (with the journal or org); if you are unsure the study exists, tag it [UNVERIFIED — needs check], (2) the most likely rebuttal, (3) a steelman of the opposing case in the version even your opponent would respect — not a strawman. Banned: 'both sides have merit' framing. Refuse to fabricate study citations to fill a gap.",
+  "guideAnchor": "advanced"
+}

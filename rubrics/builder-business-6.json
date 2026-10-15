@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-6",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 6,
+  "title": "Investor update on missed Q2 targets",
+  "brand": "Series-B HR-tech",
+  "domain": "SaaS startup",
+  "persona": "Maya, COO at a Series-B HR-tech startup",
+  "scenario": "You missed Q2 targets, ARR landed at $4.2M vs $5.1M plan, net new logos 22 vs 31 plan, NRR slipped to 108% from 124%. The bear case investors will worry about: did sales productivity break, or is this a market story. You owe them an update by Friday: own the miss, name the actual cause (not 13 of them), show the Q3 correction with one leading indicator they can track, and pre-empt the ‘should we slow hiring’ question.",
+  "techniques": [
+    "Audience modelling",
+    "Honesty framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 360,
+  "badPrompt": "draft an investor update for a series B startup that missed q2",
+  "badOutput": "Investor Update\n\nQ2 was a challenging quarter. ARR came in below plan due to macro headwinds and longer sales cycles. We are confident in our path forward and continue to invest in our team and product. Q3 looks promising.",
+  "hints": [
+    {
+      "title": "Force ownership, not corporate-speak",
+      "body": "‘Own the miss. No ‘macro headwinds’. Name the specific operational cause.’ Investors burn boards that hide behind macros."
+    },
+    {
+      "title": "Pre-empt the obvious question",
+      "body": "‘Pre-empt the “should we slow hiring” question with a clear answer + one leading indicator they can track.’ Updates that don't address the obvious worry get a 30-minute call you don't want."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "investor update|board update|update|memo",
+          "tip": "Frame the artifact, an investor update."
+        },
+        {
+          "pattern": "miss|below|short|gap|underperform",
+          "tip": "Anchor the situation, missed Q2 targets."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "4.2|5.1|arr|revenue|22|31|nrr|108|124",
+          "tip": "Use the actual numbers, $4.2M vs $5.1M, 22 vs 31 logos, NRR 108 vs 124."
+        },
+        {
+          "pattern": "series b|series.?b|hr.?tech|saas|b2b",
+          "tip": "Anchor the company stage and category, Series-B HR-tech SaaS."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}macro|no.{0,16}corporate|own|honest|no spin",
+          "tip": "Force ownership, no ‘macro headwinds’ corporate-speak."
+        },
+        {
+          "pattern": "1 cause|one cause|specific|single|root|primary",
+          "tip": "Lock to a single primary cause, not a list of 13."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "bear case|worry|concern|pre.?empt|address|question",
+          "tip": "Demand pre-emption of the bear case, slow hiring? sales broken?"
+        },
+        {
+          "pattern": "leading indicator|metric|track|signal|q3|correction",
+          "tip": "Force one leading indicator investors can track for Q3 correction."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|tldr|tl;?dr|summary|format",
+          "tip": "Specify a structure, TLDR + miss + cause + correction + bear-case."
+        },
+        {
+          "pattern": "word|length|under|short|tight",
+          "tip": "Lock the length, ‘under 400 words’ keeps investors reading."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Investor updates after a miss live or die on tone. The unlock is owning the miss with a single named cause, pre-empting the obvious worry (slow hiring?), and giving one leading indicator they can hold you to. Vague ‘macro headwinds’ is how trust breaks at Series B.",
+  "goldPrompt": "Act as a CEO writing-partner. I'm Maya, COO at a Series-B HR-tech startup. Q2 missed: ARR $4.2M vs $5.1M plan, net new logos 22 vs 31, NRR 108% (was 124%). Output a written investor update for Friday. Open by owning the miss in one sentence. Name ONE specific operational cause — no 'macro headwinds'. Show the Q3 correction with ONE leading indicator investors can track week-by-week. Pre-empt the obvious question 'should we slow hiring' with a clear yes/no AND the trigger metric. End with what we'd do differently next quarter. Cap at 300 words.",
+  "guideAnchor": "advanced"
+}

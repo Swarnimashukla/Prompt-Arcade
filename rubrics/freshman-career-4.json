@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-4",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 4,
+  "title": "Guesstimate market size of paneer in Bangalore",
+  "brand": "Consulting case",
+  "domain": "Case prep",
+  "persona": "Aryan, applying to consulting via campus placements",
+  "scenario": "Case prep for consulting interviews. Question: ‘Estimate the daily market size of paneer in Bangalore.’ You don't have a phone, can't Google, and your interviewer wants to see the structure of your thinking, not the right answer. You want a worked guesstimate with the population number you assume, the consumption split (veg/non-veg, urban/rural, daily/weekly), the per-capita-per-occasion math, and one assumption you'd flag as the biggest source of error.",
+  "techniques": [
+    "Structured reasoning",
+    "Honest scoping",
+    "Output definition"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "estimate the market size of paneer in bangalore",
+  "badOutput": "Bangalore has approximately 13 million people. Assume 60% are vegetarian, of which 40% consume paneer daily at 50g per person. That gives roughly 156 tonnes per day. The market size is around 156 tonnes daily.",
+  "hints": [
+    {
+      "title": "Force visible structure",
+      "body": "‘Show every assumption as a labelled step. Population → veg-share → daily-consumer-share → per-occasion grams.’ Interviewers grade structure, not answer."
+    },
+    {
+      "title": "Demand a sensitivity flag",
+      "body": "‘Name the one assumption that, if wrong by 2x, breaks the answer most.’ This is what separates analyst from estimator."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "guesstimate|estimat|case|market siz",
+          "tip": "Frame the artifact, a guesstimate, not a research answer."
+        },
+        {
+          "pattern": "paneer|bangalore|daily|tonn|kg",
+          "tip": "Anchor the unit, daily paneer in Bangalore, in kg/tonnes."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "no phone|no google|interview|verbal|live",
+          "tip": "Anchor the constraint, no Google, live verbal."
+        },
+        {
+          "pattern": "structur|thinking|reason|process|approach",
+          "tip": "Reference what's being graded, structure of thinking."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "step|labelled|each|number|show",
+          "tip": "Force every assumption shown as a labelled step."
+        },
+        {
+          "pattern": "veg|urban|daily|weekly|occasion|split",
+          "tip": "Anchor the segmentation, veg-share, urban/rural, frequency."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "sensitivity|flag|biggest|error|risk|2x",
+          "tip": "Demand a sensitivity flag, the assumption that breaks the answer."
+        },
+        {
+          "pattern": "per capita|per person|per occasion|consumption",
+          "tip": "Force a per-capita-per-occasion number, not just population × %."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|format|step|sequence|chain",
+          "tip": "Specify the structure, numbered steps with assumption + value + source-of-error."
+        },
+        {
+          "pattern": "verbal|spoken|talk|narrat|explain",
+          "tip": "Force a spoken-friendly format, you'll deliver this verbally."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Guesstimates fail when they jump to a final number. The unlock is forcing visible structure (population → veg → frequency → grams) AND a sensitivity flag on the assumption that breaks the answer most. Interviewers grade reasoning, not your match to the ‘right’ answer.",
+  "goldPrompt": "Act as a consulting interviewer grading structure, not the answer. I'm Aryan, prepping case interviews. Question: 'Estimate the daily market size of paneer in Bangalore.' No phone, no Google. Output a worked guesstimate as a labelled chain: (1) Bangalore population assumption, (2) veg-share split, (3) daily-consumer share, (4) typical occasion frequency, (5) per-occasion grams, (6) final number in tonnes/day AND ₹/day. Then explicitly name the ONE assumption that, if wrong by 2×, breaks the answer most. Show every multiplication. Don't reach for a 'right' answer — show structure.",
+  "guideAnchor": "basics"
+}

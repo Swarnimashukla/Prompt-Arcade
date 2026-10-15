@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-2",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 2,
+  "title": "40 dark-store interviews → 5 SKU themes",
+  "brand": "Zepto",
+  "domain": "Quick-commerce",
+  "persona": "Riya, PM at Zepto on dark-store ops",
+  "scenario": "You spent 3 weeks talking to 40 dark-store managers across 6 cities about which SKUs go stale, which run out, and which they secretly stop reordering. The transcripts are 180 pages of mixed Hindi-English. Your category lead wants 5 themes by Friday with one anchor quote per theme, and a flag on anything that contradicts our current SKU rationalisation policy.",
+  "techniques": [
+    "Evidence anchoring",
+    "Extractive vs generative",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "summarize these 40 interviews",
+  "badOutput": "The interviews talk about stocking issues, freshness, customer demand, and operational challenges. Managers want better forecasting tools and more autonomy. Common themes include supply chain, demand prediction, and shelf life management.",
+  "hints": [
+    {
+      "title": "Force extractive, not generative",
+      "body": "Demand verbatim quotes with manager IDs. ‘Quote, don't paraphrase. If a theme has no quote, drop it.’ This kills hallucinated themes."
+    },
+    {
+      "title": "Surface contradictions explicitly",
+      "body": "Tell Claude to flag contradictions to current policy as a separate section, not buried inside themes. That's where decisions get made."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "theme|pattern|insight|finding",
+          "tip": "Name the artifact, ‘5 themes’, not ‘a summary’."
+        },
+        {
+          "pattern": "interview|transcript|manager|qualitative|verbatim",
+          "tip": "Anchor the source, 40 manager interviews, not a generic dataset."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "dark.?store|sku|stale|stock|reorder|category",
+          "tip": "Use the domain language, dark-store, SKU, stock-out. It calibrates Claude's vocabulary."
+        },
+        {
+          "pattern": "hindi|mixed|english|languag|6 cit|six cit",
+          "tip": "Mention the Hindi-English mix, it changes how Claude handles quotes."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "quote|verbatim|exact|don.?t paraphrase|no paraphrase|drop",
+          "tip": "Force extractive output, verbatim quotes, drop themes without evidence."
+        },
+        {
+          "pattern": "5|five|exactly|no more|cap|limit",
+          "tip": "Lock the count. ‘Exactly 5 themes’, otherwise Claude will give you 11."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "category lead|friday|deadline|decision|policy",
+          "tip": "Reference the audience and deadline, category lead, by Friday."
+        },
+        {
+          "pattern": "contradict|conflict|disagree|policy|rationalis",
+          "tip": "Ask for contradictions to current policy as a separate section."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "anchor|one quote|per theme|cite|attribut|manager.?id",
+          "tip": "One anchor quote per theme, with the manager ID."
+        },
+        {
+          "pattern": "table|section|format|markdown|structure",
+          "tip": "Specify the output structure, themes table + a contradictions section."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Synthesis is where AI hallucinates fastest because there's no obvious right answer. The fix is extractive prompting, force quotes, drop themes without evidence, separate contradictions from confirmations.",
+  "goldPrompt": "You are a research synthesis partner. I'm Riya, PM at Zepto on dark-store ops. I have 180 pages of mixed Hindi-English transcripts from 40 dark-store managers across 6 cities about SKU staleness, stockouts, and silent reorder freezes. Category lead wants exactly 5 themes by Friday. Rules: extractive only — quote verbatim with manager IDs (M01–M40). If a theme has no anchor quote, drop it. Output: a themes table (theme, manager-ID, anchor quote, frequency) PLUS a separate 'Contradictions to current SKU rationalisation policy' section. Do not paraphrase. Do not generate themes from inference alone.",
+  "guideAnchor": "basics"
+}

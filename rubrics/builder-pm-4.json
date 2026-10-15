@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-4",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 4,
+  "title": "Stakeholder update on Copilot rollout",
+  "brand": "Microsoft Teams",
+  "domain": "Product",
+  "persona": "Meera, senior PM on Microsoft Teams Copilot",
+  "scenario": "Copilot in Teams was rolled out to 12 enterprise pilots. Adoption is 28% by week 4 (target was 45%). Two execs told sales the meeting-summary feature ‘makes things up’. You owe a written update to the leadership review on Thursday. Tone matters: the program is real, the misses are real, and overcorrecting in either direction will get you sidelined.",
+  "techniques": [
+    "Tone calibration",
+    "Audience modelling",
+    "Refusal handling"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "draft a stakeholder update on copilot rollout",
+  "badOutput": "Update on Copilot Rollout\n\nWe rolled out Copilot to 12 enterprise pilots. Adoption has been steady but below target. We are working on improving the experience and addressing feedback. We remain confident in the product direction.",
+  "hints": [
+    {
+      "title": "Force the tone explicitly",
+      "body": "‘Confident but not defensive. Acknowledge the misses without grovelling. No corporate hedging.’ Tone is the whole game in stakeholder writing."
+    },
+    {
+      "title": "Demand owner names + dates",
+      "body": "Every action must have a name and a date next to it. Without this, updates read as theatre."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "update|memo|brief|status|readout",
+          "tip": "Frame the artifact, an update or memo."
+        },
+        {
+          "pattern": "copilot|teams|adoption|rollout|pilot",
+          "tip": "Name the program, Copilot in Teams, with the actual metric."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "28|45|adoption|target|miss|gap",
+          "tip": "Include the actual numbers, 28% vs 45% target. Specificity breaks generic copy."
+        },
+        {
+          "pattern": "hallucinat|make.?up|fabric|inaccur|exec.{0,8}feedback",
+          "tip": "Flag the hallucination feedback explicitly, that's the politically loaded part."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "tone|confident|defensive|grovel|hedge|spin|honest",
+          "tip": "Force the tone, confident, not defensive. No corporate hedging."
+        },
+        {
+          "pattern": "no.{0,12}jargon|plain|direct|short|crisp|tight",
+          "tip": "Add a no-jargon constraint. Stakeholder updates die from buzzword bloat."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "leadership|exec|review|thursday|deadline",
+          "tip": "Reference the audience and deadline, leadership review on Thursday."
+        },
+        {
+          "pattern": "action|next step|owner|date|by when|deadline",
+          "tip": "Demand actions with owners and dates. Updates without these are theatre."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|tldr|tl;?dr|summary|bullet|format",
+          "tip": "Specify a structure, TLDR + sections + actions table."
+        },
+        {
+          "pattern": "word|length|under|brief|short",
+          "tip": "Lock a length budget. ‘Under 250 words’ keeps it readable."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Stakeholder writing is tone-as-content. The unlock isn't ‘write an update’, it's ‘write an update for execs who already heard the bad feedback, in a tone that owns it without overcorrecting, with named owners on every action’.",
+  "goldPrompt": "You're a writing partner for stakeholder updates. I'm Meera, senior PM on Microsoft Teams Copilot. Adoption at 4 weeks is 28% across 12 enterprise pilots, target was 45%. Two execs told sales the meeting-summary feature 'makes things up'. Audience: leadership review Thursday. Tone: confident, not defensive. Acknowledge the misses without grovelling. No corporate hedging. No buzzwords. Format: TLDR (3 lines) + 'What's working' + 'What missed' (named cause, not vibes) + 'Actions' as a table with owner names and due dates. Under 250 words total.",
+  "guideAnchor": "advanced"
+}

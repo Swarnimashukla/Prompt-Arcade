@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-2",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 2,
+  "title": "Tailor resume to a McKinsey BA JD",
+  "brand": "McKinsey BA",
+  "domain": "JD tailoring",
+  "persona": "Yash, final-year economics, applying to consulting",
+  "scenario": "You have a generic 1-page resume. The McKinsey Business Analyst JD names: structured problem-solving, leadership in college activities, comfort with quantitative analysis, and ‘entrepreneurial drive’. Your resume has a college-fest org role, a research assistant stint, a stats class project, and one freelance gig. You want a tailored version where every bullet maps to one of those 4 JD asks, but you also don't want to manufacture stories that aren't true.",
+  "techniques": [
+    "Constraint naming",
+    "JD mapping",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "tailor my resume for the mckinsey BA role",
+  "badOutput": "Tailored Resume:\n- Led cross-functional initiatives demonstrating structured problem-solving (College Fest)\n- Conducted quantitative research with statistical rigor (Research Assistant)\n- Drove data-driven insights through advanced analytics (Stats project)\n- Spearheaded entrepreneurial freelance ventures (Freelance gig)",
+  "hints": [
+    {
+      "title": "Force explicit JD mapping",
+      "body": "‘Map each bullet to one of the 4 JD phrases. If a bullet doesn't map cleanly, drop it.’ Tailoring without mapping is just keyword stuffing."
+    },
+    {
+      "title": "Ban manufactured drama",
+      "body": "‘Don't add stories that aren't in my history. If a JD ask has no real evidence, leave it unfilled and flag it.’ Honest gaps beat fabricated bullets."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "tailor|customis|map|align|fit",
+          "tip": "Frame the artifact, JD-tailored resume."
+        },
+        {
+          "pattern": "mckinsey|consulting|ba|business analyst",
+          "tip": "Anchor the role, McKinsey BA."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "structured|problem|leadership|quantitativ|entrepreneur",
+          "tip": "Name the 4 JD phrases verbatim."
+        },
+        {
+          "pattern": "fest|research|stats|freelanc|college",
+          "tip": "Anchor your actual experiences."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "don.?t.{0,16}manufactur|don.?t.{0,16}invent|don.?t.{0,16}fabric|honest|truth|real",
+          "tip": "Ban manufactured drama."
+        },
+        {
+          "pattern": "drop|skip|leave|gap|flag|honest",
+          "tip": "Force honest gap-flagging when JD ask has no evidence."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "map|each bullet|each ask|tag|label",
+          "tip": "Force per-bullet JD mapping."
+        },
+        {
+          "pattern": "1.?page|page|word|under|short",
+          "tip": "Lock the length, 1 page."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|format|column|tag|structure",
+          "tip": "Specify a structure, bullet + JD-phrase tag + scope/metric."
+        },
+        {
+          "pattern": "before|after|original|new|rewrit",
+          "tip": "Demand before/after, so you can compare what changed."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "JD tailoring fails when AI keyword-stuffs. The unlock is forcing explicit per-bullet JD mapping AND banning manufactured stories. If a JD ask has no real evidence, an honest gap is better than a fabricated one. McKinsey screens harder than the resume stuffer expects.",
+  "goldPrompt": "Act as a resume tailor who refuses keyword stuffing. I'm Yash, final-year economics. McKinsey BA JD asks for 4 things: structured problem-solving, leadership in college activities, comfort with quantitative analysis, entrepreneurial drive. My real history: college-fest org role, research-assistant stint, stats class project, one freelance gig. Output tailored bullets where each one MAPS to one of the 4 JD phrases — tag the mapping at the end like [→ structured problem-solving]. If a JD ask has no real evidence, leave the slot UNFILLED and flag it [GAP — discuss in interview]. Refuse to manufacture stories.",
+  "guideAnchor": "advanced"
+}

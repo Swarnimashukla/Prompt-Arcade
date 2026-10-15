@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-4",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 4,
+  "title": "Name color tokens for light/dark",
+  "brand": "Razorpay",
+  "domain": "Design systems",
+  "persona": "Tanvi, design systems lead at Razorpay",
+  "scenario": "Razorpay's design system has 84 color tokens with names like ‘blue-500’, ‘blue-500-dark’, ‘primary-blue’, ‘brand-blue-2’. Half the tokens have aliases that drift on dark mode. You want a naming convention that, semantic intent, palette role, theme variant, that scales to the next 100 tokens without anyone having to think. You have 30 minutes before standup.",
+  "techniques": [
+    "Constraint naming",
+    "Decision framing",
+    "Spec scaffolding"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "give me a naming convention for design system color tokens",
+  "badOutput": "Use semantic names like primary, secondary, success, warning, error. Avoid raw color names. Use a hierarchy like color-category-variant. Apply consistent naming across light and dark themes.",
+  "hints": [
+    {
+      "title": "Anchor the failure mode",
+      "body": "Tell Claude what's broken: ‘blue-500-dark’, ‘primary-blue’, ‘brand-blue-2’ are all the same token with drift. The current chaos is the prompt's job to fix."
+    },
+    {
+      "title": "Force a worked example",
+      "body": "Demand the same token written under the new convention, in light AND dark. Without a worked example, conventions are theoretical."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "naming|convention|schema|pattern|rule",
+          "tip": "Frame the artifact, a naming convention, not vibes."
+        },
+        {
+          "pattern": "color|token|palette|semantic",
+          "tip": "Anchor the domain, color tokens in a design system."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "light|dark|theme|mode|variant",
+          "tip": "Reference the dark/light theming, that's where conventions break."
+        },
+        {
+          "pattern": "drift|alias|chaos|mess|inconsist|84|current",
+          "tip": "Anchor the current chaos, 84 tokens with drift, so Claude has something to fix."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "scale|grow|next|future|100",
+          "tip": "Constrain for scale, ‘scales to the next 100 tokens without thinking’."
+        },
+        {
+          "pattern": "semantic|intent|role|purpose|function",
+          "tip": "Force semantic-intent naming, not raw color names."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "team|standup|engineer|designer|adopt",
+          "tip": "Reference the team, standup in 30 minutes. Conventions need to be explainable fast."
+        },
+        {
+          "pattern": "decision|trade.?off|alternativ|reject",
+          "tip": "Demand alternatives considered + rejected. Conventions without rejected paths are just opinions."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "example|worked|sample|same token",
+          "tip": "Demand a worked example, the same token under the new convention, in both themes."
+        },
+        {
+          "pattern": "format|markdown|table|section",
+          "tip": "Specify the structure, rules + worked example + rejected alternatives."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Token naming gets generic from AI because it doesn't know your chaos. The unlock is anchoring the actual broken names AND demanding a worked example in both themes. Conventions without examples are theoretical.",
+  "goldPrompt": "Act as a design-systems lead reviewer. I'm Tanvi at Razorpay. Our 84 colour tokens have names like 'blue-500', 'blue-500-dark', 'primary-blue', 'brand-blue-2' — half drift on dark mode. I have 30 minutes. Propose ONE naming convention with the schema {semantic-intent}-{role}-{theme} (e.g., bg-surface-default, fg-action-pressed). Apply it to those four broken names as a worked example, in light AND dark. Output: convention rules (5 max), worked migration table, and one edge case (e.g., gradients) with how the convention handles it.",
+  "guideAnchor": "advanced"
+}

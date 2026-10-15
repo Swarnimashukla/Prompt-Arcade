@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-4",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 4,
+  "title": "Teardown of GPay's UPI Lite rollout",
+  "brand": "PhonePe vs GPay",
+  "domain": "Payments",
+  "persona": "Nikhil, senior strategist at PhonePe",
+  "scenario": "GPay rolled out UPI Lite (offline, ≤₹4000, faster) to 100M users in 90 days, NPCI is pushing hard. Your CEO wants a teardown by Wednesday: what GPay did right, what they're vulnerable to, and the smallest move PhonePe can make in 4 weeks that doesn't look like a copy. He's allergic to ‘we should also do it’ recommendations.",
+  "techniques": [
+    "Adversarial prompting",
+    "Multi-perspective",
+    "Decision framing"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "do a teardown of gpay upi lite rollout",
+  "badOutput": "GPay's UPI Lite is a strong product, fast, offline, low-friction. They scaled to 100M users quickly. PhonePe should consider launching a similar feature with our brand twist to compete. We should focus on user experience and growth.",
+  "hints": [
+    {
+      "title": "Force a vulnerability search",
+      "body": "‘What's GPay vulnerable to, that PhonePe could exploit?’ Teardowns without vulnerabilities become flattery."
+    },
+    {
+      "title": "Ban ‘we should also do it’",
+      "body": "Add the negative explicitly. Differentiation in payments is hard, the prompt has to force it."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "teardown|breakdown|analysis|review",
+          "tip": "Frame the artifact, a teardown, not a comparison."
+        },
+        {
+          "pattern": "upi|lite|payment|offline|gpay",
+          "tip": "Anchor the product, UPI Lite, payments domain."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "100m|hundred|90 day|ninety|rollout|scale",
+          "tip": "Anchor the scale, 100M users in 90 days."
+        },
+        {
+          "pattern": "ceo|wednesday|deadline|review",
+          "tip": "Reference the CEO and Wednesday deadline."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}also do|no.{0,16}copy|don.?t copy|differentiat|not.{0,12}me.?too",
+          "tip": "Add the negative, no ‘we should also do it’ recommendations."
+        },
+        {
+          "pattern": "4 week|four week|smallest|minimum|scope",
+          "tip": "Lock the time horizon, smallest move in 4 weeks."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "vulnerab|expos|weakness|gap|exploit",
+          "tip": "Force a vulnerability search, what's GPay weak at."
+        },
+        {
+          "pattern": "right|did well|strength|good|effective",
+          "tip": "Demand both, what they did right AND vulnerabilities."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|matrix|column|format|structure",
+          "tip": "Specify a structured output, did right + vulnerabilities + our move."
+        },
+        {
+          "pattern": "1.?pager|page|under|word|tight|brief",
+          "tip": "Lock the length, 1-pager, otherwise it sprawls."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Competitive teardowns become flattery without a vulnerability search. The unlock is forcing what's GPay's exposed flank, AND banning ‘we should also do it’. Differentiation in commodity categories like payments doesn't happen unless the prompt requires it.",
+  "goldPrompt": "Act as a competitive-strategy partner. I'm Nikhil, strategist at PhonePe. GPay rolled UPI Lite (offline, ≤₹4000, faster) to 100M users in 90 days. CEO needs a teardown by Wednesday. Format: (1) What GPay did right — 3 mechanisms, not features, (2) GPay's vulnerable flank — 2 specific weaknesses PhonePe could exploit, (3) Smallest move PhonePe can ship in 4 weeks. Banned: 'we should also do it'-style recommendations. Banned: feature-parity logic. Differentiation only. Cap at 350 words.",
+  "guideAnchor": "advanced"
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Guide · PromptArcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/arcade.css">
+<style>
+.toc { display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 36px; }
+.toc a { font-family:'Geist Mono',monospace; font-size:12px; padding:6px 12px; border:2px solid var(--ink); border-radius:100px; background:var(--paper); }
+.toc a:hover { background:var(--ink); color:var(--paper); }
+.guide-block { margin-top:48px; padding-top:32px; border-top:2px dashed var(--ink); }
+.guide-block:first-of-type { border-top:none; padding-top:0; }
+.kv-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:18px; }
+.kv-card { background:var(--paper); border:2px solid var(--ink); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-soft); }
+.kv-card .kv-tag { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+.kv-card h4 { margin-top:6px; font-size:16px; }
+.kv-card p { font-size:14px; color:var(--soot); margin-top:6px; }
+.tactic-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+@media(max-width:700px) { .tactic-row { grid-template-columns:1fr; } }
+.tactic { background:var(--paper); border:2px solid var(--ink); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-soft); }
+.tactic .ic { font-family:'Geist Mono',monospace; font-weight:800; font-size:18px; background:var(--coral); color:var(--paper); border:2px solid var(--ink); width:34px; height:34px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
+.tactic h4 { margin-top:10px; font-size:15px; }
+.tactic p { font-size:13px; color:var(--soot); margin-top:4px; }
+.examples { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+@media(max-width:700px) { .examples { grid-template-columns:1fr; } }
+.ex-bad, .ex-good { padding:18px; border:2px solid var(--ink); border-radius:var(--radius); font-family:'Geist Mono',monospace; font-size:13px; line-height:1.6; }
+.ex-bad { background:var(--coral-soft); }
+.ex-good { background:var(--lime-soft); }
+.ex-lbl { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      PROMPT ARCADE
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="tracks.html" class="nav-link">Tracks</a>
+      <a href="guide.html" class="nav-link active">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:48px; padding-bottom:60px">
+
+  <span class="tag">📖 Field Guide</span>
+  <h2 style="margin-top:14px">Everything you need, nothing you don't.</h2>
+  <p class="muted" style="max-width:640px; margin-top:8px">
+    The reference handbook. Pop in mid-level when stuck. Each section is anchored by what it changes about your prompt.
+  </p>
+
+  <div class="toc">
+    <a href="#why">Why bother</a>
+    <a href="#sustainable">Sustainable AI</a>
+    <a href="#responsible">Responsible AI</a>
+    <a href="#basics">PE 101 · 4D Framework</a>
+    <a href="#advanced">Advanced techniques</a>
+    <a href="#discernment">Discernment</a>
+  </div>
+
+  <!-- WHY -->
+  <section class="guide-block" id="why">
+    <div class="section-eyebrow">01 · Foundation</div>
+    <h2 style="margin-top:6px">Why learn prompt engineering?</h2>
+    <p style="margin-top:10px">
+      AI tools are everywhere, but most professionals use them like they're DM-ing a junior colleague. Vague, contextless, then surprised when the output is mush. The shift: execution cost has dropped to near-zero. The value of your work now lives in the decisions you make: what to build, what to exclude, what to challenge.
+    </p>
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Judgment</div><h4>Direction over execution</h4><p>You're not a typist anymore, you're a director. The prompt IS the work.</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Compounding</div><h4>It pays back</h4><p>Each session makes the next faster. Better prompts today → better outputs forever.</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Practice</div><h4>It's a craft, not a hack</h4><p>Plan, direct, refine, encode, shifting roles. Not a single skill, a practice.</p></div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABLE -->
+  <section class="guide-block" id="sustainable">
+    <div class="section-eyebrow">02 · Sustainability</div>
+    <h2 style="margin-top:6px">Sustainable prompting</h2>
+    <p style="margin-top:10px">
+      Sustainable prompting isn't about writing shorter prompts, it's about writing <em>smarter</em> ones. More context upfront = fewer correction cycles = less total token spend. A 200-token prompt that produces a usable 300-token response is more sustainable than a 20-token prompt that triggers 5 rounds of 500-token corrections.
+    </p>
+    <div class="examples">
+      <div class="ex-bad">
+        <div class="ex-lbl" style="color:#B54A2D">🔴 Inefficient</div>
+        Vague prompt → long generic output → 3-5 corrections.<br>
+        High token spend, low signal, output isn't reusable.
+      </div>
+      <div class="ex-good">
+        <div class="ex-lbl" style="color:#3D7A35">🟢 Sustainable</div>
+        Front-loaded prompt → targeted output → 1 light refinement.<br>
+        Lower token spend, high signal, prompt becomes a reusable template.
+      </div>
+    </div>
+  </section>
+
+  <!-- RESPONSIBLE -->
+  <section class="guide-block" id="responsible">
+    <div class="section-eyebrow uv">03 · Responsibility</div>
+    <h2 style="margin-top:6px">Why use AI responsibly?</h2>
+    <p style="margin-top:10px">AI use should be effective and efficient, but also ethical and safe. Three diligences to anchor your practice:</p>
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Creation</div><h4>Be intentional</h4><p>Critically aware of which AI systems you use, how you work with them, and the impacts.</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Transparency</div><h4>Be open</h4><p>Open about AI interactions with relevant stakeholders. Who needs to know? At what level of detail?</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Deployment</div><h4>Take responsibility</h4><p>Verify facts, check for biases, ensure accuracy, and check usage rights before deploying.</p></div>
+    </div>
+  </section>
+
+  <!-- BASICS -->
+  <section class="guide-block" id="basics">
+    <div class="section-eyebrow">04 · Fundamentals</div>
+    <h2 style="margin-top:6px">PE 101 · The 4D Framework</h2>
+    <p style="margin-top:10px">Anthropic's core model: four interconnected competencies that work together, not in sequence.</p>
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag">01</div><h4>Delegation</h4><p>Decide which tasks to assign to AI, and how. Domain expertise is the foundation.</p></div>
+      <div class="kv-card"><div class="kv-tag">02</div><h4>Description</h4><p>Clearly define what you want. Context, format, audience, style, constraints.</p></div>
+      <div class="kv-card"><div class="kv-tag">03</div><h4>Discernment</h4><p>Critically evaluate what AI produces. A continuous loop of instruction and evaluation.</p></div>
+      <div class="kv-card"><div class="kv-tag">04</div><h4>Diligence</h4><p>Take responsibility for AI interactions and their impacts. Be rigorous and accountable.</p></div>
+    </div>
+
+    <h3 style="margin-top:32px">Description has three flavours</h3>
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Product</div><h4>What you want</h4><p>Output characteristics: context, format, audience, style, constraints.</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Process</div><h4>How to approach it</h4><p>Should AI think step by step? Debate itself? Explore multiple paths before concluding?</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Performance</div><h4>How to behave</h4><p>The behavioral aspects of the interaction. AI behaves differently in different contexts.</p></div>
+    </div>
+  </section>
+
+  <!-- ADVANCED -->
+  <section class="guide-block" id="advanced">
+    <div class="section-eyebrow">05 · Advanced</div>
+    <h2 style="margin-top:6px">Six techniques that compound</h2>
+    <p style="margin-top:10px">Each addresses a specific failure mode in how AI processes instructions.</p>
+    <div class="tactic-row">
+      <div class="tactic"><div class="ic">R</div><h4>Define role, style, tone</h4><p>Not "act like a designer" but "act as a senior product designer who has shipped AI features in regulated industries."</p></div>
+      <div class="tactic"><div class="ic">T</div><h4>Ask AI to think first</h4><p>"Before answering, think through the problem carefully. Consider constraints and approaches before recommending."</p></div>
+      <div class="tactic"><div class="ic">S</div><h4>Break into steps</h4><p>For complex tasks, number the steps. "1) do X, 2) compare Y, 3) highlight Z, 4) suggest reasons."</p></div>
+      <div class="tactic"><div class="ic">N</div><h4>Negative constraints</h4><p>Tell the model what NOT to do. "Do not jump to solutions, first help me align on the problem." The most underused.</p></div>
+      <div class="tactic"><div class="ic">O</div><h4>Define output format</h4><p>"Give me: a) key user needs, b) business goals, c) P0 features with rationale," not "a comprehensive response."</p></div>
+      <div class="tactic"><div class="ic">V</div><h4>Ask for variations</h4><p>"Give me 3 versions: conservative, balanced, aggressive, so I can compare directions."</p></div>
+    </div>
+  </section>
+
+  <!-- DISCERNMENT -->
+  <section class="guide-block" id="discernment">
+    <div class="section-eyebrow uv">06 · Discernment</div>
+    <h2 style="margin-top:6px">Evaluating AI output</h2>
+    <p style="margin-top:10px">Discernment ensures AI collaboration remains guided by human judgment. Three lenses:</p>
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Product</div><h4>Did it produce good work?</h4><p>Factually accurate? Appropriate to audience? Coherent? Adds value?</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Process</div><h4>Did it reason well?</h4><p>Watch for: logical inconsistency, lapses in attention, getting trapped in circular reasoning.</p></div>
+      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Performance</div><h4>Did it behave right?</h4><p>Communication style appropriate? Right level of detail? Response to feedback efficient?</p></div>
+    </div>
+
+    <div class="card card-coral" style="margin-top:30px">
+      <h3>The senior-level unlock</h3>
+      <p style="margin-top:8px">
+        <strong>Chain-of-thought prompting.</strong> Add "Walk me through your reasoning before presenting the answer." For any ambiguous or high-stakes prompt, this dramatically improves output quality. The model is forced to show its work before concluding.
+      </p>
+    </div>
+  </section>
+
+  <div style="margin-top:48px; text-align:center">
+    <a href="tracks.html" class="btn btn-coral">Go practice this →</a>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+</footer>
+
+</body>
+</html>

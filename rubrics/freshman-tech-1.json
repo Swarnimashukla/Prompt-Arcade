@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-1",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 1,
+  "title": "Plan 3-month DSA prep from a YouTube playlist",
+  "brand": "60-video DSA playlist",
+  "domain": "Learning",
+  "persona": "Aryan, 2nd-year B.Tech CSE",
+  "scenario": "You bookmarked a 60-video DSA playlist on YouTube (Striver / NeetCode-style). Placement season starts in 3 months. You can put in 90 minutes a day on weekdays, 3 hours on weekends. Some videos are 10 mins, some are 45. You don't want to ‘watch all 60’, you want a sequenced plan with practice between videos and a checkpoint every 2 weeks. You also keep getting bored and giving up at week 4.",
+  "techniques": [
+    "Constraint naming",
+    "Honest scoping",
+    "Output definition"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "make me a 3-month DSA study plan from a youtube playlist",
+  "badOutput": "Month 1: Watch arrays, strings, and basic algorithms videos. Month 2: Move to trees and graphs. Month 3: Practice problems and review. Spend 1-2 hours daily. Take breaks. Stay consistent.",
+  "hints": [
+    {
+      "title": "Anchor your time honestly",
+      "body": "‘90 min weekdays, 3 hr weekends’ is more useful than ‘1-2 hrs/day’. AI plans your real schedule, not your aspirational one."
+    },
+    {
+      "title": "Force checkpoints",
+      "body": "Demand a check-in every 2 weeks with a measurable signal, e.g., ‘can solve 3 medium array problems in 45 min’. Plans without checkpoints fail at week 4."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "plan|schedule|sequence|roadmap|curriculum",
+          "tip": "Frame the artifact, a sequenced plan, not a list."
+        },
+        {
+          "pattern": "dsa|algorithm|data structure|coding|leetcode",
+          "tip": "Anchor the topic, DSA, in concrete terms."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "60|playlist|video|striver|neetcode|youtube",
+          "tip": "Anchor the source, the actual 60-video playlist."
+        },
+        {
+          "pattern": "90 min|3 hr|weekday|weekend|placement|3 month",
+          "tip": "Reference your real time budget and the placement-season deadline."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not all|don.?t watch all|skip|priorit|sequence",
+          "tip": "Force selection, not ‘watch all 60’."
+        },
+        {
+          "pattern": "checkpoint|check.?in|review|every 2|biweekly|fortnight",
+          "tip": "Demand checkpoints every 2 weeks. Anchors progress."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "boring|give up|week 4|motivation|stuck",
+          "tip": "Tell Claude about your week-4 dropout pattern, it can plan against it."
+        },
+        {
+          "pattern": "practice|problem|leetcode|exercise|solve",
+          "tip": "Demand practice between videos. Watching alone doesn't build DSA muscle."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|week|day|format|markdown",
+          "tip": "Specify a week-by-week table, not prose."
+        },
+        {
+          "pattern": "signal|measur|test|can solve|able to",
+          "tip": "Force a measurable signal per checkpoint, ‘can solve 3 medium problems’."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Study plans from AI fail because they ignore your real schedule and give no checkpoints. The unlock is honest time budgets (90 min weekdays, not ‘1-2 hrs’), checkpoints with measurable signals, AND naming the dropout pattern (week 4) so the plan can route around it.",
+  "goldPrompt": "You are a learning coach who's seen students give up at week 4. I'm Aryan, 2nd-year B.Tech CSE. I have a 60-video Striver-style DSA playlist and 3 months until placements. Real schedule: 90 min weekdays, 3 hrs weekends. I drop off at week 4 from boredom. Output a 12-week plan with: (a) sequenced video clusters (not one-by-one), (b) practice problems between each cluster, (c) a measurable checkpoint every 2 weeks (e.g., 'solve 3 medium array problems in 45 min'), (d) one 'reset day' per fortnight to prevent burnout. Refuse to assume 8-hour days I don't have.",
+  "guideAnchor": "basics"
+}

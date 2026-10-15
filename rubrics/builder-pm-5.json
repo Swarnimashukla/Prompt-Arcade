@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-5",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 5,
+  "title": "Practo vs 1mg vs Tata 1mg gap analysis",
+  "brand": "Practo",
+  "domain": "Healthcare",
+  "persona": "Vikram, PM on Practo's medicine-delivery vertical",
+  "scenario": "Practo, 1mg, and Tata 1mg are converging on the same product, doctor consults + medicine delivery + lab tests, but with different distribution muscle. Your CEO wants a 1-pager: where are we genuinely better, where are we exposed, and where does Tata's distribution flatten our growth in 6 months. He's allergic to ‘both sides have pros and cons’ analyses.",
+  "techniques": [
+    "Adversarial prompting",
+    "Multi-perspective",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "compare practo vs 1mg vs tata 1mg",
+  "badOutput": "Practo, 1mg, and Tata 1mg are all major Indian healthtech platforms. Practo is strong in consultations, 1mg in medicine delivery, and Tata 1mg has the Tata brand backing. Each has strengths and weaknesses. The market is competitive.",
+  "hints": [
+    {
+      "title": "Force a position, not a comparison",
+      "body": "‘Take a side per dimension. No “both have strengths”. Where Practo wins, say so. Where it loses, say so.’ Your CEO is allergic to fence-sitting."
+    },
+    {
+      "title": "Adversarial framing",
+      "body": "Ask Claude to argue the 1mg PM's case against Practo, then steelman it back. Adversarial prompting surfaces blind spots a flat compare misses."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "gap|advantag|moat|expos|win|lose",
+          "tip": "Frame the question, ‘where are we exposed’, not ‘compare’."
+        },
+        {
+          "pattern": "consult|medicin|deliv|lab test|telehealth",
+          "tip": "Anchor the product surfaces, consults + medicine + labs."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "tata|distribut|brand|trust|moat",
+          "tip": "Surface Tata's distribution muscle as the asymmetric threat."
+        },
+        {
+          "pattern": "6 month|six month|near.?term|growth|ceo",
+          "tip": "Lock the time horizon, 6 months, and the audience, the CEO."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}both side|no.{0,16}pros and cons|take a side|position|opin",
+          "tip": "Add a negative, no ‘both have pros and cons’ analyses."
+        },
+        {
+          "pattern": "evidence|source|data|cite|verify|flag",
+          "tip": "Demand evidence or a flag when Claude is guessing. This is healthcare, citations matter."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "ceo|1.?pager|page|exec|decision",
+          "tip": "Reference the artifact and audience, 1-pager for the CEO."
+        },
+        {
+          "pattern": "adversari|steelman|opposing|competitor.?pm|argue",
+          "tip": "Force adversarial framing, argue the 1mg PM's case, then steelman ours."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|matrix|dimension|axis|grid",
+          "tip": "Specify a structured output, a 3-column matrix is hard to fudge."
+        },
+        {
+          "pattern": "winner|verdict|call|stronger|weaker",
+          "tip": "Demand a verdict per dimension. No fence-sitting."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Competitive analyses get fluffy because LLMs default to ‘both sides have strengths’. The unlock is forcing a position per dimension AND adversarial framing, ‘argue the competitor PM's case, then steelman ours’. That structure makes blind spots visible.",
+  "goldPrompt": "Act as a strategy partner. I'm Vikram, PM on Practo's medicine-delivery vertical. Practo, 1mg, and Tata 1mg are converging on doctor consults + medicine + lab tests. CEO wants a 1-pager. Take a position per dimension — no 'both sides have strengths'. Output: 4 dimensions (consult quality, fulfilment, distribution, pricing). For each: who wins today, why, and where Tata's distribution flattens us in 6 months. Then steelman the 1mg PM's case against Practo. Then steelman ours back. End with a 'where we're genuinely exposed' section.",
+  "guideAnchor": "advanced"
+}

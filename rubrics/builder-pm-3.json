@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-3",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 3,
+  "title": "PRD for 10-min city rebalancing",
+  "brand": "Blinkit",
+  "domain": "Quick-commerce",
+  "persona": "Kabir, senior PM at Blinkit on logistics",
+  "scenario": "Blinkit promises 10-minute delivery in 30 cities. In 4 of them, P95 delivery time has crept past 14 minutes because the dark-store mix is wrong, too many fast-movers in some, too few in others. Eng wants a PRD to build a weekly auto-rebalancing engine. You have the metrics, the constraints, and a strong opinion. You don't have an obvious template, every PRD in this org reads differently.",
+  "techniques": [
+    "Template scaffolding",
+    "Role + format",
+    "Decision framing"
+  ],
+  "tokenBudget": 360,
+  "badPrompt": "write a PRD for SKU rebalancing",
+  "badOutput": "Product Requirements Document\n\nObjective: Optimize SKU distribution across dark stores.\nFeatures: Auto-rebalancing, demand forecasting, alerts.\nSuccess metrics: Faster delivery, less waste.\nTimeline: TBD.\nOwners: TBD.",
+  "hints": [
+    {
+      "title": "Define the PRD sections you want",
+      "body": "List the sections: problem, non-goals, user stories, success metrics, edge cases, open questions. Without this, Claude gives you a generic template."
+    },
+    {
+      "title": "Anchor decisions, not just requirements",
+      "body": "Demand a ‘key decisions’ section with options + chosen path + rejected paths. PRDs without this read like wish-lists."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "prd|spec|requirement|brief|document",
+          "tip": "Frame the artifact, a PRD, not a vague write-up."
+        },
+        {
+          "pattern": "rebalanc|sku|inventory|dark.?store|stock",
+          "tip": "Name the problem, SKU rebalancing across dark stores."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "10.?min|p95|14|delivery time|sla",
+          "tip": "Anchor the metric, P95 delivery time creeping past 14 minutes."
+        },
+        {
+          "pattern": "4 cit|four cit|30 cit|thirty cit|geograph",
+          "tip": "Specify the scope, 4 of 30 cities. Concentrated, not systemic."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "weekly|cadence|frequency|automat|rebalanc.?engine",
+          "tip": "Lock the cadence, weekly auto-rebalance, not real-time."
+        },
+        {
+          "pattern": "non.?goal|out of scope|not.{0,12}solv|exclud",
+          "tip": "Add non-goals. Without them, scope creeps in the first review."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "eng|review|stakeholder|build|ship",
+          "tip": "Reference the audience, eng team building this. PRD format calibrates to readers."
+        },
+        {
+          "pattern": "decision|trade.?off|option|alternativ|rejected",
+          "tip": "Ask for a decisions section with options + rejected paths."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|problem|user stor|metric|edge|open question",
+          "tip": "Define the PRD sections explicitly, problem, user stories, metrics, edge cases, open questions."
+        },
+        {
+          "pattern": "format|markdown|table|bullet|structure",
+          "tip": "Specify the output structure, markdown sections, not prose."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "PRDs from AI are generic by default. The fix is to define the sections AND demand a decisions section with rejected paths. The unlock isn't ‘write a PRD’, it's ‘write the parts of a PRD that force me to commit to choices’.",
+  "goldPrompt": "Act as a senior PM at Blinkit. I'm Kabir, logistics PM. P95 delivery time has crept past 14 minutes in 4 of 30 cities because dark-store SKU mix is wrong. Eng wants a PRD for a weekly auto-rebalancing engine. Write the PRD in markdown with these exact sections: Problem (with numbers), Non-goals, User stories (driver, store-ops, demand-planner), Success metrics with thresholds, Edge cases, Open questions, AND a 'Key decisions' section listing options + chosen path + 2 rejected paths with reasons. Ban vague 'TBD' fields. Audience: eng team building this in Q2.",
+  "guideAnchor": "advanced"
+}

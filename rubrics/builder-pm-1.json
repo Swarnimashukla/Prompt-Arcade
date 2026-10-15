@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-1",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 1,
+  "title": "Diagnose Big Billion Days returns spike",
+  "brand": "Flipkart",
+  "domain": "E-commerce",
+  "persona": "Arjun, PM on Flipkart's fashion vertical",
+  "scenario": "Returns rate on women's ethnic wear jumped from 22% to 41% in the 10 days after Big Billion Days. Top three return reasons in the form: ‘size mismatch’, ‘colour different in real life’, ‘changed my mind’. You have order-level data, return-reason tags, and a sample of 200 returned-item photos from the warehouse. You don't have customer call recordings. Tomorrow you owe category leadership a hypothesis-led memo, not a redesign.",
+  "techniques": [
+    "Hypothesis framing",
+    "Constraint naming",
+    "Evidence anchoring"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "why are returns going up on flipkart fashion?",
+  "badOutput": "Returns can go up for many reasons, sizing, quality, expectations, post-sale buyer's remorse. You should look at the data and improve product photos, size charts, and reviews to reduce returns.",
+  "hints": [
+    {
+      "title": "Anchor the data you have",
+      "body": "Name what you have (return-reason tags, warehouse photos) AND what you don't (no call recordings). Claude will calibrate around the gap."
+    },
+    {
+      "title": "Add a negative",
+      "body": "Tell Claude NOT to propose redesigns. Diagnosis only, ranked by likelihood, with a confirm/deny check for each hypothesis."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "diagnose|hypothesis|why|root|cause",
+          "tip": "State the diagnostic intent. You want hypotheses, not solutions."
+        },
+        {
+          "pattern": "return|fashion|ethnic|category",
+          "tip": "Name the specific metric and category, returns rate on ethnic wear."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "big billion|bbd|sale|festival|post.?sale",
+          "tip": "Anchor the timing, post-Big Billion Days. Sale-driven returns behave differently."
+        },
+        {
+          "pattern": "22|41|spike|jumped|10 day|three week",
+          "tip": "Include the magnitude, 22%, 41%, in 10 days. Decision-grade context."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no call|no record|warehouse photo|return.?reason|tag|aggregate",
+          "tip": "Name the data you have AND the data you don't have."
+        },
+        {
+          "pattern": "not.{0,12}redesign|don.?t.{0,12}solv|no solution|no fix|diagnos.{0,8}only",
+          "tip": "Add a negative constraint, do NOT propose redesigns or solutions."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "rank|priorit|likelihood|most likely|order",
+          "tip": "Ask Claude to rank hypotheses by likelihood, don't treat them as equal."
+        },
+        {
+          "pattern": "leadership|tomorrow|exec|memo|category|decision",
+          "tip": "Reference the leadership audience and the deadline. It shapes the answer."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "step|reason|walk|think|before|chain",
+          "tip": "Use chain-of-thought, walk through reasoning before listing hypotheses."
+        },
+        {
+          "pattern": "table|format|structure|section|list|markdown|confirm|deny|check",
+          "tip": "Specify a structured output, hypothesis + confirm/deny check for each."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is the negative constraint plus the data inventory. The strong ask is: ‘Rank these 5 hypotheses by likelihood given that the spike is post-BBD on ethnic wear, and we have return-reason tags + warehouse photos but no call recordings. For each hypothesis, give one confirm and one deny check we could run in 48 hours.’",
+  "goldPrompt": "You are a senior PM partner at Flipkart. I'm Arjun, fashion-vertical PM. Returns on women's ethnic wear jumped 22%→41% in the 10 days after Big Billion Days 2026. I have order-level data, return-reason tags ('size mismatch', 'colour different', 'changed my mind'), and a sample of 200 warehouse photos. I do NOT have call recordings. Tomorrow I owe category leadership a hypothesis-led memo — diagnosis only, no redesigns. Output: 5 ranked hypotheses by likelihood. For each, give one confirm-check and one deny-check I can run in 48 hours using only the data I named. If a hypothesis needs data I haven't shared, say so explicitly. Walk through your reasoning before listing the table.",
+  "guideAnchor": "basics"
+}

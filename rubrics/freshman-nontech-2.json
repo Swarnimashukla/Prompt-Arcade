@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-2",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 2,
+  "title": "Find primary sources on the Bengal famine",
+  "brand": "Term paper",
+  "domain": "History research",
+  "persona": "Rishi, 3rd-year history major",
+  "scenario": "Your term paper argues the 1943 Bengal famine was policy-made, not weather-made. You need primary sources, telegrams, parliamentary debates, contemporary newspaper coverage, food-administration memos, NOT secondary commentary. Your professor specifically called out students last year for citing ‘sources’ that ChatGPT made up. You want a list of 6 primary sources with archive locations AND a clear flag if any are uncertain.",
+  "techniques": [
+    "Refusal handling",
+    "Source verification",
+    "Constraint naming"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "find primary sources for a paper on the bengal famine",
+  "badOutput": "Primary sources on the 1943 Bengal famine include British government records, parliamentary debates, eyewitness accounts, and newspaper archives. Look at the British Library, the National Archives, and Indian state archives. Authors like Amartya Sen and Madhusree Mukerjee have written extensively on this topic.",
+  "hints": [
+    {
+      "title": "Distinguish primary from secondary explicitly",
+      "body": "‘Primary only, telegrams, debates, period newspapers. NOT books, NOT scholars.’ Without this, AI mixes Sen and Mukerjee in (secondary)."
+    },
+    {
+      "title": "Force a fabrication flag",
+      "body": "‘If you're not certain a source exists, flag it. Don't fill in plausible-sounding citations.’ This is exactly the failure mode that got students busted."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "primary source|primary|archive|original|document",
+          "tip": "Frame the artifact, primary sources, not commentary."
+        },
+        {
+          "pattern": "bengal|1943|famine|term paper",
+          "tip": "Anchor the topic, 1943 Bengal famine."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "policy|made|weather|argument|thesis",
+          "tip": "Anchor the argument, policy-made not weather-made."
+        },
+        {
+          "pattern": "professor|cite|busted|fabricat|made.?up|hallucinat",
+          "tip": "Reference the professor's prior bust on AI-fabricated sources."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not secondary|no book|no scholar|no commentary|exclude",
+          "tip": "Force a no-secondary negative, no Sen, no Mukerjee."
+        },
+        {
+          "pattern": "uncertain|flag|don.?t.{0,12}know|verify|certain",
+          "tip": "Force a fabrication flag, ‘if you're not certain, say so’."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "6|six|list|exactly|cap",
+          "tip": "Lock the count, 6 sources."
+        },
+        {
+          "pattern": "archive|location|where|library|access",
+          "tip": "Demand archive locations for each source."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|format|column|structure",
+          "tip": "Specify a table, source + archive + relevance + confidence."
+        },
+        {
+          "pattern": "telegram|debate|memo|newspaper|hansard",
+          "tip": "Name source types you want, telegrams, parliamentary debates, period press."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Source-finding from AI is the highest-risk task in college. The unlock is forbidding fabrication explicitly (‘flag if uncertain, don't fill in plausible-sounding citations’), distinguishing primary from secondary, AND naming source types. The Mata v. Avianca lawyer skipped exactly this prompt.",
+  "goldPrompt": "Act as a primary-source archivist. I'm Rishi, 3rd-year history. Term paper argues the 1943 Bengal famine was policy-made, not weather-made. I need PRIMARY sources only — telegrams, parliamentary debates, contemporary newspapers, food-administration memos. NOT books by Sen, Mukerjee, or other historians. Output 6 candidates. For each: (a) source name, (b) approximate date, (c) where to find it (specific archive — e.g., 'India Office Records, British Library, IOR/L/E/8/'), (d) one-line relevance to the policy-made argument. CRITICAL: if you are not 100% certain a specific source exists, flag it [UNVERIFIED] and explain — do NOT invent plausible-sounding citations. The Mata v. Avianca lawyer skipped exactly this prompt.",
+  "guideAnchor": "advanced"
+}

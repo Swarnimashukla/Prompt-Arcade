@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-4",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 4,
+  "title": "Review a friend's React PR without sounding harsh",
+  "brand": "Hackathon team PR",
+  "domain": "Code review",
+  "persona": "Ananya, on a hackathon team with 2 friends",
+  "scenario": "Your hackathon teammate (and friend) opened a PR with their first React component. It works, but it has 6 useState hooks instead of one useReducer, no key on a list, an inline function in JSX causing re-renders, and one of those hooks holds an entire API response when you only need 3 fields. You need to leave a code review that's technically right AND doesn't make them feel stupid in front of the other 2 teammates watching the PR.",
+  "techniques": [
+    "Tone calibration",
+    "Audience modelling",
+    "Honesty framing"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "do a code review of this react PR",
+  "badOutput": "Code review: This PR has several issues. Multiple useState calls should be consolidated. Missing keys on list items. Inline functions cause re-renders. Storing the entire API response is wasteful. Please fix these before merging.",
+  "hints": [
+    {
+      "title": "Force the tone explicitly",
+      "body": "‘Tone: warm peer, not staff engineer. Public PR comments others will read. Praise one thing first.’ Tone in code review is the whole game."
+    },
+    {
+      "title": "Distinguish must-fix from nice-to-have",
+      "body": "‘Tag each comment as blocker, suggestion, or nit.’ Friends respond very differently when you separate ‘must change’ from ‘might consider’."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "review|comment|feedback|critique",
+          "tip": "Frame the artifact, code review comments."
+        },
+        {
+          "pattern": "react|component|hook|usestate|jsx",
+          "tip": "Anchor the stack, React component."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "friend|teammate|peer|hackathon|together",
+          "tip": "Anchor the relationship, friend on a hackathon team."
+        },
+        {
+          "pattern": "first|new|junior|learn|begin",
+          "tip": "Surface that this is their first React PR, calibrates depth."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "harsh|warm|kind|tone|peer|encourag",
+          "tip": "Force a warm peer tone, not staff-engineer."
+        },
+        {
+          "pattern": "praise|good|first|positive|appreciat",
+          "tip": "Demand one thing praised first. Sets the tone."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "blocker|nit|suggestion|must|optional|priorit",
+          "tip": "Force the blocker/suggestion/nit tagging. Reduces friction."
+        },
+        {
+          "pattern": "public|other|teammate|watch|read",
+          "tip": "Reference the other teammates reading. Public reviews need different tone than DMs."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "format|structure|comment per|line|inline",
+          "tip": "Specify the structure, one comment per file/line, with tags."
+        },
+        {
+          "pattern": "why|reason|because|so that|explain",
+          "tip": "Demand the ‘why’ on each comment. Code review without why is just opinion."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Code review for friends fails when AI defaults to staff-engineer tone. The unlock is naming the relationship (friend, hackathon, first React PR), forcing a warm peer voice, AND tagging blocker/suggestion/nit so they know what's actually required to merge.",
+  "goldPrompt": "Act as a warm peer reviewer, NOT a staff engineer. I'm Ananya, hackathon. My friend opened their first React PR. Issues spotted: 6 useState (should be useReducer), no key on a list, inline JSX function causing re-renders, one hook holds an entire API response when only 3 fields are used. The other 2 teammates will read this PR. Output PR comments. Each comment tagged [BLOCKER], [SUGGESTION], or [NIT]. Lead with one genuine praise. For each issue, explain the why in 1 sentence and link a doc, not a lecture. Refuse to use 'obviously' or 'just'. Cap at 6 comments.",
+  "guideAnchor": "basics"
+}

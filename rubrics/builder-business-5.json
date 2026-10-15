@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-5",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 5,
+  "title": "Diwali campaign brief for the agency",
+  "brand": "boAt",
+  "domain": "Consumer brand",
+  "persona": "Aarav, brand marketer at boAt",
+  "scenario": "Diwali drives 28% of boAt's annual headphone sales. Last year's campaign was fine but indistinguishable from Noise and OnePlus, ‘premium sound, premium feeling, family moments’. Your CMO wants a brief that gives the agency a sharp creative territory, a do-not-do list, an audience that isn't just ‘young Indians’, and a single-line proposition the agency can't dilute. Brief goes out tomorrow.",
+  "techniques": [
+    "Constraint naming",
+    "Role + format",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "write a diwali campaign brief for boat headphones",
+  "badOutput": "Brief: boAt Diwali Campaign\n\nObjective: Drive Diwali sales of headphones.\nAudience: Young Indians who love music.\nMessage: Celebrate sound this Diwali.\nChannels: Social, video, influencer.\nDeliverables: Hero film, social cuts, product shots.",
+  "hints": [
+    {
+      "title": "Force a do-not-do list",
+      "body": "‘List 4 things this campaign must NOT do, e.g., not generic family moments, not premium-sound flex.’ Negatives sharpen creative more than positives."
+    },
+    {
+      "title": "Lock the audience to a person",
+      "body": "‘Audience: one specific person with a name, age, and listening context. Not ‘young Indians’.’"
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "brief|creative brief|campaign|brief",
+          "tip": "Frame the artifact, a creative brief for an agency."
+        },
+        {
+          "pattern": "diwali|festive|seasonal|festival",
+          "tip": "Anchor the occasion, Diwali specifically."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "28|28 percent|annual|sale|headphone",
+          "tip": "Anchor the stake, 28% of annual sales."
+        },
+        {
+          "pattern": "noise|oneplus|indistinguish|same|generic",
+          "tip": "Name the differentiation problem, indistinguishable from Noise/OnePlus."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "do.?not.?do|don.?t|avoid|negativ|not generic",
+          "tip": "Force a do-not-do list. Sharper than positive direction."
+        },
+        {
+          "pattern": "single.?line|one line|propos|proposition|tagline",
+          "tip": "Lock to a single-line proposition the agency can't dilute."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "agency|creative|partner|external",
+          "tip": "Reference the audience, the agency receiving this brief."
+        },
+        {
+          "pattern": "specific|name|persona|age|context",
+          "tip": "Force a specific persona, not ‘young Indians’."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|territory|insight|propos|deliverabl",
+          "tip": "Specify the brief sections, territory, audience, proposition, do-not-do."
+        },
+        {
+          "pattern": "format|markdown|table|bullet|short",
+          "tip": "Specify the structure, sections, kept tight."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Creative briefs from AI default to ‘young Indians, premium sound’. The unlock is naming a specific person (not a demo), forcing a do-not-do list, AND locking a single-line proposition. Sharpness comes from negatives.",
+  "goldPrompt": "Act as a senior creative strategist. I'm Aarav, brand marketer at boAt. Last Diwali's campaign was indistinguishable from Noise/OnePlus ('premium sound, family moments'). CMO needs a brief by tomorrow. Output: (1) Audience as ONE specific person — name, age, listening context, e.g., 'Rehaan, 22, BCom in Pune, listens on the bus to gym'. NOT 'young Indians'. (2) Single-line proposition the agency cannot dilute (under 12 words). (3) Creative territory in 1 paragraph. (4) DO-NOT-DO list — exactly 4 items (e.g., 'no generic family-around-diya shots'). (5) One success metric.",
+  "guideAnchor": "advanced"
+}

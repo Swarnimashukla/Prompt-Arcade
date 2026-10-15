@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-5",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 5,
+  "title": "Cold email to a senior alumna at Razorpay",
+  "brand": "Internship hunt",
+  "domain": "Networking",
+  "persona": "Nivedita, 3rd-year, looking for a product internship",
+  "scenario": "You found an alumna 5 years out of college, now PM at Razorpay. You want a 15-min coffee chat about breaking into product. She gets ~10 cold emails a week. You want one that's short, names a specific thing she shipped (so it's clear you actually looked her up), asks one specific question (not ‘any advice’), proposes 3 time slots, and doesn't end with ‘any time that works for you’. No ‘I hope this email finds you well’.",
+  "techniques": [
+    "Tone calibration",
+    "Constraint naming",
+    "Refusal handling"
+  ],
+  "tokenBudget": 240,
+  "badPrompt": "write a cold email to a senior alumna asking for advice about product management",
+  "badOutput": "Dear [Name],\n\nI hope this email finds you well. I am a 3rd-year student passionate about product management. I came across your profile and was very inspired by your journey. Would you be open to a quick chat at your convenience? Any advice would be greatly appreciated.\n\nWarm regards,\nNivedita",
+  "hints": [
+    {
+      "title": "Force a specific reference",
+      "body": "‘Name something specific she shipped or wrote about.’ Without this, your email is one of 10 generic ones that week."
+    },
+    {
+      "title": "Ban the corporate-grovel openers",
+      "body": "‘No ‘hope this email finds you well’, no ‘inspired by your journey’, no ‘any advice’.’ Senior PMs read these and delete."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "email|cold email|message|outreach",
+          "tip": "Frame the artifact, a cold email."
+        },
+        {
+          "pattern": "alumn|senior|pm|razorpay|coffee",
+          "tip": "Anchor the recipient, senior alumna PM at Razorpay."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "10|cold|week|inbox|busy",
+          "tip": "Reference her inbox volume, ~10 cold emails a week."
+        },
+        {
+          "pattern": "internship|product|breaking|career|student",
+          "tip": "Anchor your context, 3rd-year looking for a product internship."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}finds you well|no.{0,16}inspired|no.{0,16}journey|cliché|grovel",
+          "tip": "Ban corporate-grovel openers."
+        },
+        {
+          "pattern": "short|brief|tight|under|word|150",
+          "tip": "Lock a short length, ‘under 150 words’."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "specific|named|shipped|actually|ref",
+          "tip": "Force a specific reference to something she shipped/wrote."
+        },
+        {
+          "pattern": "1 question|one question|specific question|concret|narrow",
+          "tip": "Force one specific question, not ‘any advice’."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "3 slot|three slot|time|propose|specific.{0,8}time",
+          "tip": "Demand 3 specific time slots, not ‘any time that works for you’."
+        },
+        {
+          "pattern": "subject|line|preview|hook",
+          "tip": "Specify a subject line that doesn't read as cold spam."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Cold emails fail when they're generic. The unlock is naming a specific thing she shipped, asking ONE specific question (not ‘any advice’), proposing 3 time slots (not ‘any time that works for you’). Specificity is respect for her inbox.",
+  "goldPrompt": "Act as someone who reads 10 cold emails a week and deletes 9. I'm Nivedita, 3rd-year, want a 15-min coffee chat with a Razorpay PM 5 years out (alumna). Banned openers: 'hope this finds you well', 'inspired by your journey', 'any advice'. The email must, in under 120 words: (1) name ONE specific thing she shipped or wrote about (you'll ask me what), (2) ask ONE specific question about that thing — not 'how do I break into product', (3) propose 3 concrete time slots, (4) close with a specific next-step ask, NOT 'any time that works'. Subject line ≤ 8 words.",
+  "guideAnchor": "advanced"
+}

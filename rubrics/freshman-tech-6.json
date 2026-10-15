@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-6",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 6,
+  "title": "Write a README for a CLI tool",
+  "brand": "Open-source side project",
+  "domain": "Docs",
+  "persona": "Pooja, B.Tech 3rd year, first open-source contribution",
+  "scenario": "You built a CLI tool that bulk-renames files based on EXIF dates from photos (handy for trip photos). It works on macOS and Linux, not Windows. You want a README that gets a stranger from ‘what is this’ to ‘installed and used it’ in under 90 seconds. You hate READMEs that bury the install command under a paragraph about why the author built it.",
+  "techniques": [
+    "Audience modelling",
+    "Constraint naming",
+    "Refusal handling"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "write a README for my CLI tool that renames files using EXIF dates",
+  "badOutput": "# My CLI Tool\n\nA command-line tool to rename files based on EXIF dates.\n\n## Features\n- Renames files\n- Uses EXIF data\n- Easy to use\n\n## Installation\nClone the repo and run setup.\n\n## Usage\nRun the command with your files.\n\n## License\nMIT.",
+  "hints": [
+    {
+      "title": "Force the 90-second test",
+      "body": "‘Stranger lands → installed and used in under 90 seconds.’ This dictates structure, install command first, story later."
+    },
+    {
+      "title": "Lead with one usage example",
+      "body": "‘First non-title content: one copy-paste-able command and what it does.’ Beats every ‘Features’ section."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "readme|documentation|docs|guide",
+          "tip": "Frame the artifact, a README."
+        },
+        {
+          "pattern": "cli|command|terminal|tool|script",
+          "tip": "Anchor the tool type, CLI."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "exif|rename|photo|date|trip",
+          "tip": "Anchor the function, EXIF-based file renaming for photos."
+        },
+        {
+          "pattern": "macos|linux|not windows|platform|os",
+          "tip": "Surface platform support, macOS/Linux only, not Windows."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "90 second|minute|fast|skim|quick",
+          "tip": "Lock the constraint, stranger to ‘installed and used’ in 90 seconds."
+        },
+        {
+          "pattern": "no|don.?t|avoid|skip|hate",
+          "tip": "Force a no-‘why I built this’ paragraph at the top."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "stranger|new|first.?time|unfamiliar|unknown",
+          "tip": "Anchor the audience, a stranger landing cold."
+        },
+        {
+          "pattern": "install|usage|example|command|copy",
+          "tip": "Lead with install + usage. The action, not the story."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "markdown|format|section|order|sequence",
+          "tip": "Specify the section order, install → usage example → flags → caveats."
+        },
+        {
+          "pattern": "code block|fence|`|copy.?paste|command",
+          "tip": "Demand copy-paste-able command blocks, not prose."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "READMEs fail when they lead with the author's story. The unlock is the 90-second test, locking the section order (install → example → flags → caveats), and surfacing the platform constraint (macOS/Linux, not Windows) up top. Strangers won't read past line 5.",
+  "goldPrompt": "Act as a docs writer. I'm Pooja, 3rd-year B.Tech, this is my first open-source contribution. The CLI bulk-renames files based on EXIF dates. Works on macOS + Linux, NOT Windows. Goal: a stranger lands → installs → uses it in under 90 seconds. Output the README in this exact order: (1) 1-line description, (2) ONE copy-paste install command, (3) ONE usage example with the actual output, (4) flags table, (5) caveats including the Windows non-support, (6) license. Refuse to lead with 'why I built this' or 'features' bullets. Cap at 200 lines.",
+  "guideAnchor": "basics"
+}

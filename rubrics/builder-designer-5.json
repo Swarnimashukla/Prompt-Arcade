@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-5",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 5,
+  "title": "12 home-service interviews → wireframes",
+  "brand": "Urban Company",
+  "domain": "Services",
+  "persona": "Karan, UX researcher at Urban Company",
+  "scenario": "You did 12 in-home interviews with women who book salon services on Urban Company. The transcripts surface two things: a trust gap with first-time professionals, and a confusion gap on what a ‘deluxe’ service actually includes. Your design partner needs the research translated into 3 wireframe-ready insights, each with a screen surface, a decision the user faces there, and the design pattern that resolves it.",
+  "techniques": [
+    "Evidence anchoring",
+    "Translation framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "summarize these 12 interviews and turn them into design recommendations",
+  "badOutput": "Users want trust signals and clearer service descriptions. Recommendations: add professional ratings, show service inclusions clearly, add booking confirmations, improve photos, add FAQs.",
+  "hints": [
+    {
+      "title": "Bridge research to design explicitly",
+      "body": "Insight + screen + decision + pattern. Without this scaffold, Claude gives you a theme list and no design direction."
+    },
+    {
+      "title": "Demand a quote per insight",
+      "body": "‘Anchor each insight with one verbatim quote.’ Insights without evidence don't survive a stakeholder meeting."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "insight|finding|theme|pattern",
+          "tip": "Frame the artifact as insights, not summaries."
+        },
+        {
+          "pattern": "wireframe|screen|surface|design|ui",
+          "tip": "Anchor the bridge, insights translated to screens."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "12|twelve|interview|in.?home|salon|home.?service",
+          "tip": "Anchor the source, 12 in-home interviews."
+        },
+        {
+          "pattern": "trust|confus|gap|first.?time|deluxe",
+          "tip": "Surface the two gaps from research, trust + ‘what's deluxe’."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "3|three|exactly|cap|no more",
+          "tip": "Lock the count, 3 insights, otherwise Claude gives 9."
+        },
+        {
+          "pattern": "quote|verbatim|cite|attribut|source|exact",
+          "tip": "Demand a verbatim quote per insight. Anchors the synthesis to evidence."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "design partner|designer|wireframe.?ready|handoff",
+          "tip": "Reference the audience, design partner needing wireframe-ready output."
+        },
+        {
+          "pattern": "decision|choice|moment|trade.?off",
+          "tip": "Anchor the user's decision moment per screen, that's what design resolves."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "screen|surface|page|where",
+          "tip": "Demand the screen surface for each insight."
+        },
+        {
+          "pattern": "pattern|component|ui pattern|solution|element",
+          "tip": "Demand a named design pattern that resolves each insight."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Research-to-design fails when it stops at ‘themes’. The unlock is the bridge structure: insight + screen + user decision + named pattern. AND a verbatim quote per insight, so it survives stakeholder pushback.",
+  "goldPrompt": "You're a research-to-design translator. I'm Karan, UX researcher at Urban Company. From 12 in-home interviews with women booking salon services, two threads emerge: trust gap with first-time professionals, and confusion on 'deluxe' service inclusions. Translate into 3 wireframe-ready insights. For each: insight (one line), anchor verbatim quote (with participant ID P01–P12), the screen surface (booking flow, professional profile, or service detail), the user decision being made there, the design pattern that resolves it (e.g., 'progressive disclosure of credentials'). Drop any insight without a real quote.",
+  "guideAnchor": "advanced"
+}

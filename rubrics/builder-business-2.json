@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-2",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 2,
+  "title": "Pricing memo: ad-tier vs premium for IPL",
+  "brand": "Disney+ Hotstar",
+  "domain": "OTT",
+  "persona": "Rajesh, growth manager on Disney+ Hotstar IPL",
+  "scenario": "IPL streams free with ads in India this season. Premium-tier upgrades are down 22% from last year. Growth wants to test a ‘mid-tier’ at ₹149/month: cleaner ads, 1080p, 1 device. Your VP needs a memo by Friday that frames the experiment, the success criteria, the cannibalisation risk on premium, and the smallest possible test that gives a clean read in 3 weeks.",
+  "techniques": [
+    "Hypothesis framing",
+    "Constraint naming",
+    "Decision framing"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "write a memo about a new mid-tier pricing experiment for hotstar",
+  "badOutput": "Memo: Mid-tier Pricing\n\nIntroduce a new ₹149 tier with cleaner ads. Test against existing tiers. Measure conversion and revenue. Look for opportunities to grow ARPU.",
+  "hints": [
+    {
+      "title": "Force a falsifiable hypothesis",
+      "body": "‘State the hypothesis as: if X, then Y, measured by Z.’ Without this, memos are wish-lists."
+    },
+    {
+      "title": "Make cannibalisation explicit",
+      "body": "Demand a specific cannibalisation risk on premium with a kill-switch metric. Pricing tests fail when this is buried."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "memo|brief|propos|recommendation",
+          "tip": "Frame the artifact, a memo, not a pitch."
+        },
+        {
+          "pattern": "pricing|tier|experiment|test|a/?b",
+          "tip": "Anchor the topic, pricing tier experiment."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "ipl|cricket|free|ads|22|premium",
+          "tip": "Anchor the context, IPL free-with-ads, premium down 22%."
+        },
+        {
+          "pattern": "149|mid.?tier|1080|cleaner|device",
+          "tip": "Use the specific tier shape, ₹149, 1080p, cleaner ads, 1 device."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "3 week|three week|short|smallest|minimum",
+          "tip": "Lock the test duration, 3 weeks for a clean read."
+        },
+        {
+          "pattern": "cannibal|risk|premium.{0,12}drop|substitut|kill.?switch",
+          "tip": "Force a cannibalisation risk with a kill-switch metric."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "vp|growth|leadership|friday|review",
+          "tip": "Reference the VP audience and Friday deadline."
+        },
+        {
+          "pattern": "hypothes|falsifiabl|if.{0,12}then|measur",
+          "tip": "Force a falsifiable hypothesis, ‘if X, then Y, measured by Z’."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|hypothes|metric|risk|criteria",
+          "tip": "Specify the memo sections, hypothesis, metrics, risks, success criteria."
+        },
+        {
+          "pattern": "1.?pager|page|word|under|short",
+          "tip": "Lock a length budget, 1-pager, otherwise the memo sprawls."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Pricing memos die when they're vibes-based. The unlock is a falsifiable hypothesis (if/then/measured-by), a named cannibalisation risk with a kill-switch, and a defined test window. ‘Test a new tier’ is not a memo. ‘If ₹149 cleaner-ads tier converts >X% of free users without dropping premium >Y%, ship it’ is.",
+  "goldPrompt": "Act as a pricing-experiment designer. I'm Rajesh, growth on Disney+ Hotstar IPL. Premium upgrades down 22% YoY because IPL streams free-with-ads. Growth wants a ₹149 mid-tier (cleaner ads, 1080p, 1 device). VP needs a memo by Friday. Open with the hypothesis as 'If [treatment] then [outcome] measured by [metric] over [window]'. Then: 3-week test design with a named cannibalisation risk on premium AND a kill-switch metric (e.g., '>5% premium downgrades pauses the test'). End with success criteria thresholds. Refuse hand-wavy 'we'll see how it goes'.",
+  "guideAnchor": "advanced"
+}

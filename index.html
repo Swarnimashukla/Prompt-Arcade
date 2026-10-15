@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptArcade · practice prompts that don't waste the planet</title>
+<meta name="description" content="A playful, gamified place to practice prompt engineering. Real workplace and college scenarios, live token meter, and the receipts on what bad prompts cost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/arcade.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      PROMPT ARCADE
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="tracks.html" class="nav-link">Tracks</a>
+      <a href="guide.html" class="nav-link">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <h1>
+      Prompt like<br>
+      <span class="squig">it actually matters.</span>
+    </h1>
+    <p class="hero-sub">
+      Practice prompt engineering on real scenarios. Better prompts, fewer wasted tokens, less water and energy spent on slop. Built for anyone tired of vibes-based AI use.
+    </p>
+    <div class="hero-cta">
+      <a href="tracks.html" class="btn btn-coral">Start practicing →</a>
+      <a href="#case-studies" class="btn btn-ghost">What does a bad prompt cost?</a>
+    </div>
+
+    <div class="hero-stamp">
+      every word<br>has a cost
+    </div>
+
+    <div class="ticker-card" id="ticker">
+      <div class="ticker-side bad">
+        <h4>🔴 Lazy prompt</h4>
+        <div class="ticker-prompt" id="bad-prompt-text">summarize this article</div>
+        <div class="ticker-stat"><span>Input tokens</span><span id="bad-in">…</span></div>
+        <div class="ticker-stat"><span>Likely output tokens</span><span id="bad-out">~ 450</span></div>
+        <div class="ticker-stat"><span>≈ Water cooling</span><span id="bad-water">…</span></div>
+        <div class="ticker-stat"><span>Result</span><span>generic mush</span></div>
+      </div>
+      <div class="ticker-side good">
+        <h4>🟢 Considered prompt</h4>
+        <div class="ticker-prompt" id="good-prompt-text">Summarize this article in 5 bullets for a busy reader. Focus on what changed and what to do next. Skip the background, link the source. Flag anything I should fact-check before sharing.</div>
+        <div class="ticker-stat"><span>Input tokens</span><span id="good-in">…</span></div>
+        <div class="ticker-stat"><span>Likely output tokens</span><span id="good-out">~ 220</span></div>
+        <div class="ticker-stat"><span>≈ Water cooling</span><span id="good-water">…</span></div>
+        <div class="ticker-stat"><span>Result</span><span>decision grade</span></div>
+      </div>
+    </div>
+    <details class="how-calc">
+      <summary>How are these numbers calculated?</summary>
+      <div>
+        <p>Tokens, multiplied by an estimated energy cost per token (around 0.0015 Wh from <a href="https://arxiv.org/abs/2104.10350" target="_blank" rel="noopener">Patterson et al. 2021</a> and <a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener">Luccioni et al. 2023</a>), give the compute energy. Cooling water is a separate empirical estimate, around 500 ml per 250 tokens, based on <a href="https://apnews.com/article/chatgpt-gpt4-iowa-ai-water-consumption-microsoft-f551fde98083d17a7e8d904f8be822c4" target="_blank" rel="noopener">AP News</a> and UC Riverside reporting on data-centre water use.</p>
+        <p>Both numbers are indicative, not billing-grade. The point is the order of magnitude. CO₂ depends heavily on which grid is powering the data centre. Water is more direct, and lands harder.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- TRACKS -->
+<section class="section" id="tracks">
+  <div class="wrap">
+    <div class="section-eyebrow">02 · Pick your character</div>
+    <h2>Two tracks. One arcade.</h2>
+    <p class="muted" style="max-width:640px; margin-top:8px">
+      Working pro or college student. Same engine, different scenarios. You can switch later, the receipts move with you.
+    </p>
+
+    <div class="tracks-grid">
+      <a href="tracks.html?track=builder" class="track-card coral">
+        <div class="track-emoji">🛠</div>
+        <h3>Builder</h3>
+        <div class="who">Working PM, designer, marketer, analyst. 1 to 8 years in.</div>
+        <div class="desc">Real workplace scenarios across PM, design, and business. Diagnose drops, write specs, defend a recommendation, brief an agency.</div>
+        <div class="row">
+          <span class="tag tag-coral">3 sub-domains · 18 scenarios</span>
+          <span class="tag">⏱ ~12 min each</span>
+        </div>
+      </a>
+
+      <a href="tracks.html?track=freshman" class="track-card lime">
+        <div class="track-emoji">🌱</div>
+        <h3>Freshman</h3>
+        <div class="who">College student, AI-curious. Survives deadlines on ChatGPT.</div>
+        <div class="desc">Tech, non-tech, career. Plan a DSA prep, summarise a 30-page reading, write a resume bullet that isn't fluff, prep an interview.</div>
+        <div class="row">
+          <span class="tag tag-lime">3 sub-domains · 18 scenarios</span>
+          <span class="tag">⏱ ~10 min each</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section" style="background:var(--paper-2); border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)">
+  <div class="wrap">
+    <div class="section-eyebrow lime">03 · Why bother</div>
+    <h2 style="margin-top:14px">Bad prompts aren't just annoying. They're expensive.</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="num">~3×</div>
+        <h3>Token spend</h3>
+        <p>A vague prompt triggers 3 to 5 correction cycles. Each one re-sends your full context. Token cost compounds, even when each individual call is cheap.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">500ml</div>
+        <h3>Water per chat</h3>
+        <p>A short ChatGPT conversation can cost ~500ml of cooling water. Microsoft's data-centre water use grew 34% in 2022. AI is a thirsty hobby.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">$5K</div>
+        <h3>Already happening</h3>
+        <p>The fine one lawyer paid for citing AI-hallucinated cases in court. Recruiters, doctors, election callers, all sanctioned for AI output gone wrong. Real consequences, already here, not future tense.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES (replaces how-it-works on home) -->
+<section class="section" id="case-studies">
+  <div class="wrap">
+    <div class="section-eyebrow uv">04 · Field reports</div>
+    <h2 style="margin-top:14px">When prompts go wrong, this is what it looks like.</h2>
+    <p class="muted" style="max-width:640px; margin-top:8px">
+      Six real incidents. Each one starts with someone, somewhere, sending a prompt that lacked a constraint, a citation, a refusal, or a check.
+    </p>
+
+    <div class="case-grid" id="case-grid"></div>
+
+    <div class="card card-lime" style="margin-top:36px">
+      <h3>The PromptArcade pledge</h3>
+      <p style="margin-top:8px">
+        Every level you ship adds to your XP. But it also adds to a shared total: your tokens, your water, your CO₂. We surface this not to scold, but to make the cost visible. A well-prompted query is cheaper, faster, AND more likely to refuse the wrong thing. Craft is conservation.
+      </p>
+      <div style="margin-top:18px">
+        <a href="tracks.html" class="btn btn-coral">Start practicing →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+  <p class="spacer-32"></p>
+</footer>
+
+<script src="js/tokens.js"></script>
+<script>
+(async function(){
+  const badText = document.getElementById('bad-prompt-text').textContent;
+  const goodText = document.getElementById('good-prompt-text').textContent;
+  const badIn = PA_Tokens.estimate(badText);
+  const goodIn = PA_Tokens.estimate(goodText);
+  const badOutEstimate = 450;
+  const goodOutEstimate = 220;
+  const badTotal = badIn + badOutEstimate;
+  const goodTotal = goodIn + goodOutEstimate;
+
+  document.getElementById('bad-in').textContent = badIn + ' tok';
+  document.getElementById('good-in').textContent = goodIn + ' tok';
+  document.getElementById('bad-water').textContent = Math.round(PA_Tokens.waterMl(badTotal)) + ' ml';
+  document.getElementById('good-water').textContent = Math.round(PA_Tokens.waterMl(goodTotal)) + ' ml';
+
+  const ticker = document.getElementById('ticker');
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) ticker.style.transform = 'translateY(0)'; });
+    }, { threshold: 0.2 });
+    obs.observe(ticker);
+  }
+
+  // Case studies grid
+  try {
+    const data = await fetch('content/case-studies.json').then(r => r.json());
+    const grid = document.getElementById('case-grid');
+    data.cases.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'case-card';
+      card.innerHTML = `
+        <span class="case-tag">${c.tag}</span>
+        <h3>${c.title}</h3>
+        <div class="body">${c.body}</div>
+        <div class="lesson"><strong>What prompt-craft would have caught it:</strong><br>${c.lesson}</div>
+        <div class="src">Source: <a href="${c.src}" target="_blank" rel="noopener">${c.srcLabel}</a></div>
+      `;
+      grid.appendChild(card);
+    });
+  } catch (e) {
+    document.getElementById('case-grid').innerHTML = '<p class="muted">Could not load case studies.</p>';
+  }
+})();
+</script>
+
+</body>
+</html>

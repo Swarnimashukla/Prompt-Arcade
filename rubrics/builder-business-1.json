@@ -1,0 +1,106 @@
+{
+  "id": "builder-business-1",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "business",
+  "subdomainLabel": "Business",
+  "level": 1,
+  "title": "Q3 deck for the CFO on margins",
+  "brand": "Nykaa",
+  "domain": "Beauty",
+  "persona": "Devika, FP&A lead at Nykaa BeautyVerse",
+  "scenario": "Q3 beauty-vertical margins compressed 380 bps YoY because of higher discounting in Tier-1 metros and a richer mix of own-brand beauty (which has higher fulfilment cost). Your CFO presents to the board on Monday. He wants 5 slides, not 25, that explain the compression honestly and frame the FY24 plan to recover 200 bps. He's previously rejected decks for being ‘too narrative, not enough numbers’.",
+  "techniques": [
+    "Audience modelling",
+    "Constraint naming",
+    "Decision framing"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "make a Q3 deck for the cfo about margin compression",
+  "badOutput": "Q3 Margin Review\n\nSlide 1: Overview\nSlide 2: Revenue\nSlide 3: Margin pressure\nSlide 4: Initiatives\nSlide 5: Next steps\n\nKey points: margins compressed due to discounts and mix. We will optimize and recover.",
+  "hints": [
+    {
+      "title": "Anchor the CFO's allergy",
+      "body": "‘He rejects decks that are too narrative, not enough numbers.’ Tone is content, every slide must lead with a number."
+    },
+    {
+      "title": "Lock the slide count + slot per slide",
+      "body": "‘5 slides. Each slide: one chart, one number, one sentence.’ Without this Claude pads."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "deck|slide|presentation|board|q3",
+          "tip": "Frame the artifact, a 5-slide board deck."
+        },
+        {
+          "pattern": "margin|compress|bps|profit|p.?l",
+          "tip": "Anchor the topic, margin compression, in CFO language."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "380|200|bps|yoy|year.?over|q3|fy24",
+          "tip": "Use the actual numbers, 380 bps compression, recover 200 bps."
+        },
+        {
+          "pattern": "tier.?1|metro|own.?brand|discount|mix|fulfilment",
+          "tip": "Anchor the two drivers, tier-1 discounting + own-brand mix shift."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "5 slide|five slide|exactly|cap|no more",
+          "tip": "Lock the count, 5 slides not 25."
+        },
+        {
+          "pattern": "number|figure|data|chart|metric|quantitativ",
+          "tip": "Force ‘number per slide’, the CFO's allergy is decorative narrative."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "cfo|board|monday|review|deadline",
+          "tip": "Reference the CFO, board, Monday deadline. Calibrates voice."
+        },
+        {
+          "pattern": "honest|don.?t spin|no.?spin|acknowledge|own",
+          "tip": "Force honest framing, no spin. Boards pattern-match on dishonest decks fast."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "title|headline|talking|note|annotat",
+          "tip": "Demand slide titles + 1 talking note per slide, not just bullets."
+        },
+        {
+          "pattern": "format|structure|template|section",
+          "tip": "Specify the per-slide structure, headline + chart + 1 number + 1 sentence."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "CFO decks die from narrative bloat. The unlock is one chart + one number + one sentence per slide, locked to 5 slides, with honest framing. ‘He rejects narrative-heavy decks’ is the most useful sentence in your prompt.",
+  "goldPrompt": "Act as an FP&A copywriter. I'm Devika at Nykaa BeautyVerse. CFO presents to the board Monday, allergic to narrative-heavy decks. Q3 beauty margins compressed 380 bps YoY due to higher Tier-1 discounting and own-brand mix. Output exactly 5 slides. Each slide: (1) one chart description, (2) the single number that owns the slide, (3) one sentence — 12 words max. Cover: the compression cause, mix shift, discount intensity, FY24 plan to recover 200 bps, ONE risk to the plan. Refuse to add narrative paragraphs. Refuse to add a slide 6.",
+  "guideAnchor": "advanced"
+}

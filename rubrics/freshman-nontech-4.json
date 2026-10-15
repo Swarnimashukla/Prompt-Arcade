@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-4",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 4,
+  "title": "SOP for MS in computational neuroscience",
+  "brand": "Grad school app",
+  "domain": "Application essay",
+  "persona": "Tushar, B.Tech ECE, applying to MS programs",
+  "scenario": "You're applying to MS in Computational Neuroscience. Your background is electronics, not biology. You did one undergrad project on EEG signal processing that got you hooked. Most SOPs you've read sound like ChatGPT, ‘from a young age I have been fascinated...’. You want one that opens with a specific moment, names two faculty by research interest (without sucking up), and admits the bio gap honestly while showing how you'd close it.",
+  "techniques": [
+    "Tone calibration",
+    "Honesty framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 360,
+  "badPrompt": "write an SOP for MS in computational neuroscience",
+  "badOutput": "Statement of Purpose\n\nFrom a young age, I have been fascinated by the workings of the human brain. My undergraduate studies in electronics gave me a strong technical foundation, and I am eager to apply this knowledge to the field of computational neuroscience. I believe your program is the perfect fit for my research interests.",
+  "hints": [
+    {
+      "title": "Ban the AI-tells",
+      "body": "‘No “from a young age”, no “fascinated by”, no “perfect fit”. Open with one specific moment from the EEG project.’ AdComs read 200 SOPs a week."
+    },
+    {
+      "title": "Force the gap admission",
+      "body": "‘Acknowledge the bio gap honestly + show how you'd close it.’ Honesty about gaps reads more credibly than glossing."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "sop|statement|essay|application|personal",
+          "tip": "Frame the artifact, an SOP, not a personal essay."
+        },
+        {
+          "pattern": "ms|master|grad|computational neuroscience|program",
+          "tip": "Anchor the program type."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "electronic|ece|background|engineer|not bio",
+          "tip": "Anchor your background, electronics not biology."
+        },
+        {
+          "pattern": "eeg|signal|project|undergrad|hook",
+          "tip": "Anchor the specific hook moment, the EEG project."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "no.{0,16}young age|no.{0,16}fascinat|no.{0,16}perfect fit|cliché|avoid|don.?t",
+          "tip": "Ban AI-cliché phrases explicitly."
+        },
+        {
+          "pattern": "specific moment|opening|scene|concrete|story",
+          "tip": "Force a specific opening moment, not abstract."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "faculty|professor|research|interest|name",
+          "tip": "Demand 2 faculty named by research interest, without sucking up."
+        },
+        {
+          "pattern": "gap|honest|admit|bio|close|address",
+          "tip": "Force honest admission of the bio gap + how you'd close it."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "word|under|length|short|tight",
+          "tip": "Lock the word count, ‘under 600 words’, most SOPs cap there."
+        },
+        {
+          "pattern": "voice|tone|first.?person|conversational|natural",
+          "tip": "Force a natural first-person voice, not formal corporate."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "SOPs from AI all sound the same because they share clichés. The unlock is banning specific AI-tells (‘from a young age’, ‘fascinated by’, ‘perfect fit’), demanding a specific opening moment, AND forcing honest gap-admission. Adcoms reward credibility over polish.",
+  "goldPrompt": "Act as an SOP editor with allergies to ChatGPT clichés. I'm Tushar, B.Tech ECE applying for MS Computational Neuroscience. Banned phrases: 'from a young age', 'fascinated by', 'perfect fit', 'passionate about'. Output an SOP draft (under 800 words) that: (1) opens with one specific moment from my undergrad EEG signal-processing project (you'll ask me what happened), (2) names 2 faculty by their actual research interest in 1 line each (without sucking up), (3) honestly admits the bio gap and shows ONE concrete plan to close it (named courses, pre-reading list). Before drafting, ask me 3 clarifying questions about the EEG project.",
+  "guideAnchor": "advanced"
+}

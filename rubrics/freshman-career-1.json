@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-1",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 1,
+  "title": "Rewrite resume bullets that say ‘responsible for’",
+  "brand": "Resume polish",
+  "domain": "Resume",
+  "persona": "Tara, 3rd-year B.Com",
+  "scenario": "Your resume has 8 bullets that all start with ‘Responsible for...’ or ‘Worked on...’. Recruiters skim resumes in 6 seconds. You want bullets that lead with the action, quantify the outcome, and don't lie when you don't have a number. One bullet is from a college fest you ran, one from an Excel project, one from a debate finalist. You want them rewritten so they sound real, not LinkedIn-influencer.",
+  "techniques": [
+    "Constraint naming",
+    "Honesty framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "rewrite my resume bullets to be more impactful",
+  "badOutput": "1. Spearheaded cross-functional initiatives to drive impactful outcomes.\n2. Leveraged strategic insights to optimize results.\n3. Pioneered innovative solutions for organizational growth.\n4. Championed dynamic projects with measurable success.",
+  "hints": [
+    {
+      "title": "Ban LinkedIn-influencer verbs",
+      "body": "‘No spearheaded, no leveraged, no pioneered, no championed.’ Recruiters skim past these instantly."
+    },
+    {
+      "title": "Force honest quantification",
+      "body": "‘If I don't have a number, don't fabricate one. Use scope words instead, e.g., ‘team of 6’ or ‘12-stall fest’.’ Don't invent percentages."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "bullet|rewrite|resume|cv",
+          "tip": "Frame the artifact, resume bullets."
+        },
+        {
+          "pattern": "quantif|number|metric|result|outcome",
+          "tip": "Anchor outcome-led writing."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "fest|excel|debate|college|specific|project",
+          "tip": "Anchor the actual experiences, not generic."
+        },
+        {
+          "pattern": "recruiter|6 second|skim|hiring|read",
+          "tip": "Reference the recruiter skim context, 6 seconds."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "spearhead|leverag|pioneer|champion|synerg|no.{0,8}cliché",
+          "tip": "Ban LinkedIn-influencer verbs."
+        },
+        {
+          "pattern": "don.?t.{0,16}fabric|honest|don.?t.{0,16}invent|don.?t.{0,16}lie",
+          "tip": "Force honest quantification, no invented numbers."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "action|verb|lead|start",
+          "tip": "Force action-led bullets, action verb at start."
+        },
+        {
+          "pattern": "scope|size|team|number|count",
+          "tip": "Demand scope words when no metric exists, ‘team of 6’, ‘12-stall fest’."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "before|after|side.?by|compar|original|rewrit",
+          "tip": "Demand before/after for each bullet."
+        },
+        {
+          "pattern": "real|natural|sound|honest|authentic",
+          "tip": "Force a natural voice, not LinkedIn-influencer."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Resume rewrites become Hindi-cinema dialogue when AI is unconstrained. The unlock is banning the cliché verbs (spearheaded, leveraged), forcing honest quantification (no invented %), AND demanding scope words when numbers don't exist. ‘Team of 6 in a 12-stall fest’ beats ‘championed dynamic outcomes’.",
+  "goldPrompt": "Act as a recruiter who skims in 6 seconds. I'm Tara, 3rd-year B.Com. I have 8 bullets all starting with 'Responsible for...' or 'Worked on...'. Three real artifacts: a college fest I ran (12 stalls, team of 6), an Excel project for an internship (data-cleaning workbook), and a debate-finalist tag. Banned verbs: spearheaded, leveraged, pioneered, championed, drove. If I don't have a number for a bullet, do NOT invent one — use a scope phrase instead ('team of 6', '12-stall fest', '500-row dataset'). Output 8 rewritten bullets, each starting with an action verb, leading with the outcome where I have one, capping at 18 words.",
+  "guideAnchor": "basics"
+}

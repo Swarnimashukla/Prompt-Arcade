@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-3",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 3,
+  "title": "Accessibility audit of restaurant page",
+  "brand": "Swiggy",
+  "domain": "Food-delivery",
+  "persona": "Aditya, designer on Swiggy's discovery surface",
+  "scenario": "Swiggy's restaurant detail page works fine for most users, but a low-vision tester on contract told eng the menu list is unreadable on her screen-reader and the ‘add’ buttons announce as ‘button button button’. You owe an audit by Wednesday: WCAG 2.2 issues, severity, and which fixes are 1-day vs 1-month effort. You have screenshots, not code access.",
+  "techniques": [
+    "Constraint naming",
+    "Severity ranking",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "do an accessibility audit of swiggy restaurant page",
+  "badOutput": "Accessibility issues commonly include low contrast, missing alt text, small touch targets, and unclear focus states. You should improve color contrast, add ARIA labels, and ensure keyboard navigation works.",
+  "hints": [
+    {
+      "title": "Anchor the standard explicitly",
+      "body": "Say ‘WCAG 2.2 AA’, not just ‘accessibility’. The standard changes what counts as a violation."
+    },
+    {
+      "title": "Force severity + effort",
+      "body": "Demand each issue ranked by severity AND tagged 1-day vs 1-month effort. Without this, the audit is unprioritised."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "audit|review|assessment|evaluat",
+          "tip": "Frame the artifact, an audit, not generic feedback."
+        },
+        {
+          "pattern": "wcag|a11y|accessib|aria|screen.?reader",
+          "tip": "Anchor accessibility specifics, WCAG, ARIA, screen-readers."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "low.?vision|blind|screen.?reader|tester|user",
+          "tip": "Reference the actual user feedback, low-vision tester said the menu is unreadable."
+        },
+        {
+          "pattern": "restaurant|menu|swiggy|detail page|listing",
+          "tip": "Anchor the surface, restaurant detail page, not the whole app."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "wcag.{0,8}2|aa|standard|criteria",
+          "tip": "Specify the standard, WCAG 2.2 AA, not just ‘accessibility’."
+        },
+        {
+          "pattern": "no code|screenshot|visual|don.?t.{0,12}code|markup",
+          "tip": "Acknowledge the constraint, audit from screenshots, no code access."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "severity|priorit|critical|high|low|rank",
+          "tip": "Demand severity ranking, P0/P1/P2 or critical/high/low."
+        },
+        {
+          "pattern": "effort|1.?day|1.?month|quick|hard|fast",
+          "tip": "Force effort tagging, 1-day vs 1-month. That's how design and eng prioritise."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|format|column|structure",
+          "tip": "Specify a table, issue + WCAG criterion + severity + effort + fix."
+        },
+        {
+          "pattern": "criterion|sc|guideline|reference|spec",
+          "tip": "Demand the WCAG criterion reference, e.g., 1.4.3, on each issue."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "‘Do an accessibility audit’ produces generic checklists. The unlock is anchoring the standard (WCAG 2.2 AA), the surface (restaurant page), the user feedback (low-vision tester's quote), AND demanding severity + effort tagging on every issue.",
+  "goldPrompt": "Act as a senior accessibility consultant. I'm Aditya, designer on Swiggy's discovery surface. A low-vision tester reported the restaurant detail page menu is unreadable on her screen reader and 'add' buttons announce as 'button button button'. Audit against WCAG 2.2 AA. I have screenshots, no code. Output a table: issue, WCAG criterion violated, severity (P0/P1/P2), effort (1-day vs 1-month), recommended fix. Anchor at least 3 issues to her actual feedback. Refuse to invent code-level fixes; describe behaviour and let eng implement.",
+  "guideAnchor": "advanced"
+}

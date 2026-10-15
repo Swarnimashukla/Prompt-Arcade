@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-5",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 5,
+  "title": "Pick a stack for a campus event app",
+  "brand": "Final-year capstone",
+  "domain": "Architecture",
+  "persona": "Veer, final-year B.Tech, leading a 4-person capstone",
+  "scenario": "Your capstone is an event-management app for the campus, register, ticket, check-in, photo gallery. 4 of you, 14 weeks, no budget, no DevOps experience. Two teammates know React + Node, one knows Flutter, one knows Django. Everyone wants to use what they know. You need a recommended stack with the actual tradeoff, who's grumpy and why, deployment cost ≤ ₹0/month, AND the real ‘why this over X’ for each choice.",
+  "techniques": [
+    "Decision framing",
+    "Constraint naming",
+    "Adversarial prompting"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "recommend a tech stack for a campus event management app",
+  "badOutput": "I recommend MERN stack: MongoDB, Express, React, Node.js. It's popular, has a strong ecosystem, and is good for full-stack development. Use Vercel or Railway for free hosting. This stack will work well for an event management app.",
+  "hints": [
+    {
+      "title": "Force tradeoffs over recommendations",
+      "body": "‘For each choice, name what we lose AND who on the team is grumpy.’ Stack picks fail at team-buy-in, not tech."
+    },
+    {
+      "title": "Lock the cost constraint",
+      "body": "‘Free tier only. ₹0/month deployment.’ Otherwise AI recommends AWS without thinking about your wallet."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "stack|architecture|tech|recommend|choose",
+          "tip": "Frame the artifact, a stack recommendation."
+        },
+        {
+          "pattern": "event|registr|ticket|check.?in|gallery",
+          "tip": "Anchor the product, event-management app with specific features."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "4|four|team|capstone|14 week|fourteen",
+          "tip": "Anchor the team size and timeline, 4 people, 14 weeks."
+        },
+        {
+          "pattern": "react|node|flutter|django|know|skill",
+          "tip": "Surface the team's existing skills, that's the real constraint."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "free|0|zero|budget|cost|tier",
+          "tip": "Lock the cost, ₹0/month deployment, free tier only."
+        },
+        {
+          "pattern": "no devops|no infra|simple|deploy|host",
+          "tip": "Acknowledge no DevOps experience, that rules out a lot."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "trade.?off|lose|sacrif|cost|downside",
+          "tip": "Force tradeoffs, what we lose with each choice."
+        },
+        {
+          "pattern": "grumpy|unhappy|teammate|reject|unhappy",
+          "tip": "Surface who's grumpy on the team and why. Buy-in matters."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|matrix|column|format|structure",
+          "tip": "Demand a structured output, choice + why + lose + grumpy."
+        },
+        {
+          "pattern": "alternativ|reject|why not|over|considered",
+          "tip": "Force ‘why this over X’ for each choice."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Stack recommendations fail because AI doesn't know your team. The unlock is anchoring the team's existing skills, the cost constraint (₹0), AND forcing tradeoffs + grumpy-teammate predictions. Tech picks succeed or fail on buy-in, not tech.",
+  "goldPrompt": "You are a tech-lead picking stacks for unhappy teammates. I'm Veer, leading a 4-person 14-week capstone — campus event-management app (register/ticket/check-in/gallery). Team skills: 2 React+Node, 1 Flutter, 1 Django. Constraint: ₹0/month deployment. Output: ONE recommended stack, then for each choice (frontend, backend, db, hosting): (a) what we lose vs the alternative, (b) which teammate gets grumpy and why, (c) the 'why this over [most plausible alternative]' in one sentence. End with the smallest 2-week mitigation if the grumpy teammate flags risk in week 2. Refuse to pick AWS.",
+  "guideAnchor": "advanced"
+}

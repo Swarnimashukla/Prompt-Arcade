@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-2",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 2,
+  "title": "Critique Cred onboarding vs Jupiter",
+  "brand": "Cred / Jupiter",
+  "domain": "Fintech",
+  "persona": "Priya, senior designer on Jupiter onboarding",
+  "scenario": "Your design lead saw Cred's onboarding flow and asked, ‘why doesn't ours feel like that?’ You need a structured critique: what Cred does well, what's actually a Cred-specific brand move that wouldn't transplant, and what 2 things from Cred we should steal AND 1 trap we'd fall into if we copy too much. Design review is on Friday.",
+  "techniques": [
+    "Structured critique",
+    "Adversarial prompting",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "compare cred and jupiter onboarding",
+  "badOutput": "Cred has a polished onboarding with strong copy and animations. Jupiter has a friendly onboarding focused on clarity. Both are good but cater to different audiences. Cred is for premium users, Jupiter for mass market.",
+  "hints": [
+    {
+      "title": "Force a separation",
+      "body": "‘Separate Cred's transferable patterns from Cred's brand-specific moves.’ Without this, designers cargo-cult the brand layer and miss the actual UX."
+    },
+    {
+      "title": "Surface a trap",
+      "body": "Demand one trap, ‘what we'd break if we copied this’. Critique without traps is flattery."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "critiqu|teardown|review|analyz|breakdown",
+          "tip": "Frame the artifact, a critique, not a comparison."
+        },
+        {
+          "pattern": "onboarding|signup|first.?run|activation",
+          "tip": "Anchor the surface, onboarding flow, not the whole product."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "cred|jupiter|fintech|neobank|brand",
+          "tip": "Name both products and the brand context, fintech onboarding."
+        },
+        {
+          "pattern": "design lead|friday|review|critique session",
+          "tip": "Reference the audience and deadline, design review on Friday."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "transfer|brand.?specific|wouldn.?t|not.{0,16}copy|separate",
+          "tip": "Force the separation, transferable vs brand-specific."
+        },
+        {
+          "pattern": "trap|risk|wrong|break|backfir|harm",
+          "tip": "Demand a trap, what we'd break if we copy too much."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "2|two|steal|borrow|adapt|adopt",
+          "tip": "Lock the count, 2 things to steal. Specificity beats a flat list."
+        },
+        {
+          "pattern": "1|one trap|risk|wrong|backfir",
+          "tip": "Lock 1 trap. The asymmetry, 2 steals + 1 trap, forces real critique."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|table|column|format|markdown",
+          "tip": "Specify the structure, transferable vs brand-specific in a table."
+        },
+        {
+          "pattern": "screen|step|moment|touchpoint",
+          "tip": "Anchor the critique to specific screens or steps, not vibes."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Critique without separation becomes flattery. The unlock is forcing transferable vs brand-specific, plus one trap. Without traps, design teams cargo-cult competitor brand moves and break their own product.",
+  "goldPrompt": "You're a design-critique partner. I'm Priya, senior designer on Jupiter onboarding. Lead asked: 'why doesn't ours feel like Cred's?' Output 4 sections: (1) What Cred onboarding does well — 4 patterns with screen references, (2) Cred's brand-specific moves that won't transplant — argue why each is brand-coupled, (3) The 2 transferable patterns to steal, (4) ONE trap we'd fall into if we copied too much. Refuse to praise without naming a transferable mechanism. Audience: design review Friday.",
+  "guideAnchor": "advanced"
+}

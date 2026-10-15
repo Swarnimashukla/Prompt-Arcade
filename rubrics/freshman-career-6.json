@@ -1,0 +1,106 @@
+{
+  "id": "freshman-career-6",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "career",
+  "subdomainLabel": "Career",
+  "level": 6,
+  "title": "Counter-offer script after a ₹4.5 LPA offer",
+  "brand": "First job offer",
+  "domain": "Negotiation",
+  "persona": "Kabir, fresh CSE grad, first ever job offer",
+  "scenario": "Infosys offered you ₹4.5 LPA. Median for your role on Glassdoor + AmbitionBox is ₹6 LPA. Two friends with similar profiles got ₹5.8 from competitors. You want to counter, politely, in writing, without sounding ungrateful or risking the offer. You want a script that opens with appreciation (genuine, not grovelling), states the counter (₹6 LPA) with one external anchor, names what you'd bring that justifies it, and ends with a clear next-step ask, not a ‘please consider it’.",
+  "techniques": [
+    "Tone calibration",
+    "Constraint naming",
+    "Decision framing"
+  ],
+  "tokenBudget": 280,
+  "badPrompt": "help me write a counter offer to my infosys job offer",
+  "badOutput": "Dear HR,\n\nThank you so much for the offer. I am extremely grateful and excited about joining your esteemed organization. However, I was hoping to discuss the compensation as I have done some research and would appreciate if you could consider revising the offer. Please let me know your thoughts.\n\nWarm regards,\nKabir",
+  "hints": [
+    {
+      "title": "Anchor with a number + source",
+      "body": "‘State the counter (₹6 LPA) with one external anchor (Glassdoor median, peer offers).’ Negotiations without anchors get rejected."
+    },
+    {
+      "title": "End with a specific ask, not a hope",
+      "body": "‘End with a clear next-step ask, ‘can we get on a 15-min call this week?’, not ‘please consider’.’ Polite ≠ passive."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "counter|negotiat|script|email|message",
+          "tip": "Frame the artifact, a counter-offer script."
+        },
+        {
+          "pattern": "infosys|offer|job|salary|ctc|lpa",
+          "tip": "Anchor the offer, ₹4.5 LPA from Infosys."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "fresh|first|never|new|grad",
+          "tip": "Anchor the context, first ever offer."
+        },
+        {
+          "pattern": "6|5.8|glassdoor|ambition|peer|median",
+          "tip": "Reference the external anchors, ₹6 median, ₹5.8 peer."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "ungrateful|risk|withdraw|polit|tone",
+          "tip": "Calibrate the tone, polite, not ungrateful, no risking the offer."
+        },
+        {
+          "pattern": "no.{0,16}grovel|no.{0,16}consider|no.{0,16}esteem|cliché|hope",
+          "tip": "Ban grovelling and ‘please consider’ language."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "anchor|external|source|cite|data",
+          "tip": "Force an external anchor, not just ‘I think I'm worth more’."
+        },
+        {
+          "pattern": "bring|justif|deliver|skill|value",
+          "tip": "Demand what you'd bring that justifies the counter."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "next step|ask|call|meeting|specific|reply",
+          "tip": "Force a specific next-step ask, not a hope."
+        },
+        {
+          "pattern": "section|order|structure|opening|sign.?off",
+          "tip": "Specify the structure, appreciation → anchor → counter → bring → next-step."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Counter-offers fail when they're polite without being specific. The unlock is anchoring the counter with external data (Glassdoor + peer offers), naming what you'd bring, AND ending with a concrete next-step ask. Polite passivity gets a polite rejection.",
+  "goldPrompt": "Act as a negotiation coach who doesn't grovel. I'm Kabir, fresh CSE grad, first-ever offer. Infosys offered ₹4.5 LPA. Glassdoor + AmbitionBox median is ₹6 LPA; two friends got ₹5.8 from competitors. Output a written counter-offer in under 180 words that: (1) opens with one genuine line of appreciation (not grovelling), (2) states the counter (₹6 LPA) anchored by ONE external data source (named: e.g., 'Glassdoor median for [role] in [city]'), (3) names ONE thing I'd bring that justifies it (specific to my profile), (4) ends with a concrete next-step ask — 'can we get on a 15-min call by Friday?' — NOT 'please consider'. Banned: 'humbly request', 'kindly'.",
+  "guideAnchor": "advanced"
+}

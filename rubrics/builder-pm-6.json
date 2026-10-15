@@ -1,0 +1,106 @@
+{
+  "id": "builder-pm-6",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "pm",
+  "subdomainLabel": "Product Manager",
+  "level": 6,
+  "title": "Looker spec for renewal funnel",
+  "brand": "PolicyBazaar",
+  "domain": "Insurance",
+  "persona": "Anjali, PM on renewals at PolicyBazaar",
+  "scenario": "Your CFO Slacks: ‘Can I get renewal conversion by city this quarter, broken down by new vs lapsed customers?’ You're handing this to a data analyst. The ask is 6 ways ambiguous: which renewal stage (paid? policy issued?), which cities, what defines ‘lapsed’ (30 / 60 / 90 days?), what's ‘this quarter’ (calendar or fiscal). You need a Looker spec that asks the right questions before a single SQL line gets written.",
+  "techniques": [
+    "Disambiguation loops",
+    "Clarifying questions",
+    "Spec scaffolding"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "make a looker query for renewal conversion by city this quarter",
+  "badOutput": "SELECT city, COUNT(renewals) / COUNT(eligible) AS conversion FROM policies WHERE date >= '2025-01-01' GROUP BY city ORDER BY conversion DESC;\n\nThis query gives you renewal conversion grouped by city for this quarter.",
+  "hints": [
+    {
+      "title": "Make ambiguity visible first",
+      "body": "Ask Claude to list the 6 ways the ask is ambiguous BEFORE writing anything. Surfacing assumptions is the whole job, the SQL is downstream."
+    },
+    {
+      "title": "Refuse to write SQL until resolved",
+      "body": "Add a hard refusal: ‘Do NOT write SQL until I answer the clarifying questions.’ Otherwise Claude will quietly assume and ship."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "spec|specification|requirement|brief|disambig",
+          "tip": "Frame the artifact as a spec, not a SQL query."
+        },
+        {
+          "pattern": "looker|bi|dashboard|analytic|metric",
+          "tip": "Anchor the tool, Looker, or BI/analytics platform."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "cfo|finance|exec|stakeholder|requester",
+          "tip": "Name the requester, CFO, so Claude calibrates definitions for finance."
+        },
+        {
+          "pattern": "ambig|vague|unclear|multiple|interpret",
+          "tip": "Flag the ask as ambiguous, it frames the whole prompt."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "don.?t.{0,16}sql|no sql|not.{0,16}query|before.{0,16}query|until|first",
+          "tip": "Add a negative, do NOT write SQL until ambiguities are resolved."
+        },
+        {
+          "pattern": "assumption|list|state|surface",
+          "tip": "Demand Claude state every assumption it would otherwise hide in the SQL."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "clarify|question|ask|disambig",
+          "tip": "Ask for the clarifying questions to send back before building anything."
+        },
+        {
+          "pattern": "5|6|six|seven|several|list of",
+          "tip": "Lock the count, 5 to 7 clarifying questions, so Claude doesn't ramble."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "definition|dimension|measure|metric|edge|filter|lapse",
+          "tip": "Define the spec sections, definitions, dimensions, measures, edge cases."
+        },
+        {
+          "pattern": "section|format|markdown|bullet|table",
+          "tip": "Specify the output structure, sections or a table."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Every analytics ask is ambiguous. The skill isn't writing SQL, it's making the ambiguity visible BEFORE writing SQL. Strong prompt: ‘List the 6 ways this ask is ambiguous. For each, draft a clarifying question. Do not write SQL until I've answered them.’",
+  "goldPrompt": "You're a data-spec writer. I'm Anjali, PM on renewals at PolicyBazaar. CFO Slacked: 'renewal conversion by city this quarter, broken down by new vs lapsed customers'. Before any SQL, list the 6 ways this ask is ambiguous (which renewal stage — paid vs policy-issued, which cities, lapsed = 30/60/90 days, calendar vs fiscal quarter, etc). For each, draft one clarifying question. Do NOT write SQL until I answer. After my answers, output a Looker spec with metrics, dimensions, filters, and one validation check per metric.",
+  "guideAnchor": "advanced"
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tracks · PromptArcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/arcade.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      PROMPT ARCADE
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="tracks.html" class="nav-link active">Tracks</a>
+      <a href="guide.html" class="nav-link">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+
+  <!-- STEP 1: Pick track -->
+  <section class="picker-step" id="step-track">
+    <div class="section-eyebrow">01 · Pick your track</div>
+    <h2 style="margin-top:8px">Where are you in your prompt journey?</h2>
+    <p class="muted" style="max-width:640px; margin-top:8px">
+      You can switch later. The receipts and XP move with you.
+    </p>
+
+    <div class="tracks-grid" style="margin-top:24px">
+      <a class="track-card coral" data-track="builder">
+        <div class="track-emoji">🛠</div>
+        <h3>Builder</h3>
+        <div class="who">Working PM, designer, marketer, analyst. 1 to 8 years in.</div>
+        <div class="desc">Real workplace scenarios across PM, design, and business. Diagnose, spec, audit, defend, brief, decide.</div>
+        <div class="row">
+          <span class="tag tag-coral">3 sub-domains · 18 scenarios</span>
+          <span class="tag">⏱ ~12 min each</span>
+        </div>
+      </a>
+
+      <a class="track-card lime" data-track="freshman">
+        <div class="track-emoji">🌱</div>
+        <h3>Freshman</h3>
+        <div class="who">College student, AI-curious. Survives deadlines on ChatGPT.</div>
+        <div class="desc">Tech, non-tech, career. Plan a DSA prep, summarise a 30-page reading, write a resume bullet that isn't fluff, prep an interview.</div>
+        <div class="row">
+          <span class="tag tag-lime">3 sub-domains · 18 scenarios</span>
+          <span class="tag">⏱ ~10 min each</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- STEP 2: Pick sub-domain -->
+  <section class="picker-step" id="step-subdomain" style="display:none">
+    <button class="btn btn-ghost btn-sm back-btn" id="back-to-track">← Pick a different track</button>
+    <div class="section-eyebrow" id="track-eyebrow">02 · Pick your sub-domain</div>
+    <h2 style="margin-top:8px" id="track-h2">…</h2>
+    <p class="muted" style="max-width:640px; margin-top:8px" id="track-blurb">…</p>
+    <div class="subdomain-grid" id="subdomain-grid"></div>
+  </section>
+
+  <!-- STEP 3: Pick scenario -->
+  <section class="picker-step" id="step-scenario" style="display:none">
+    <button class="btn btn-ghost btn-sm back-btn" id="back-to-sub">← Pick a different sub-domain</button>
+    <div class="section-eyebrow" id="sub-eyebrow">03 · Pick a scenario</div>
+    <h2 style="margin-top:8px" id="sub-h2">…</h2>
+    <p class="muted" style="max-width:680px; margin-top:8px" id="sub-blurb">…</p>
+    <div class="scenario-grid" id="scenario-grid"></div>
+  </section>
+
+  <!-- HOW IT WORKS, at the bottom -->
+  <div class="divider" style="margin-top:60px"></div>
+  <section class="how-section">
+    <div class="section-eyebrow uv">How it works</div>
+    <h3 style="margin-top:8px">Four steps. One feedback loop.</h3>
+    <div class="why-grid" style="grid-template-columns:repeat(4, 1fr); margin-top:24px">
+      <div class="why-card">
+        <div class="num">①</div>
+        <h3>Read the brief</h3>
+        <p>A real workplace or college scenario, with a deliberately lazy prompt. Your job: rewrite it.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">②</div>
+        <h3>Watch the meter</h3>
+        <p>Live token, CO₂, and water tick as you type. Aim for specific, not long.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">③</div>
+        <h3>Get tiered</h3>
+        <p>Draft → Solid → Sharp → Surgical. 5 dimensions, every gap explained, no ‘good luck’.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">④</div>
+        <h3>See the diff</h3>
+        <p>Before and after. What the lazy prompt would have returned, vs. what yours unlocks.</p>
+      </div>
+    </div>
+    <p class="handwrit" style="font-size:22px; margin-top:24px; color:var(--coral)">
+      Surgical = rubric ≥ 8 + under token budget + a responsibility move (refusal, citation, fact-check).
+    </p>
+    <style>@media(max-width:980px){.how-section .why-grid{grid-template-columns:1fr 1fr}} @media(max-width:640px){.how-section .why-grid{grid-template-columns:1fr}}</style>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+</footer>
+
+<script src="js/state.js"></script>
+<script>
+(async function(){
+  const params = new URLSearchParams(location.search);
+  const initialTrack = params.get('track');
+  const initialSub = params.get('sub');
+
+  let index;
+  try {
+    index = await fetch('content/levels-index.json').then(r => r.json());
+  } catch (e) {
+    document.querySelector('main').innerHTML = '<p class="muted">Could not load tracks.</p>';
+    return;
+  }
+
+  const stepTrack = document.getElementById('step-track');
+  const stepSub = document.getElementById('step-subdomain');
+  const stepScenario = document.getElementById('step-scenario');
+
+  function show(step) {
+    [stepTrack, stepSub, stepScenario].forEach(s => s.style.display = 'none');
+    step.style.display = '';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function showTrack() {
+    history.replaceState(null, '', 'tracks.html');
+    show(stepTrack);
+  }
+
+  function showSubdomains(trackId) {
+    const track = index.tracks[trackId];
+    if (!track) return showTrack();
+    history.replaceState(null, '', `tracks.html?track=${trackId}`);
+    document.getElementById('track-eyebrow').textContent =
+      `02 · ${track.label} · pick your sub-domain`;
+    document.getElementById('track-eyebrow').className =
+      'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
+    document.getElementById('track-h2').textContent = track.label + ' · which side of you needs sharpening?';
+    document.getElementById('track-blurb').textContent = track.persona;
+
+    const grid = document.getElementById('subdomain-grid');
+    grid.innerHTML = '';
+    const completedMap = (PA_State.get().levels || {});
+    track.subdomains.forEach(sub => {
+      const completed = sub.levels.filter(lv => completedMap[`${trackId}-${sub.id}-${lv.n}`]).length;
+      const card = document.createElement('a');
+      card.className = 'sub-card ' + (trackId === 'builder' ? 'sub-coral' : 'sub-lime');
+      card.href = `tracks.html?track=${trackId}&sub=${sub.id}`;
+      card.innerHTML = `
+        <div class="sub-emoji">${sub.emoji}</div>
+        <h3>${sub.label}</h3>
+        <p>${sub.blurb}</p>
+        <div class="sub-foot">
+          <span class="tag">${sub.levels.length} scenarios</span>
+          <span class="tag ${completed === sub.levels.length && completed > 0 ? 'tag-lime' : ''}">${completed}/${sub.levels.length} done</span>
+        </div>
+      `;
+      card.addEventListener('click', e => { e.preventDefault(); showScenarios(trackId, sub.id); });
+      grid.appendChild(card);
+    });
+
+    show(stepSub);
+  }
+
+  function showScenarios(trackId, subId) {
+    const track = index.tracks[trackId];
+    const sub = track.subdomains.find(s => s.id === subId);
+    if (!sub) return showSubdomains(trackId);
+    history.replaceState(null, '', `tracks.html?track=${trackId}&sub=${subId}`);
+    document.getElementById('sub-eyebrow').textContent = `03 · ${track.label} · ${sub.label} · pick a scenario`;
+    document.getElementById('sub-eyebrow').className =
+      'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
+    document.getElementById('sub-h2').textContent = sub.label + ' · which one are you in this week?';
+    document.getElementById('sub-blurb').textContent = sub.blurb;
+
+    const grid = document.getElementById('scenario-grid');
+    grid.innerHTML = '';
+    const completedMap = (PA_State.get().levels || {});
+    sub.levels.forEach(lv => {
+      const id = `${trackId}-${subId}-${lv.n}`;
+      const done = completedMap[id];
+      const card = document.createElement('a');
+      card.className = 'scenario-card' + (done ? ' done' : '');
+      card.href = `level.html?track=${trackId}&sub=${subId}&n=${lv.n}`;
+      card.innerHTML = `
+        <div class="sc-row">
+          <span class="sc-num">${lv.n}</span>
+          ${done ? `<span class="sc-tier tier-${(done.tier || 'solid').toLowerCase()}">${done.tier || 'Solid'}</span>` : '<span class="sc-tier tier-empty">unplayed</span>'}
+        </div>
+        <h3>${lv.title}</h3>
+        <div class="sc-foot">
+          <span class="meta-pill">${lv.brand}</span>
+          <span class="meta-pill">${lv.domain}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    show(stepScenario);
+  }
+
+  document.querySelectorAll('[data-track]').forEach(c => {
+    c.addEventListener('click', e => {
+      e.preventDefault();
+      showSubdomains(c.dataset.track);
+    });
+  });
+
+  document.getElementById('back-to-track').addEventListener('click', e => {
+    e.preventDefault(); showTrack();
+  });
+  document.getElementById('back-to-sub').addEventListener('click', e => {
+    e.preventDefault(); showSubdomains(new URLSearchParams(location.search).get('track'));
+  });
+
+  if (initialTrack && initialSub) showScenarios(initialTrack, initialSub);
+  else if (initialTrack) showSubdomains(initialTrack);
+  else showTrack();
+})();
+</script>
+</body>
+</html>

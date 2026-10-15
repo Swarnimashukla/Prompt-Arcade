@@ -1,0 +1,106 @@
+{
+  "id": "freshman-nontech-3",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "nontech",
+  "subdomainLabel": "Non-tech",
+  "level": 3,
+  "title": "2-week plan for 3 finals + a paper",
+  "brand": "Finals week",
+  "domain": "Study planning",
+  "persona": "Zara, 3rd-year psychology major",
+  "scenario": "Two weeks until finals: Cognitive Psych (memorisation-heavy), Stats (problem-solving), Research Methods (essay paper, 3000 words), and Social Psych (concepts + applications). You haven't started the paper. You sleep 6 hours, gym 4 days a week, hate revising the day before, and learn best when you teach the material to someone (or a wall). You want a plan that respects this, not a generic ‘study 8 hours a day’.",
+  "techniques": [
+    "Honest scoping",
+    "Constraint naming",
+    "Output definition"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "make a 2-week study plan for my finals",
+  "badOutput": "Week 1: Review notes for all subjects, create flashcards, start the paper outline. Week 2: Practice problems, write the paper, review weak areas. Study 6-8 hours daily. Take breaks. Get enough sleep.",
+  "hints": [
+    {
+      "title": "Tell Claude how you actually learn",
+      "body": "‘Learn best by teaching it to a wall. Hate day-before cramming.’ Plans that ignore your learning style fail."
+    },
+    {
+      "title": "Differentiate study type per subject",
+      "body": "Cognitive = memorisation, Stats = problem-solving, Research = writing. AI defaults to ‘review notes’ for everything."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "plan|schedule|timeline|study plan",
+          "tip": "Frame the artifact, a 2-week plan."
+        },
+        {
+          "pattern": "final|exam|paper|deadline|due",
+          "tip": "Anchor the deliverables, 3 finals + a paper."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "cognitive|stats|research|social|psych",
+          "tip": "Name the subjects so Claude can differentiate study type."
+        },
+        {
+          "pattern": "3000|word|paper|essay|haven.?t started",
+          "tip": "Anchor the paper, 3000 words, not started."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "sleep|6|hour|gym|fix|fixed",
+          "tip": "Anchor your fixed constraints, sleep, gym days."
+        },
+        {
+          "pattern": "teach|wall|explain|review.?out|active",
+          "tip": "Reference your learning style, teaching to a wall."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "memoris|problem|essay|writing|differ",
+          "tip": "Force differentiated study by subject type, not blanket review."
+        },
+        {
+          "pattern": "no.{0,12}day before|hate|cram|early",
+          "tip": "Surface ‘hate day-before cramming’ so plan front-loads work."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|day|week|format|grid",
+          "tip": "Specify a day-by-day grid, not prose."
+        },
+        {
+          "pattern": "milestone|deliverable|done|finish|complete",
+          "tip": "Demand milestones (paper outline by day 3, etc.), not just topics."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Study plans from AI are generic because they don't know how you learn. The unlock is anchoring your real constraints (sleep, gym), your learning style (teaching to a wall), AND differentiating study type per subject. Cognitive psych and Stats need different plans, not the same ‘review notes’.",
+  "goldPrompt": "Act as a study coach who knows my specific brain. I'm Zara, 3rd-year psych. 2 weeks to: Cognitive Psych (memorisation), Stats (problem-solving), Research Methods paper (3000 words), Social Psych (concepts + applications). I sleep 6 hrs, gym 4 days/week, hate day-before cramming, learn best by teaching to a wall. Output a daily schedule that: (a) treats the 4 subjects with DIFFERENT methods (not 'review notes' for all), (b) embeds 'teach-it-out-loud' blocks for cog-psych and social-psych, (c) protects gym days, (d) starts the paper today not week 2, (e) ends day-before with rest, not cramming.",
+  "guideAnchor": "basics"
+}

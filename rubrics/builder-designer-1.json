@@ -1,0 +1,106 @@
+{
+  "id": "builder-designer-1",
+  "track": "builder",
+  "trackLabel": "Builder",
+  "subdomain": "designer",
+  "subdomainLabel": "Designer",
+  "level": 1,
+  "title": "Redesign empty cart for fashion shoppers",
+  "brand": "Myntra",
+  "domain": "Fashion",
+  "persona": "Rohan, product designer on Myntra checkout",
+  "scenario": "Empty cart on Myntra is a dead screen, just an icon and a ‘shop now’ CTA. Behavioural data says 38% of returning users land on the cart even when they haven't added anything, scanning for wishlist items they half-remember. Your design lead wants 3 redesign concepts with a clear opinion on which one to ship, and one that you'd reject and why.",
+  "techniques": [
+    "Constraint naming",
+    "Decision framing",
+    "Adversarial prompting"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "redesign the empty cart screen for myntra",
+  "badOutput": "Empty Cart Redesign\n\n1. Add product recommendations.\n2. Show wishlist items.\n3. Show recently viewed products.\n\nThese will help users find products and increase engagement.",
+  "hints": [
+    {
+      "title": "Anchor the user behaviour",
+      "body": "Tell Claude the 38% behaviour: returning users use the cart as a wishlist re-entry point. Without this, Claude defaults to generic empty-state patterns."
+    },
+    {
+      "title": "Force a rejected concept",
+      "body": "Demand one rejected concept WITH the reason. ‘Argue against one of your own ideas.’ This surfaces tradeoffs that a flat list of three hides."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "redesign|concept|direction|idea|approach",
+          "tip": "Frame the artifact, redesign concepts, not specs."
+        },
+        {
+          "pattern": "empty cart|empty state|cart screen|zero state",
+          "tip": "Name the surface, empty cart, not just ‘cart’."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "38|return|wishlist|behavior|behaviour|landing",
+          "tip": "Anchor the user behaviour, 38% of returning users use cart as wishlist re-entry."
+        },
+        {
+          "pattern": "fashion|shopper|myntra|apparel|category",
+          "tip": "Specify the category, fashion, it changes empty-state norms."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "3|three|exactly|no more|cap",
+          "tip": "Lock the count, 3 concepts. Otherwise Claude offers 7."
+        },
+        {
+          "pattern": "reject|argue against|kill|don.?t ship|adversari",
+          "tip": "Demand a rejected concept with the reason. Adversarial framing surfaces tradeoffs."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "design lead|review|opinion|recommend|pick|ship",
+          "tip": "Reference the design lead audience and the ‘pick one to ship’ ask."
+        },
+        {
+          "pattern": "trade.?off|why|reason|because|justif",
+          "tip": "Ask for the tradeoff reasoning, not just the recommendation."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|format|structure|bullet|description",
+          "tip": "Specify the structure, concept name + behaviour change + tradeoff."
+        },
+        {
+          "pattern": "wireframe|sketch|describe|low.?fi|component",
+          "tip": "Ask for low-fi descriptions, not just labels. Components, hierarchy, motion."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Empty-state redesigns from AI default to generic patterns. The unlock is anchoring the specific user behaviour AND forcing a rejected concept. Adversarial framing, ‘argue against one of your own ideas’, surfaces tradeoffs a flat list hides.",
+  "goldPrompt": "Act as a senior product designer at Myntra. I'm Rohan, designer on checkout. Empty cart is currently a dead screen (icon + 'shop now'). Behavioural data: 38% of returning users land on the cart with nothing added — they're scanning for half-remembered wishlist items. Output: 3 redesign concepts. For each: user-behaviour anchor, hero element, key interaction, expected impact metric. Then add ONE rejected concept WITH the reason it loses (e.g., adds friction, breaks browse flow). Format as a table. Lead must be able to ship one of these by next sprint.",
+  "guideAnchor": "basics"
+}

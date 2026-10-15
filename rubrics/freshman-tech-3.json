@@ -1,0 +1,106 @@
+{
+  "id": "freshman-tech-3",
+  "track": "freshman",
+  "trackLabel": "Freshman",
+  "subdomain": "tech",
+  "subdomainLabel": "Tech",
+  "level": 3,
+  "title": "Refactor a 300-line Python script",
+  "brand": "Internship grunt code",
+  "domain": "Code quality",
+  "persona": "Dhruv, summer intern at a startup",
+  "scenario": "Your manager dropped a 300-line Python script that scrapes data, cleans it, and emails a daily report. It works. It's also one giant function with 11 nested if-statements, prints used as logs, and credentials hard-coded at line 12. You have 2 days to refactor before the next intern inherits it. You want the refactor to teach the next person what the code does, not just make it shorter.",
+  "techniques": [
+    "Constraint naming",
+    "Decision framing",
+    "Refusal handling"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "refactor this 300-line python script",
+  "badOutput": "I'll help you refactor your script. General refactoring tips: break into functions, use logging instead of print, move credentials to environment variables, add type hints, write docstrings. Without seeing the code, I can give general guidance.",
+  "hints": [
+    {
+      "title": "Name the actual smells",
+      "body": "Call out the 11 nested ifs, the prints-as-logs, and hard-coded credentials. Specific smells beat ‘refactor this code’."
+    },
+    {
+      "title": "Force a teaching motive",
+      "body": "‘Refactor so the next intern can learn from it, not just so it's shorter.’ This changes how AI structures comments and module boundaries."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "refactor|restructur|reorganis|clean.?up|rewrite",
+          "tip": "Frame the artifact, a refactor."
+        },
+        {
+          "pattern": "python|script|function|module|file",
+          "tip": "Anchor the language and shape, Python script."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "300|line|nested|11|if|deep|long",
+          "tip": "Anchor the scale and shape, 300 lines, 11 nested ifs."
+        },
+        {
+          "pattern": "credential|hard.?code|secret|env|key",
+          "tip": "Surface the credentials issue, that's a security smell."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "intern|next|teach|learn|readable|junior",
+          "tip": "Name the audience, the next intern. Forces clarity."
+        },
+        {
+          "pattern": "log|print|stdout|logging|level",
+          "tip": "Surface the print-as-log smell explicitly."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "not.{0,8}shorter|teach|learn|comment|docstring|why",
+          "tip": "Force the teaching motive, not ‘make it shorter’."
+        },
+        {
+          "pattern": "test|testabl|unit|coverage|verify",
+          "tip": "Demand testability as a refactor goal."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "module|function|split|break|section",
+          "tip": "Demand a module/function breakdown, not a single file."
+        },
+        {
+          "pattern": "before|after|diff|compar|side.?by",
+          "tip": "Demand before/after or annotated rationale per change."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Refactor prompts get generic because they say ‘refactor this’ without naming the smells. The unlock is naming specific smells (11 nested ifs, prints-as-logs, hard-coded creds) AND a teaching motive (‘so the next intern can learn’). Refactor for the human downstream.",
+  "goldPrompt": "Act as a senior reviewer mentoring a junior. I'm Dhruv, summer intern. I have 2 days to refactor a 300-line Python script before another intern inherits it. Smells: one giant function, 11 nested if-statements, prints used as logs, hard-coded credentials at line 12. The refactor goal is TEACHING the next person, not minimising lines. Output: (1) the refactored module breakdown with names + responsibilities, (2) one-line description of what each file contains, (3) the 3 hardest decisions you faced and the trade-off, (4) what you'd flag as 'leave a comment for next intern'. Don't print code blocks longer than 20 lines.",
+  "guideAnchor": "advanced"
+}
