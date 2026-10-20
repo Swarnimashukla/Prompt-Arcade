@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-6",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 6,
+  "title": "Make a swarm's decision reconstructable afterwards",
+  "brand": "HDFC loan pre-assessment",
+  "domain": "Audit trails",
+  "persona": "Meher, compliance lead for an agent-assisted lending flow",
+  "scenario": "Six agents contribute to a loan pre-assessment: document reader, income verifier, bureau-score fetcher, policy matcher, risk scorer, and a summariser that writes the recommendation an officer sees. An applicant has asked why they were declined. The log holds six timestamped blobs of agent output and the final sentence the officer read. You cannot reconstruct which agent's finding actually moved the decision, and the regulator's question is not 'what did the model say' but 'what was this decision based on'.",
+  "techniques": [
+    "Audit trails",
+    "Decision attribution",
+    "Reconstructable reasoning"
+  ],
+  "tokenBudget": 340,
+  "badPrompt": "log everything each agent does so we have an audit trail",
+  "badOutput": "Full logging is enabled. All six agents now write their complete output to the audit log with timestamps, including intermediate reasoning. The log for this application contains 47 entries totalling 31,000 tokens covering every step of the assessment process.",
+  "hints": [
+    {
+      "title": "A log is not an audit trail",
+      "body": "Six blobs with timestamps is a record of what happened, not of what mattered. The regulator wants the chain from evidence to decision, not the transcript."
+    },
+    {
+      "title": "Attribution is the hard part",
+      "body": "Say which inputs the final recommendation actually rested on, and which were considered and set aside. 'Everything was logged' answers neither."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "reconstruct|trace|attribut|which agent|what .{0,15}based|chain|lineage",
+          "tip": "Ask for reconstructability, not logging. They are different asks."
+        },
+        {
+          "pattern": "decision|declin|recommend|outcome|verdict|assessment",
+          "tip": "Anchor it to the decision being explained, not the process in general."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "six|6 agent|reader|verifier|bureau|policy|risk|summaris",
+          "tip": "Name the six contributors. Attribution needs to know who could have moved it."
+        },
+        {
+          "pattern": "regulat|applicant|asked why|complian|explain|challenge|appeal",
+          "tip": "Name the audience. A regulator's question shapes the record differently from a debug log."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not |don.?t |never|rather than|instead of|without|no transcript|not everything",
+          "tip": "Rule out dumping everything. Volume is what made the current log useless."
+        },
+        {
+          "pattern": "load.?bearing|decisive|material|actually|moved|determin|but.?for|which .{0,10}mattered",
+          "tip": "Require the record to separate what decided the outcome from what was merely present."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "considered|set aside|rejected|discounted|overrid|not used|dismissed",
+          "tip": "Ask for what was considered and dropped. An appeal usually turns on that."
+        },
+        {
+          "pattern": "evidence|source|document|cite|where .{0,12}from|input|provenance",
+          "tip": "Tie each finding back to the evidence it came from, not just the agent that said it."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "schema|field|format|structur|json|record|table|template",
+          "tip": "Specify the record's fields, so every assessment produces the same shape."
+        },
+        {
+          "pattern": "human|officer|plain|readable|explain to|applicant can|one page",
+          "tip": "Require a version a person can read. A regulator does not accept a JSON dump either."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is the difference between logging and attribution. Strong version: 'Design the audit record for a six-agent loan pre-assessment, for a regulator asking what this decision was based on — not a debug log. For the declined application it must show: the decisive findings and which agent produced each, the evidence each finding rests on, the findings that were considered and set aside with why, and the policy clause the decline was issued under. Do NOT log full agent transcripts; volume is why the current log answers nothing. Output a JSON schema every assessment fills, plus a one-page plain-English version an officer can hand the applicant.'",
+  "goldPrompt": "Act as a compliance architect. I'm Meher, compliance lead on HDFC's agent-assisted loan pre-assessment.\n\nSix agents contribute: document reader, income verifier, bureau-score fetcher, policy matcher, risk scorer, summariser. An applicant has asked why they were declined. Our log holds six timestamped blobs and the sentence the officer read, and we cannot say which finding moved the decision. The regulator is not asking what the model said; they are asking what the decision was based on.\n\nDesign the audit RECORD, not more logging. For a declined application it must carry:\n1. The decisive findings — the ones that changed the outcome — each attributed to the agent that produced it.\n2. The evidence under each finding: which document, which bureau field, which policy clause. Not 'the verifier said so'.\n3. What was considered and set aside, and why. Appeals usually turn on this, and it is the part a transcript hides.\n4. The specific policy clause the decline was issued under.\n\nDo NOT log full agent transcripts. Thirty-one thousand tokens of reasoning is why the current log answers nothing.\n\nOutput: a JSON schema every assessment fills, then the same decision rendered as a one-page plain-English account an officer could hand the applicant — and tell me which of the four items above is hardest to capture honestly, and why.",
+  "guideAnchor": "agents"
+}

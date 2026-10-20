@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/mario.css">
 <style>
 /* Field Guide specifics. Everything shared lives in css/mario.css. */
@@ -65,11 +66,11 @@
   </div>
 </header>
 
-<main class="wrap" style="padding-top:48px; padding-bottom:60px">
+<main class="wrap page-tall">
 
   <span class="tag">Field Guide</span>
-  <h2 style="margin-top:14px">Everything you need, nothing you don't.</h2>
-  <p class="muted" style="max-width:640px; margin-top:8px">
+  <h2 class="mt-14">Everything you need, nothing you don't.</h2>
+  <p class="muted measure mt-8">
     The reference handbook. Pop in mid-level when stuck. Each section is anchored by what it changes about your prompt.
   </p>
 
@@ -87,8 +88,8 @@
   <!-- WHY -->
   <section class="guide-block" id="why">
     <div class="section-eyebrow">Foundation</div>
-    <h2 style="margin-top:6px">Why learn prompt engineering?</h2>
-    <p style="margin-top:10px">
+    <h2 class="mt-6">Why learn prompt engineering?</h2>
+    <p class="mt-10">
       AI tools are everywhere, but most professionals use them like they're DM-ing a junior colleague. Vague, contextless, then surprised when the output is mush. The shift: execution cost has dropped to near-zero. The value of your work now lives in the decisions you make: what to build, what to exclude, what to challenge.
     </p>
     <div class="kv-grid">
@@ -101,8 +102,8 @@
   <!-- SUSTAINABLE -->
   <section class="guide-block" id="sustainable">
     <div class="section-eyebrow">Sustainability</div>
-    <h2 style="margin-top:6px">Sustainable prompting</h2>
-    <p style="margin-top:10px">
+    <h2 class="mt-6">Sustainable prompting</h2>
+    <p class="mt-10">
       Sustainable prompting isn't about writing shorter prompts, it's about writing <em>smarter</em> ones. More context upfront = fewer correction cycles = less total token spend. A 200-token prompt that produces a usable 300-token response is more sustainable than a 20-token prompt that triggers 5 rounds of 500-token corrections.
     </p>
     <div class="examples">
@@ -122,8 +123,8 @@
   <!-- RESPONSIBLE -->
   <section class="guide-block" id="responsible">
     <div class="section-eyebrow uv">Responsibility</div>
-    <h2 style="margin-top:6px">Why use AI responsibly?</h2>
-    <p style="margin-top:10px">AI use should be effective and efficient, but also ethical and safe. Three diligences to anchor your practice:</p>
+    <h2 class="mt-6">Why use AI responsibly?</h2>
+    <p class="mt-10">AI use should be effective and efficient, but also ethical and safe. Three diligences to anchor your practice:</p>
     <div class="kv-grid">
       <div class="kv-card"><div class="kv-tag">Creation</div><h4>Be intentional</h4><p>Critically aware of which AI systems you use, how you work with them, and the impacts.</p></div>
       <div class="kv-card"><div class="kv-tag">Transparency</div><h4>Be open</h4><p>Open about AI interactions with relevant stakeholders. Who needs to know? At what level of detail?</p></div>
@@ -134,8 +135,8 @@
   <!-- BASICS -->
   <section class="guide-block" id="basics">
     <div class="section-eyebrow">Fundamentals</div>
-    <h2 style="margin-top:6px">PE 101 · The 4D Framework</h2>
-    <p style="margin-top:10px">Anthropic's core model: four interconnected competencies that work together, not in sequence.</p>
+    <h2 class="mt-6">PE 101 · The 4D Framework</h2>
+    <p class="mt-10">Anthropic's core model: four interconnected competencies that work together, not in sequence.</p>
     <div class="kv-grid">
       <div class="kv-card"><div class="kv-tag">01</div><h4>Delegation</h4><p>Decide which tasks to assign to AI, and how. Domain expertise is the foundation.</p></div>
       <div class="kv-card"><div class="kv-tag">02</div><h4>Description</h4><p>Clearly define what you want. Context, format, audience, style, constraints.</p></div>
@@ -143,7 +144,7 @@
       <div class="kv-card"><div class="kv-tag">04</div><h4>Diligence</h4><p>Take responsibility for AI interactions and their impacts. Be rigorous and accountable.</p></div>
     </div>
 
-    <h3 style="margin-top:32px">Description has three flavours</h3>
+    <h3 class="mt-32">Description has three flavours</h3>
     <div class="kv-grid">
       <div class="kv-card"><div class="kv-tag">Product</div><h4>What you want</h4><p>Output characteristics: context, format, audience, style, constraints.</p></div>
       <div class="kv-card"><div class="kv-tag">Process</div><h4>How to approach it</h4><p>Should AI think step by step? Debate itself? Explore multiple paths before concluding?</p></div>
@@ -154,8 +155,8 @@
   <!-- ADVANCED -->
   <section class="guide-block" id="advanced">
     <div class="section-eyebrow">Advanced</div>
-    <h2 style="margin-top:6px">Six techniques that compound</h2>
-    <p style="margin-top:10px">Each addresses a specific failure mode in how AI processes instructions.</p>
+    <h2 class="mt-6">Six techniques that compound</h2>
+    <p class="mt-10">Each addresses a specific failure mode in how AI processes instructions.</p>
     <div class="tactic-row">
       <div class="tactic"><div class="ic">R</div><h4>Define role, style, tone</h4><p>Not "act like a designer" but "act as a senior product designer who has shipped AI features in regulated industries."</p></div>
       <div class="tactic"><div class="ic">T</div><h4>Ask AI to think first</h4><p>"Before answering, think through the problem carefully. Consider constraints and approaches before recommending."</p></div>
@@ -169,17 +170,17 @@
   <!-- DISCERNMENT -->
   <section class="guide-block" id="discernment">
     <div class="section-eyebrow uv">Discernment</div>
-    <h2 style="margin-top:6px">Evaluating AI output</h2>
-    <p style="margin-top:10px">Discernment ensures AI collaboration remains guided by human judgment. Three lenses:</p>
+    <h2 class="mt-6">Evaluating AI output</h2>
+    <p class="mt-10">Discernment ensures AI collaboration remains guided by human judgment. Three lenses:</p>
     <div class="kv-grid">
       <div class="kv-card"><div class="kv-tag">Product</div><h4>Did it produce good work?</h4><p>Factually accurate? Appropriate to audience? Coherent? Adds value?</p></div>
       <div class="kv-card"><div class="kv-tag">Process</div><h4>Did it reason well?</h4><p>Watch for: logical inconsistency, lapses in attention, getting trapped in circular reasoning.</p></div>
       <div class="kv-card"><div class="kv-tag">Performance</div><h4>Did it behave right?</h4><p>Communication style appropriate? Right level of detail? Response to feedback efficient?</p></div>
     </div>
 
-    <div class="card card-coral" style="margin-top:30px">
+    <div class="card card-coral mt-30">
       <h3>The senior-level unlock</h3>
-      <p style="margin-top:8px">
+      <p class="mt-8">
         <strong>Chain-of-thought prompting.</strong> Add "Walk me through your reasoning before presenting the answer." For any ambiguous or high-stakes prompt, this dramatically improves output quality. The model is forced to show its work before concluding.
       </p>
     </div>
@@ -188,8 +189,8 @@
   <!-- CONTEXT ENGINEERING -->
   <section class="guide-block" id="context">
     <div class="section-eyebrow">Context engineering</div>
-    <h2 style="margin-top:6px">The window is the unit, not the prompt</h2>
-    <p style="margin-top:10px">Prompt engineering asks what to say. Context engineering asks what the model can see when it answers: the system prompt, the tools and their descriptions, retrieved documents, examples, and the history of the conversation so far. All of it competes for the same finite attention.</p>
+    <h2 class="mt-6">The window is the unit, not the prompt</h2>
+    <p class="mt-10">Prompt engineering asks what to say. Context engineering asks what the model can see when it answers: the system prompt, the tools and their descriptions, retrieved documents, examples, and the history of the conversation so far. All of it competes for the same finite attention.</p>
 
     <div class="kv-grid">
       <div class="kv-card"><div class="kv-tag">Altitude</div><h4>Neither rigid nor vague</h4><p>Hard-coded rules shatter on the case you didn't foresee. Vague guidance invents policy. Aim for principles with one worked example each.</p></div>
@@ -200,15 +201,15 @@
       <div class="kv-card"><div class="kv-tag">Attention</div><h4>Longer is not safer</h4><p>Padding a window with maybe-relevant material degrades recall of what is relevant. A tight window outperforms a full one.</p></div>
     </div>
 
-    <h3 style="margin-top:32px">The test</h3>
-    <p style="margin-top:8px">For every token in the window, ask: if this were missing, would the answer change? If not, it is costing attention and buying nothing.</p>
+    <h3 class="mt-32">The test</h3>
+    <p class="mt-8">For every token in the window, ask: if this were missing, would the answer change? If not, it is costing attention and buying nothing.</p>
   </section>
 
   <!-- AGENTS -->
   <section class="guide-block" id="agents">
     <div class="section-eyebrow">Agents</div>
-    <h2 style="margin-top:6px">One agent, then many</h2>
-    <p style="margin-top:10px">An agent is a loop: gather context, act with a tool, check the result, decide whether it is done. Most agent failures are not reasoning failures. They are missing stop conditions, tool descriptions that invited misuse, or permissions that did not match how hard an action is to undo.</p>
+    <h2 class="mt-6">One agent, then many</h2>
+    <p class="mt-10">An agent is a loop: gather context, act with a tool, check the result, decide whether it is done. Most agent failures are not reasoning failures. They are missing stop conditions, tool descriptions that invited misuse, or permissions that did not match how hard an action is to undo.</p>
 
     <div class="tactic-row">
       <div class="tactic"><div class="ic">T</div><h4>Tool contracts</h4><p>A description is a contract, not a label. Say when NOT to call it, which cheaper tool to prefer, the required bounds, and what to do when it fails instead of retrying unchanged.</p></div>
@@ -219,13 +220,13 @@
       <div class="tactic"><div class="ic">H</div><h4>Handoff contracts</h4><p>Free-form prose between stages destroys provenance. Pass atomic records carrying their source and the stage that last touched them, so an error traces to the hop that introduced it.</p></div>
     </div>
 
-    <div class="card card-lime" style="margin-top:30px">
+    <div class="card card-lime mt-30">
       <h3>The cold-start rule</h3>
-      <p style="margin-top:8px">A subagent sees only the brief it is given, never the conversation that produced it, and it usually cannot come back to ask. Write every brief as if you will never speak again: pin the scope, state what is out of scope and owned by someone else, define what done means, and say what to do with unknowns. Every ambiguity you leave becomes a guess.</p>
+      <p class="mt-8">A subagent sees only the brief it is given, never the conversation that produced it, and it usually cannot come back to ask. Write every brief as if you will never speak again: pin the scope, state what is out of scope and owned by someone else, define what done means, and say what to do with unknowns. Every ambiguity you leave becomes a guess.</p>
     </div>
   </section>
 
-  <div style="margin-top:48px; text-align:center">
+  <div class="mt-48 center">
     <a href="tracks.html" class="btn btn-coral">Go practice this →</a>
   </div>
 

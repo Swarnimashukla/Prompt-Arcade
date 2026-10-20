@@ -56,6 +56,65 @@ function tierFromScore(score10, passedBudget, responsibilityCue) {
 
 const RESPONSIBILITY = /not |don.?t |avoid|cite|source|verbatim|flag|refus|bias|pii|privacy|hallucinat|verify|uncertain/i;
 
+// Does this text instruct an assistant, or only describe a situation?
+//
+// Every dimension above measures what a prompt INSTRUCTS, and the
+// patterns were authored from each level's scenario — which makes the
+// scenario a near-perfect match for its own rubric. Pasting the brief
+// back scored 8/10 or better on 28 of the 45 levels and reached the top
+// tier on 20 of them. No per-dimension fix reaches that, because every
+// dimension is genuinely satisfied; what is missing is the ask.
+//
+// The judge answers this properly. This is the model-free version for
+// when no key is configured, and it is tuned so its errors fall the
+// safe way: across all 45 reference answers it gates none of them, and
+// it catches 40 of the 45 brief-pastes. Being too generous leaves
+// today's behaviour; being too strict would fail someone who did the
+// work, so the first error is the one to prefer.
+// Verbs that are rarely sentence-initial nouns. Opening a clause with
+// one is enough on its own.
+const CLEAR_VERB = [
+  'write', 'rank', 'draft', 'summaris', 'summariz', 'analys', 'analyz',
+  'explain', 'compare', 'identify', 'generate', 'produce', 'create',
+  'suggest', 'recommend', 'rewrite', 'propose', 'cite', 'include', 'exclude',
+  'avoid', 'keep', 'build', 'consider', 'assume', 'pretend', 'respond',
+  'limit', 'highlight', 'critique', 'evaluate', 'verify', 'translat',
+  'convert', 'extract', 'classif', 'walk', 'think', 'make', 'give', 'tell',
+  'ask', 'show', 'find', 'outline', 'flag'
+].join('|');
+
+// Verbs that double as ordinary nouns. "Returns rate jumped" and "Design
+// review is on Friday" both open a sentence with one and instruct
+// nobody, so these only count with an object after them. Getting this
+// wrong in the other direction is what made the brief you paste read as
+// a prompt.
+const NOUNY_VERB = [
+  'design', 'review', 'answer', 'format', 'structure', 'plan', 'map',
+  'turn', 'check', 'list', 'score', 'rate', 'label', 'group', 'sort',
+  'focus', 'end', 'start', 'use', 'add', 'remove', 'output', 'return'
+].join('|');
+
+const OBJECT = '(the|a|an|this|that|these|those|each|every|all|any|my|your|our'
+  + '|their|its|it|them|me|us|how|what|which|why|where|when|\\d+|one|two|three'
+  + '|four|five|six|seven|eight|nine|ten|only|exactly|at least|no more)';
+
+const CLAUSE_START = '(^|[.!?;:\\n]\\s*|^\\s*[-*\\d.)]+\\s*)';
+
+const INSTRUCTION = new RegExp(
+  // "Rank the five hypotheses", "Explain why"
+  CLAUSE_START + '(' + CLEAR_VERB + ')(e|es|ed|ing|y)?\\b'
+  // "List the three options" — but not "List price is £40"
+  + '|' + CLAUSE_START + '(' + NOUNY_VERB + ')\\s+' + OBJECT + '\\b'
+  // role assignment: "Act as a senior reviewer", "You're a writing partner"
+  + '|\\b(act|respond|reply|behave|answer|write) as\\b'
+  + '|\\byou.?(re|are|will be|act|should|must)\\b'
+  // a direct ask
+  + '|\\b(i want|i need|i.d like|please|your (task|job|goal|role) is)\\b'
+  // a negative instruction: "do not propose redesigns"
+  + '|\\bdo (not|n.t)\\b.{0,40}\\b(' + CLEAR_VERB + '|' + NOUNY_VERB + ')\\b',
+  'i'
+);
+
 // `verdicts` is optional. When the evidence-grounded judge in judge.js
 // has graded the attempt, it arrives here as a map of criterion id ->
 // { passed, quote } and replaces the regex decision for every check.
@@ -114,7 +173,7 @@ function scoreText(prompt, rubric, verdicts) {
   // judge found them, because "you had all the material and never asked
   // for anything" is the more useful thing to be shown than a zero.
   const instrVerdict = judged ? judged.instruction : null;
-  const wroteAnInstruction = instrVerdict ? instrVerdict.passed : true;
+  const wroteAnInstruction = instrVerdict ? instrVerdict.passed : INSTRUCTION.test(text);
 
   const tier = wroteAnInstruction
     ? tierFromScore(score10, passedBudget, responsibilityCue)

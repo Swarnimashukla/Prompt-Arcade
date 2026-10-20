@@ -1,0 +1,106 @@
+{
+  "id": "context-window-6",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 6,
+  "title": "Write the contract for an agent's memory file",
+  "brand": "Zoho CRM assistant",
+  "domain": "Memory",
+  "persona": "Devika, PM for a sales assistant that works the same accounts for months",
+  "scenario": "Your agent keeps a memory file across sessions. Six months in, it is 4,000 tokens of sediment: a stale 'Q2 targets' block, a preference the rep reversed in March and again in July, eleven one-off facts from single calls, and three genuinely load-bearing things — the rep's territory, their no-cold-call rule, and a client who must never be emailed on Fridays. Nothing has ever been deleted, because nothing said when to. The agent now cites the reversed preference about once a week.",
+  "techniques": [
+    "Memory contracts",
+    "Write and delete criteria",
+    "Supersession"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "remember important things about this user between sessions",
+  "badOutput": "I'll remember that. Noted: the user prefers morning meetings. I'll also keep in mind your Q2 targets, your territory, and your preference for email over calls, along with the other details we've discussed. Let me know if there's anything else you'd like me to remember.",
+  "hints": [
+    {
+      "title": "A write rule without a delete rule is a leak",
+      "body": "Every memory file that grows forever was written by someone who only specified when to add. Say when an entry leaves."
+    },
+    {
+      "title": "Handle the reversal explicitly",
+      "body": "The March preference and the July preference are both 'true things the rep said'. Without a supersession rule the agent has no way to prefer the later one."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "contract|rule|criteri|polic|when to|what qualifies",
+          "tip": "Ask for a contract — rules for the file — not a cleaned-up copy of it."
+        },
+        {
+          "pattern": "write|add|record|store|save|commit",
+          "tip": "Name the write rule: what earns a place in the file at all."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "4,?000|4k|six month|6 month|sediment|grown|bloat",
+          "tip": "Anchor the state: 4,000 tokens accumulated over six months with nothing removed."
+        },
+        {
+          "pattern": "territory|cold.?call|friday|load.?bearing|three|must never",
+          "tip": "Name the three load-bearing facts, so they are protected by name rather than by luck."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "delet|remove|expire|evict|drop|retire|sunset|ttl",
+          "tip": "Require a delete rule. Without one the file only ever grows."
+        },
+        {
+          "pattern": "supersed|reverse|replace|contradict|overrid|later|most recent|conflict",
+          "tip": "Specify supersession: what happens when a new fact contradicts an old one."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "stale|q2|march|july|out of date|no longer|expired",
+          "tip": "Point at the stale entries directly — the Q2 block and the reversed preference."
+        },
+        {
+          "pattern": "ceiling|cap|budget|size|token|bounded|limit|max",
+          "tip": "Give the file a size ceiling, so the rules have to resolve a real competition."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|schema|field|format|heading|structur|shape",
+          "tip": "Specify the file's shape, not just its rules."
+        },
+        {
+          "pattern": "not |don.?t |avoid|never|without|no narrative|no summar",
+          "tip": "Add a negative: no conversational recap, no storing what is recoverable elsewhere."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is that this is a contract question, not a cleanup question. Strong version: 'Write the memory contract for this agent. It must say: what qualifies for a write (and what does not, however interesting), when an entry is deleted, and how a later fact supersedes an earlier one — the rep reversed the same preference in March and again in July and the agent still cites March. Protect by name: territory, the no-cold-call rule, the client who is never emailed on Fridays. Cap the file at 800 tokens so the rules have to choose. Output the contract as rules, then the file's section shape. Do NOT give me a cleaned-up copy of the current file.'",
+  "goldPrompt": "Act as an agent designer. I'm Devika, PM on a Zoho CRM sales assistant that works the same accounts for months.\n\nIts memory file is now 4,000 tokens of sediment after six months: a stale Q2 targets block, a preference the rep reversed in March and again in July, eleven one-off facts from single calls, and three load-bearing things — their territory, their no-cold-call rule, and a client who must never be emailed on Fridays. Nothing has ever been deleted because nothing ever said when to. It cites the reversed preference about weekly.\n\nWrite the CONTRACT, not a tidied copy of the file. It must specify:\n1. What qualifies for a write — and explicitly what does not, however interesting it seemed in the moment.\n2. When an entry is deleted: by age, by disuse, or by being recoverable from the CRM itself.\n3. Supersession — how a July fact beats a March fact that contradicts it, and what happens to the March one.\n4. A hard ceiling of 800 tokens, so the rules have to resolve a real competition rather than defer it.\n\nProtect by name: territory, no-cold-call, the Friday client. Those survive any eviction rule you write.\n\nDo NOT include conversational recap, and do not store anything the CRM already holds.\n\nOutput: the rules as numbered clauses, then the file's section headings, then one worked example of the March/July conflict being resolved under your rules.",
+  "guideAnchor": "context"
+}

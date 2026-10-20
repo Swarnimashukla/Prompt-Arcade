@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-6",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 6,
+  "title": "Put an agent on a token and latency budget",
+  "brand": "Urban Company booking flow",
+  "domain": "Budgets",
+  "persona": "Rohit, PM for an in-app agent that books home services",
+  "scenario": "Your agent sits in a booking flow where users abandon after about 8 seconds of silence. It averages 11 seconds and 14,000 tokens per booking, but the average hides the shape: 70% finish in 4 seconds, and 30% spiral — re-reading the same availability tool four or five times, re-deriving a slot it already found, and occasionally looping until a timeout kills it. Nobody has told it that time or tokens are finite.",
+  "techniques": [
+    "Budget setting",
+    "Degradation under pressure",
+    "Loop detection"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "be efficient and don't use too many tokens",
+  "badOutput": "I'll be efficient. Let me check availability for you. Let me check availability for that slot. Let me verify that availability once more to be certain. Checking the schedule again to confirm. Let me just re-check availability to make sure I have the correct information.",
+  "hints": [
+    {
+      "title": "'Be efficient' is not a budget",
+      "body": "A budget has a number and a consequence when the number is reached. Without the consequence the agent has nothing to do at the limit but carry on."
+    },
+    {
+      "title": "Say what to give up first",
+      "body": "At the ceiling it must degrade somehow. Decide whether it returns a partial answer, asks the user, or hands off — and rank what gets dropped."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "budget|ceiling|cap|limit|max|no more than|within",
+          "tip": "State it as a budget with a number, not a request to be frugal."
+        },
+        {
+          "pattern": "second|latency|time|8|eight|token|14,?000|step|call",
+          "tip": "Give both budgets: wall-clock seconds and tokens or tool calls."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "abandon|drop off|leave|8 second|eight second|user wait",
+          "tip": "Anchor the 8-second abandonment point. That is where the number comes from."
+        },
+        {
+          "pattern": "70|30|spiral|average hides|tail|distribut|most finish",
+          "tip": "Describe the distribution, not the average. The tail is the thing being fixed."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "repeat|same tool|again|re.?read|re.?deriv|dupl|loop|twice",
+          "tip": "Forbid re-calling a tool for information it already has. That is the specific spiral."
+        },
+        {
+          "pattern": "not |don.?t |never|must not|without|stop",
+          "tip": "Add a hard stop, so the ceiling is a wall rather than a suggestion."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "degrad|partial|best .{0,10}so far|fall back|hand (off|over)|ask the user|graceful",
+          "tip": "Say how it degrades at the limit: partial answer, handoff, or a question."
+        },
+        {
+          "pattern": "priorit|first|drop|sacrifice|give up|order|least important",
+          "tip": "Rank what gets dropped first, so the degradation is chosen rather than arbitrary."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "report|surfac|log|tell|show|state .{0,15}(used|spent|remaining)|annotat",
+          "tip": "Require it to report what it spent, so the budget is measurable rather than hoped for."
+        },
+        {
+          "pattern": "format|structur|field|json|schema|shape|partial result",
+          "tip": "Specify the shape of a partial result, so a truncated answer is still usable."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is the consequence, not the number. Strong version: 'Work within a hard budget: 6 seconds and 8 tool calls per booking, because users abandon at 8 seconds and 30% of runs currently spiral past it. Never call a tool for information already in this session — if you have the slot, use it. At 80% of either budget, stop exploring and return the best booking found so far, marked partial, with the one thing you did not get to verify. At 100%, stop and hand to the human flow. Drop in this order: alternative slots, then provider ratings; never drop price or the confirmed time. Report seconds and calls used with every answer.'",
+  "goldPrompt": "You are an agent designer. I'm Rohit, PM on Urban Company's in-app booking agent.\n\nUsers abandon after ~8 seconds of silence. The agent averages 11 seconds and 14,000 tokens, but the average lies: 70% finish in 4 seconds and 30% spiral — re-calling availability four or five times, re-deriving a slot it already found, sometimes looping until a timeout kills it. It has never been told that time is finite.\n\nHard budget: 6 seconds and 8 tool calls per booking.\n\nRules:\n- Never call a tool for something already in this session. If you have the slot, use it; do not re-confirm it.\n- At 80% of either budget: stop exploring, return the best booking found so far marked partial, and name the one thing you did not verify.\n- At 100%: stop and hand to the human flow. Do not continue past it.\n\nWhen you must drop work, drop in this order: alternative slots first, then provider ratings. Never drop the price or the confirmed time — a partial answer missing either is useless.\n\nReport seconds and tool calls used with every answer, so I can measure this rather than hope for it.\n\nOutput the booking as JSON with a `partial` flag and an `unverified` list, so a truncated result is still something the app can render.",
+  "guideAnchor": "agents"
+}

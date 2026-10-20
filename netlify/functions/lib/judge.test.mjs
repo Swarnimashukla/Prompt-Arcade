@@ -316,9 +316,42 @@ check('the blurb says what is missing',
 check('a real instruction is not gated', surgical.tier.name, 'Surgical');
 check('the gate passes there', surgical.wroteAnInstruction, true);
 
-// On the regex path there is no gate verdict, so nothing is gated: the
-// fallback must not start failing people on a check it cannot make.
-check('the regex path never gates', fallback.wroteAnInstruction, true);
+// The regex path runs its own gate. The error profile is what makes it
+// safe to ship: measured over all 45 levels it gates none of the
+// reference answers and catches 40 of the 45 brief-pastes.
+check('the regex path gates a real instruction through', fallback.wroteAnInstruction, true);
+
+const pastedBrief = scoreText(
+  "Returns rate on women's ethnic wear jumped from 22% to 41% in the 10 days after Big Billion Days. You have order-level data, return-reason tags, and a sample of 200 returned-item photos from the warehouse. You don't have customer call recordings. Tomorrow you owe category leadership a hypothesis-led memo, not a redesign.",
+  rubric);
+check('the regex path catches a pasted brief', pastedBrief.wroteAnInstruction, false);
+check('and drops it to Draft', pastedBrief.tier.name, 'Draft');
+
+check('a keyword salad is not an instruction', scoreText(
+  'diagnose hypothesis returns fashion big billion days 22 41 spike no call recordings warehouse photos return-reason tags not a redesign rank priority likelihood leadership tomorrow exec memo category decision step by step reasoning table format confirm deny check cite sources',
+  rubric).wroteAnInstruction, false);
+
+// The errors that would hurt: a real attempt gated to Draft.
+check('a terse real prompt is not gated',
+  scoreText('Rank five hypotheses for the returns spike. No redesigns.', rubric).wroteAnInstruction, true);
+check('a lowercase sloppy prompt is not gated',
+  scoreText('give me 5 hypotheses ranked by likelihood, and dont suggest redesigns', rubric).wroteAnInstruction, true);
+check('a role-only prompt is not gated',
+  scoreText('You are a senior PM partner at Flipkart helping me think through a returns spike.', rubric).wroteAnInstruction, true);
+
+// Measured over the real corpus, not a sample.
+import { readFileSync, readdirSync } from 'fs';
+const corpus = readdirSync(join(here, '..', '..', '..', 'rubrics'))
+  .map(f => JSON.parse(readFileSync(join(here, '..', '..', '..', 'rubrics', f), 'utf8')));
+check('no reference answer is gated across all 45 levels',
+  corpus.filter(r => !scoreText(r.goldPrompt, r).wroteAnInstruction).length, 0);
+check('at most 6 of 45 briefs slip through',
+  corpus.filter(r => scoreText(r.scenario, r).wroteAnInstruction).length <= 6, true);
+
+check('an Act-as opener is a prompt',
+  scoreText('Act as a pricing-experiment designer and rank the options.', rubric).wroteAnInstruction, true);
+check('a noun that doubles as a verb is not an instruction',
+  scoreText('Design review is on Friday. List price is 40 pounds.', rubric).wroteAnInstruction, false);
 
 
 console.log(failures ? `\n${failures} failing` : '\nall passing');

@@ -48,6 +48,10 @@
         {
           "pattern": "2,?300|2300|word|six month|6 month|grew|accret|junk",
           "tip": "Give the size and how it got there. Accretion over time is the actual problem."
+        },
+        {
+          "pattern": "12 incident|twelve|incident log|why .{0,15}added|each rule|provenance|history",
+          "tip": "Hand it the incident log. A rule you cannot trace to a cause cannot be safely cut."
         }
       ]
     },

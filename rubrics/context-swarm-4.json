@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-4",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 4,
+  "title": "Decide what agents share and what they pass",
+  "brand": "Nykaa catalogue enrichment",
+  "domain": "Shared state",
+  "persona": "Aisha, engineer on a pipeline that enriches product listings",
+  "scenario": "Four agents work a product listing: one reads the supplier PDF, one writes marketing copy, one checks claims against regulation, one assembles the final record. Today they all read and write one shared scratchpad. The copywriter's draft adjectives get picked up by the compliance checker as if they were supplier facts, and the assembler cannot tell which claims came from the PDF and which were invented two steps later. Nothing is wrong with any single agent's output.",
+  "techniques": [
+    "Shared state vs message passing",
+    "Provenance",
+    "Context isolation"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "have the agents share a scratchpad so they can see each other's work",
+  "badOutput": "All four agents now have access to the shared workspace and can see each other's contributions. The compliance agent has verified the claims: 'luxuriously hydrating', 'clinically loved', and 'dermatologist favourite' are all present in the product information and have been approved for the final listing.",
+  "hints": [
+    {
+      "title": "The bug is not in any agent",
+      "body": "Every output here is individually fine. The failure is that a shared surface erases where things came from, so a draft becomes a fact by being written down."
+    },
+    {
+      "title": "Decide per edge, not per system",
+      "body": "Some pairs genuinely need shared state; most need a message with a known shape. Go through the four hops and say which is which."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "share|scratchpad|common|workspace|message|pass|hand",
+          "tip": "Name the actual choice: a shared surface or a passed message."
+        },
+        {
+          "pattern": "each hop|per edge|between|pair|four agent|which agent",
+          "tip": "Ask for a decision per hop rather than one architecture for all four."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "provenance|origin|came from|source|who wrote|supplier|invented|derived",
+          "tip": "Name provenance as the thing being lost. That is the actual defect."
+        },
+        {
+          "pattern": "adjective|draft|marketing|copy|claim|compliance|regulat",
+          "tip": "Describe the specific confusion: draft copy read as supplier fact by the checker."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not |don.?t |never|must not|cannot|without|no agent",
+          "tip": "Forbid the thing that broke: the checker must not treat another agent's draft as evidence."
+        },
+        {
+          "pattern": "isolat|separate|own context|private|scope|only see|restrict",
+          "tip": "Require isolation where it matters, so an agent sees only what it needs."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "verifiab|trace|audit|attribut|label|tag|mark",
+          "tip": "Ask for every claim to carry its origin, so the assembler can tell them apart."
+        },
+        {
+          "pattern": "why|trade.?off|reason|justif|cost|because",
+          "tip": "Ask for the reasoning per hop, not just the verdict."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|diagram|list|format|structur|row|schema",
+          "tip": "Specify a shape: the four hops against what crosses each one."
+        },
+        {
+          "pattern": "field|key|shape of|payload|contract|what exactly",
+          "tip": "Require the payload's fields, not a vague 'passes the draft'."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is naming provenance as the thing a shared scratchpad destroys. Strong version: 'Go hop by hop through reader → writer → checker → assembler and decide, for each, shared state or a passed message, with one line of reasoning. The defect is provenance: the checker currently reads the copywriter's draft adjectives as supplier facts, and the assembler cannot tell a PDF claim from an invented one. Every claim must carry its origin. The compliance checker must see the supplier extract and NOT the marketing draft. Output a 3-row table — hop · shared or passed · payload fields — then the provenance field every claim carries.'",
+  "goldPrompt": "Act as a multi-agent architect. I'm Aisha, on Nykaa's catalogue enrichment pipeline.\n\nFour agents: PDF reader → copywriter → compliance checker → assembler. All four read and write one shared scratchpad. No single agent's output is wrong, and the pipeline is still broken: the copywriter's draft adjectives are picked up by the checker as if they were supplier facts, and the assembler cannot tell a claim from the PDF from one invented two steps later.\n\nThe defect is provenance. A shared surface makes anything written there look equally true.\n\nGo hop by hop — reader→writer, writer→checker, checker→assembler — and decide for each: shared state or a passed message, with one line of reasoning that says what would go wrong under the other choice.\n\nTwo hard constraints:\n- The compliance checker sees the supplier extract and must NOT see the marketing draft as evidence. If it needs the draft, it receives it labelled as an unverified claim to test, never as a fact.\n- Every claim that reaches the assembler carries its origin: supplier PDF, generated copy, or verified-against-regulation.\n\nOutput a 3-row table (hop · shared or passed · exact payload fields), then the provenance field attached to every claim, then one line on what this design makes harder that the scratchpad made easy.",
+  "guideAnchor": "agents"
+}

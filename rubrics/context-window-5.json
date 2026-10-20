@@ -1,0 +1,106 @@
+{
+  "id": "context-window-5",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 5,
+  "title": "Decide what to load up front and what to fetch",
+  "brand": "Razorpay merchant support",
+  "domain": "Retrieval strategy",
+  "persona": "Imran, engineer wiring a merchant-facing agent",
+  "scenario": "Your agent answers merchant questions about payouts. Four things could go in the window: the 900-token settlement policy (changes quarterly, needed in roughly 1 in 3 conversations), the merchant's own account record (400 tokens, needed every time), a 60k-token transaction history (needed in maybe 1 in 20, and only a slice of it), and a 12k-token FAQ corpus (needed rarely, but when it is needed the exact wording matters). You can load up front or retrieve on demand. Retrieval costs a round trip and sometimes returns nothing useful.",
+  "techniques": [
+    "Retrieval vs preloading",
+    "Hit-rate reasoning",
+    "Failure-mode naming"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "should i use rag or just put everything in the prompt?",
+  "badOutput": "It depends on your use case. RAG is good for large knowledge bases and keeps your prompt small, while putting things in the prompt is simpler and faster. Many teams use a hybrid approach. Consider your latency requirements and the size of your data when deciding.",
+  "hints": [
+    {
+      "title": "Decide per item, not per architecture",
+      "body": "'RAG or not' is the wrong unit. Four items with four different hit rates and four different sizes get four different answers."
+    },
+    {
+      "title": "Price the miss, not just the tokens",
+      "body": "Retrieval that returns nothing useful is worse than a wasted 900 tokens. Say what happens on a miss and the trade-off becomes decidable."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "each|per item|item by item|all four|every one|individually",
+          "tip": "Ask for a decision per item, not one verdict for the whole system."
+        },
+        {
+          "pattern": "load|preload|up front|retriev|fetch|on demand",
+          "tip": "Name the actual choice: preload into the window, or fetch at call time."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "900|400|60k|12k|token|size",
+          "tip": "Include the sizes. The decision is unanswerable without them."
+        },
+        {
+          "pattern": "1 in 3|1 in 20|every time|rare|hit rate|frequen|how often",
+          "tip": "Include how often each is needed. Hit rate drives the answer more than size does."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "round trip|latency|miss|returns nothing|stale|quarterly|changes",
+          "tip": "Name the costs of retrieval: a round trip, and misses that return nothing useful."
+        },
+        {
+          "pattern": "not |don.?t |avoid|without|no generic|rather than",
+          "tip": "Add a negative: no generic 'it depends', no architecture lecture."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "exact wording|verbatim|slice|partial|only a|precision",
+          "tip": "Flag the FAQ's exact-wording requirement and the history's slice-only use. Both change the answer."
+        },
+        {
+          "pattern": "trade.?off|cost|cheaper|worth|justif|why",
+          "tip": "Ask for the trade-off behind each call, not just the call."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|row|column|matrix|format|structur",
+          "tip": "Specify a table: four items against the decision and its reason."
+        },
+        {
+          "pattern": "change|revisit|threshold|if .{0,20}(rise|fall|grow|chang)|when would|break",
+          "tip": "Ask what would flip each decision. That is the part that survives the data changing."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is refusing the architecture question and asking four smaller ones. Strong version: 'Decide, per item, whether to preload or retrieve: settlement policy (900 tok, changes quarterly, needed 1 in 3), account record (400 tok, needed every time), transaction history (60k, needed 1 in 20 and only a slice), FAQ corpus (12k, rare but exact wording matters). Retrieval costs a round trip and sometimes returns nothing. For each: the call, the one-line reason, and what would flip it. Do NOT give me a general RAG-versus-prompt answer.'",
+  "goldPrompt": "You are a staff engineer reviewing a retrieval design with me. I'm Imran, wiring a merchant-support agent at Razorpay.\n\nFour candidates for the window:\n- settlement policy — 900 tokens, changes quarterly, needed in ~1 in 3 conversations\n- merchant account record — 400 tokens, needed every time\n- transaction history — 60k tokens, needed ~1 in 20, and then only a slice\n- FAQ corpus — 12k tokens, needed rarely, but the exact wording matters when it is\n\nRetrieval costs a round trip and sometimes returns nothing useful. Preloading costs window every turn whether or not it is used.\n\nDecide PER ITEM, not for the system: preload, retrieve, or something in between. For each give one line of reasoning that cites the size and the hit rate, and one line on what would flip the decision — the threshold, not a vague 'if things change'.\n\nDo NOT answer with a general comparison of RAG versus long prompts, and do not tell me it depends.\n\nOutput a 4-row table: item · decision · why · what flips it. Then one line on which single decision you are least confident about and what you would measure to settle it.",
+  "guideAnchor": "context"
+}

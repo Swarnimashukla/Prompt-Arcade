@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/mario.css">
 </head>
 <body>
@@ -26,17 +27,17 @@
   </div>
 </header>
 
-<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+<main class="wrap page">
 
   <!-- STEP 1: Pick track -->
   <section class="picker-step" id="step-track">
     <div class="section-eyebrow">Pick your track</div>
-    <h2 style="margin-top:8px">Which layer are you working on?</h2>
-    <p class="muted" style="max-width:640px; margin-top:8px">
+    <h2 class="mt-8">Which layer are you working on?</h2>
+    <p class="muted measure mt-8">
       You can switch later. The receipts and XP move with you.
     </p>
 
-    <div class="tracks-grid" style="margin-top:24px">
+    <div class="tracks-grid mt-24">
       <a class="track-card coral" data-track="builder">
         <div class="track-emoji">🛠</div>
         <h3>Builder</h3>
@@ -76,8 +77,8 @@
   <section class="picker-step" id="step-subdomain" style="display:none">
     <button class="btn btn-ghost btn-sm back-btn" id="back-to-track">← Pick a different track</button>
     <div class="section-eyebrow" id="track-eyebrow">Pick your sub-domain</div>
-    <h2 style="margin-top:8px" id="track-h2">…</h2>
-    <p class="muted" style="max-width:640px; margin-top:8px" id="track-blurb">…</p>
+    <h2 class="mt-8" id="track-h2">…</h2>
+    <p class="muted measure mt-8" id="track-blurb">…</p>
     <div class="subdomain-grid" id="subdomain-grid"></div>
   </section>
 
@@ -85,17 +86,17 @@
   <section class="picker-step" id="step-scenario" style="display:none">
     <button class="btn btn-ghost btn-sm back-btn" id="back-to-sub">← Pick a different sub-domain</button>
     <div class="section-eyebrow" id="sub-eyebrow">Pick a scenario</div>
-    <h2 style="margin-top:8px" id="sub-h2">…</h2>
-    <p class="muted" style="max-width:680px; margin-top:8px" id="sub-blurb">…</p>
+    <h2 class="mt-8" id="sub-h2">…</h2>
+    <p class="muted measure-wide mt-8" id="sub-blurb">…</p>
     <div class="scenario-grid" id="scenario-grid"></div>
   </section>
 
   <!-- HOW IT WORKS, at the bottom -->
-  <div class="divider" style="margin-top:60px"></div>
+  <div class="divider mt-60"></div>
   <section class="how-section">
     <div class="section-eyebrow uv">How it works</div>
-    <h3 style="margin-top:8px">Four steps. One feedback loop.</h3>
-    <div class="why-grid" style="margin-top:24px">
+    <h3 class="mt-8">Four steps. One feedback loop.</h3>
+    <div class="why-grid mt-24">
       <div class="why-card">
         <div class="num">①</div>
         <h3>Read the brief</h3>
@@ -117,7 +118,7 @@
         <p>Before and after. What the lazy prompt would have returned, vs. what yours unlocks.</p>
       </div>
     </div>
-    <p class="handwrit" style="font-size:17px; margin-top:24px">
+    <p class="handwrit fs-17 mt-24">
       Surgical = rubric ≥ 8 + under token budget + a responsibility move (refusal, citation, fact-check).
     </p>
   </section>
