@@ -6,8 +6,8 @@
 <title>Level · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/arcade.css">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/ff7.css">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
     <!-- RIGHT: meter only -->
     <div class="side-stack">
       <div class="meter-card" id="meter-card">
-        <h4>⚡ live token meter</h4>
+        <h4>Live token meter</h4>
         <div class="meter-row" id="row-tokens">
           <span>Input tokens</span>
           <span class="num" id="m-tokens">0</span>
@@ -187,6 +187,7 @@
   <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
 </footer>
 
+<script src="js/sfx.js"></script>
 <script src="js/tokens.js"></script>
 <script src="js/state.js"></script>
 <script src="js/evaluator.js"></script>
@@ -251,7 +252,7 @@
     const li = document.createElement('li');
     li.className = 'hint-locked';
     li.id = 'hint-2-slot';
-    li.innerHTML = `<strong>🔒 Hint 2 · unlocks in <span id="hint-countdown">2:00</span></strong><span>Sit with hint 1 first. Try a draft. The second hint shows up in two minutes — that's the point.</span>`;
+    li.innerHTML = `<strong>[LOCKED] Hint 2 · unlocks in <span id="hint-countdown">2:00</span></strong><span>Sit with hint 1 first. Try a draft. The second hint shows up in two minutes — that's the point.</span>`;
     hintsUl.appendChild(li);
   }
 
@@ -351,6 +352,7 @@
   document.getElementById('evaluate-btn').addEventListener('click', () => {
     const text = ta.value.trim();
     if (text.length < 20) {
+      if (window.PA_Sfx) PA_Sfx.error();
       alert('Write a more complete prompt before evaluating, at least a couple of sentences.');
       return;
     }
@@ -432,7 +434,7 @@
     }
 
     document.getElementById('tip-if-low').textContent =
-      result.tier.level < 3 ? rubric.tipIfLow : '⭐ Surgical. Try the next scenario.';
+      result.tier.level < 3 ? rubric.tipIfLow : '★ Surgical. Try the next scenario.';
 
     PA_State.recordLevel(rubric.id, {
       tier: result.tier.name,

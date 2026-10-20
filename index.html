@@ -7,8 +7,8 @@
 <meta name="description" content="A playful, gamified place to practice prompt engineering. Real workplace and college scenarios, live token meter, and the receipts on what bad prompts cost.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/arcade.css">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/ff7.css">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 
     <div class="ticker-card" id="ticker">
       <div class="ticker-side bad">
-        <h4>🔴 Lazy prompt</h4>
+        <h4>Lazy prompt</h4>
         <div class="ticker-prompt" id="bad-prompt-text">summarize this article</div>
         <div class="ticker-stat"><span>Input tokens</span><span id="bad-in">…</span></div>
         <div class="ticker-stat"><span>Likely output tokens</span><span id="bad-out">~ 450</span></div>
@@ -57,7 +57,7 @@
         <div class="ticker-stat"><span>Result</span><span>generic mush</span></div>
       </div>
       <div class="ticker-side good">
-        <h4>🟢 Considered prompt</h4>
+        <h4>Considered prompt</h4>
         <div class="ticker-prompt" id="good-prompt-text">Summarize this article in 5 bullets for a busy reader. Focus on what changed and what to do next. Skip the background, link the source. Flag anything I should fact-check before sharing.</div>
         <div class="ticker-stat"><span>Input tokens</span><span id="good-in">…</span></div>
         <div class="ticker-stat"><span>Likely output tokens</span><span id="good-out">~ 220</span></div>
@@ -86,8 +86,7 @@
 
     <div class="tracks-grid">
       <a href="tracks.html?track=builder" class="track-card coral">
-        <div class="track-emoji">🛠</div>
-        <h3>Builder</h3>
+                <h3>Builder</h3>
         <div class="who">Working PM, designer, marketer, analyst. 1 to 8 years in.</div>
         <div class="desc">Real workplace scenarios across PM, design, and business. Diagnose drops, write specs, defend a recommendation, brief an agency.</div>
         <div class="row">
@@ -97,8 +96,7 @@
       </a>
 
       <a href="tracks.html?track=freshman" class="track-card lime">
-        <div class="track-emoji">🌱</div>
-        <h3>Freshman</h3>
+                <h3>Freshman</h3>
         <div class="who">College student, AI-curious. Survives deadlines on ChatGPT.</div>
         <div class="desc">Tech, non-tech, career. Plan a DSA prep, summarise a 30-page reading, write a resume bullet that isn't fluff, prep an interview.</div>
         <div class="row">
@@ -165,6 +163,7 @@
   <p class="spacer-32"></p>
 </footer>
 
+<script src="js/sfx.js"></script>
 <script src="js/tokens.js"></script>
 <script>
 (async function(){
