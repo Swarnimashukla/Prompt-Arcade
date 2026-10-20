@@ -1,6 +1,12 @@
-// Unit tests for the one function that can silently destroy someone's work.
+// Unit tests for mergeProgress — the one function that can silently
+// destroy someone's work, at the exact moment they trusted us with it.
+//
+//   node supabase/merge.test.mjs
+//
+// Run this before touching the merge. A regression here is invisible in
+// the UI: progress just quietly goes backwards.
 import { readFileSync } from 'fs';
-const src = readFileSync('new URL('../js/auth.js', import.meta.url).pathname', 'utf8');
+const src = readFileSync(new URL('../js/auth.js', import.meta.url), 'utf8');
 globalThis.window = undefined; globalThis.document = undefined;
 const { PA_Auth } = await import('data:text/javascript;base64,' +
   Buffer.from(src.replace(/if \(typeof document[\s\S]*?\n  }\n/, '')
