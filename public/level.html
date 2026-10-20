@@ -85,6 +85,7 @@
             <span class="tag" id="budget-tag">tokens …</span>
           </div>
         </div>
+        <p class="engine-note" id="engine-note"></p>
         <div id="dimensions"></div>
 
         <div class="cost-card">
@@ -389,14 +390,34 @@
     budgetTag.textContent = `${result.tokens} / ${result.budget} tok`;
     budgetTag.className = 'tag ' + (result.passedBudget ? 'tag-lime' : 'tag-coral');
 
+    // The judge quotes your own words back as the reason each point was
+    // awarded, so this escapes: it is the only place learner text is
+    // written as markup rather than set as textContent.
+    const esc = s => String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
+    const engineNote = document.getElementById('engine-note');
+    if (result.engine === 'judge') {
+      engineNote.textContent =
+        'Read by a language judge. Every point below is quoted from your own prompt — if it cannot quote you, it does not score you.';
+      engineNote.className = 'engine-note engine-judge';
+    } else {
+      engineNote.textContent =
+        'Scored by the pattern rubric — the language judge was unreachable, so this read is coarser than usual.';
+      engineNote.className = 'engine-note engine-rubric';
+    }
+
     const dimWrap = document.getElementById('dimensions');
     dimWrap.innerHTML = '';
     result.dimensions.forEach(d => {
       const pct = d.pts / d.max;
       const cls = pct === 1 ? 'full' : pct >= 0.5 ? 'partial' : 'empty';
+      const quotes = (d.evidence || []).map(q =>
+        `<span class="tip tip-quote">“${esc(q)}”</span>`).join('');
       const tipsHtml = d.tips.length
         ? d.tips.map(t => `<span class="tip">→ ${t}</span>`).join('')
-        : '<span class="tip tip-strong">✓ Strong on this dimension.</span>';
+        : (quotes ? '' : '<span class="tip tip-strong">✓ Strong on this dimension.</span>');
       dimWrap.insertAdjacentHTML('beforeend', `
         <div class="dim-row">
           <div class="dim-head">
@@ -404,7 +425,7 @@
             <span class="dim-pts">${d.pts}/${d.max}</span>
           </div>
           <div class="dim-bar"><div class="dim-fill ${cls}" style="width:${pct*100}%"></div></div>
-          <div class="dim-tips">${tipsHtml}</div>
+          <div class="dim-tips">${quotes}${tipsHtml}</div>
         </div>
       `);
     });

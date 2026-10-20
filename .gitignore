@@ -16,5 +16,13 @@ ehthumbs.db
 # Netlify
 .netlify/
 
+# Dependencies for the functions. The site itself still has none.
+node_modules/
+
+# Real secrets. ANTHROPIC_API_KEY belongs in Netlify's environment
+# variables, never in the repository.
+.env
+.env.*
+
 # Archives of the site itself: the repo is the source of truth
 *.zip
