@@ -1,0 +1,29 @@
+# Deploy configuration for promptarcade.netlify.app
+#
+# PromptArcade is a static site: no build step, no dependencies, no bundler.
+# Netlify publishes the repository root exactly as it is committed.
+
+[build]
+  publish = "."
+
+# Netlify already sends X-Robots-Tag: noindex on deploy previews and branch
+# deploys, so preview URLs stay out of search results without extra config here.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Scenario and rubric data ship with each release and are fetched at runtime.
+# Revalidate so a deploy is visible immediately instead of serving stale JSON.
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/rubrics/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
