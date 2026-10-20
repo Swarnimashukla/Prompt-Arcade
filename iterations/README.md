@@ -3,6 +3,35 @@
 Frozen explorations kept for reference. Nothing here is part of the live
 site; the production pages are at the repository root.
 
+## `mario/` — late-90s 3D platformer (Super Mario 64)
+
+Built from `prompt_arcade_mario_spec.md`: sky-blue world with drawn
+clouds and a faint castle-floor checkerboard, floating translucent
+signboards (4px white border, 24px radius, bouncy drop shadow),
+Fredoka One for extruded headings and Nunito for body, and squish-and-
+stretch hover on every control.
+
+The governing rule, taken straight from the spec, is that **headings
+are loud and body text is not**. Long prose stays dark grey on
+near-white with no shadow, which is why this theme carries a full
+scenario brief comfortably where the FF7 one did not.
+
+Same three substitutions as `ff7/`, for the same reason — no network
+access to the asset hosts:
+
+| Spec | Substitute |
+|---|---|
+| `cartoon-glove.png` | inline SVG data-URI, drawn as a gloved hand |
+| Kenney platformer `.ogg` clips | Web Audio oscillators: a rising sine bloop on hover, a B5 to E6 coin on click, a descending triangle boing on a rejected action. Held at the specified 0.2 volume |
+| cloud / checkerboard art | layered CSS gradients and a masked conic checkerboard |
+
+Two contrast problems surfaced in review and were fixed: prose sitting
+directly on the sky (rather than inside a signboard) is white with a
+soft shadow instead of dark grey, and headings inside a white card take
+a flat blue rather than the gold-on-black outline, which is unreadable
+at card size.
+
+
 ## `ff7/` — 1997 JRPG pause menu
 
 Built from `prompt_arcade_ffvii_spec.md`: the classic blue panel

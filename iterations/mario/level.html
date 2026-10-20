@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level · PromptArcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mario.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      PROMPT ARCADE
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="../../tracks.html" class="nav-link active">Tracks</a>
+      <a href="../../guide.html" class="nav-link">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+
+  <div class="level-head">
+    <span class="tag" id="track-tag">Loading…</span>
+    <span class="crumb"><a href="index.html">Home</a> / <a href="../../tracks.html">Tracks</a> / <span id="crumb-track">…</span> / <span id="crumb-sub">…</span></span>
+  </div>
+
+  <!-- Scenario picker pinned at top -->
+  <div class="scenario-picker" id="scenario-picker"></div>
+
+  <h2 id="level-title" style="margin-top:18px">Loading…</h2>
+  <div class="level-meta" id="level-meta"></div>
+  <p class="handwrit" id="level-persona" style="font-size:20px; color:var(--soot); margin-top:6px"></p>
+
+  <div class="level-shell">
+    <!-- LEFT: scenario + prompt -->
+    <div>
+      <div class="scenario">
+        <div class="body">
+          <p id="scenario-body">Loading scenario…</p>
+        </div>
+
+        <div class="bad-prompt" id="bad-prompt-wrap">
+          <span class="bad-prompt-label">The lazy version, this is what most people send</span>
+          <div id="bad-prompt-text" style="margin-top:6px"></div>
+        </div>
+
+        <div class="prompt-area-wrap">
+          <label for="prompt-input">Write your prompt</label>
+          <textarea id="prompt-input" class="prompt-area" placeholder="Start with a blank canvas. Persona, context, constraints, output format, and what NOT to do…"></textarea>
+        </div>
+
+        <details class="hints-disclosure" id="hints-disclosure" style="display:none">
+          <summary>Need a nudge? Show 2 hints</summary>
+          <ul id="hints-list"></ul>
+        </details>
+
+        <div class="action-row">
+          <button class="btn btn-coral" id="evaluate-btn">Evaluate my prompt →</button>
+          <button class="btn btn-ghost btn-sm" id="reset-btn">Clear</button>
+          <a class="btn btn-ghost btn-sm" id="guide-link" href="../../guide.html">Open the Field Guide</a>
+        </div>
+      </div>
+
+      <!-- Feedback panel -->
+      <div class="feedback" id="feedback">
+        <div class="score-head">
+          <div class="tier-badge" id="tier-badge">
+            <span class="tier-name">…</span>
+            <span class="tier-blurb"></span>
+          </div>
+          <div>
+            <div class="score-num" id="score-num">…</div>
+            <div class="score-lbl">/ 10</div>
+          </div>
+          <div style="margin-left:auto">
+            <span class="tag" id="budget-tag">tokens …</span>
+          </div>
+        </div>
+        <div id="dimensions"></div>
+
+        <div class="cost-card">
+          <h4>Cost card · what your prompt cost</h4>
+          <div class="cost-grid cost-grid-2">
+            <div class="cost-cell good">
+              <div class="label">Your prompt</div>
+              <div class="value" id="cost-good">…</div>
+              <div class="sub">tokens</div>
+            </div>
+            <div class="cost-cell diff">
+              <div class="label">Budget headroom</div>
+              <div class="value" id="cost-diff">…</div>
+              <div class="sub" id="cost-diff-sub">vs. budget</div>
+            </div>
+          </div>
+          <div class="cost-quip" id="cost-quip"></div>
+          <details class="how-calc" style="margin-top:14px">
+            <summary>How is this calculated?</summary>
+            <div>
+              <p>Tokens are estimated at ~4 characters per token. Budget is set per scenario based on what a tight, well-specified prompt looks like, not a hard limit. Going over isn't failure, but tokens are a real cost: each one consumes electricity and cooling water in a data centre.</p>
+              <p>Energy: ~0.0015 Wh per token (<a href="https://arxiv.org/abs/2104.10350" target="_blank" rel="noopener">Patterson 2021</a>, <a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener">Luccioni 2023</a>). Water: ~500 ml per 250 tokens (<a href="https://apnews.com/article/chatgpt-gpt4-iowa-ai-water-consumption-microsoft-f551fde98083d17a7e8d904f8be822c4" target="_blank" rel="noopener">AP News, UC Riverside</a>). Indicative, not billing-grade.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="reveal">
+          <div class="reveal-pane bad">
+            <h5>What the lazy version returns</h5>
+            <div class="out" id="bad-output">…</div>
+          </div>
+          <div class="reveal-pane good">
+            <h5>What your prompt unlocks</h5>
+            <div class="out" id="good-output">…</div>
+          </div>
+        </div>
+
+        <div class="gold-panel" id="gold-panel" style="display:none">
+          <div class="gold-head">
+            <span class="gold-tag">★ Reference prompt</span>
+            <h4>What a Surgical-tier prompt looks like for this scenario</h4>
+            <p class="muted" style="font-size:14px;margin-top:6px">Compare yours to the reference. Notice the moves: persona, exact data inventory, structured output, negative constraints, and a responsibility cue. There's no single "right" prompt — this is one strong version.</p>
+          </div>
+          <pre class="gold-prompt" id="gold-prompt-text"></pre>
+          <div class="gold-foot">
+            <button class="btn btn-ghost btn-sm" id="gold-copy">Copy reference prompt</button>
+            <button class="btn btn-ghost btn-sm" id="gold-load">Load into editor</button>
+          </div>
+        </div>
+
+        <p class="handwrit" id="tip-if-low" style="font-size:18px; margin-top:18px; color:var(--soot)"></p>
+      </div>
+    </div>
+
+    <!-- RIGHT: meter only -->
+    <div class="side-stack">
+      <div class="meter-card" id="meter-card">
+        <h4>⚡ live token meter</h4>
+        <div class="meter-row" id="row-tokens">
+          <span>Input tokens</span>
+          <span class="num" id="m-tokens">0</span>
+        </div>
+        <div class="meter-row" id="row-budget">
+          <span>Token budget</span>
+          <span class="num" id="m-budget">…</span>
+        </div>
+        <div class="meter-row">
+          <span>≈ CO₂</span>
+          <span class="num" id="m-co2">0 g</span>
+        </div>
+        <div class="meter-row">
+          <span>≈ Water</span>
+          <span class="num" id="m-water">0 ml</span>
+        </div>
+        <div class="meter-foot">
+          Estimates per <a href="https://arxiv.org/abs/2104.10350" target="_blank" rel="noopener">Patterson 2021</a> + <a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener">Luccioni 2023</a>. Indicative.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS, at the bottom -->
+  <div class="divider" style="margin-top:60px"></div>
+  <section class="how-section">
+    <div class="section-eyebrow uv">How this scoring works</div>
+    <h3 style="margin-top:8px">Four tiers. One feedback loop.</h3>
+    <div class="tier-rail">
+      <div class="tier-cell tier-draft"><div class="t">Draft</div><div class="d">Rubric &lt; 6/10. The prompt is underspecified.</div></div>
+      <div class="tier-cell tier-solid"><div class="t">Solid</div><div class="d">Rubric ≥ 6/10. Clean pass.</div></div>
+      <div class="tier-cell tier-sharp"><div class="t">Sharp</div><div class="d">Rubric ≥ 7 + under token budget.</div></div>
+      <div class="tier-cell tier-surgical"><div class="t">Surgical</div><div class="d">Rubric ≥ 8 + budget + a responsibility move.</div></div>
+    </div>
+    <p class="muted" style="max-width:680px; margin-top:18px">
+      A responsibility move is anything that prevents downstream harm: a refusal instruction, a citation requirement, a fact-check flag, a privacy/PII guard, or a clear ‘flag if uncertain’. Surgical isn't about word count, it's about whether your prompt would survive a stakeholder review.
+    </p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+</footer>
+
+<script src="sfx.js"></script>
+<script src="../../js/tokens.js"></script>
+<script src="../../js/state.js"></script>
+<script>window.PA_BASE = "../../";</script>
+<script src="../../js/evaluator.js"></script>
+<script src="../../js/reveal.js"></script>
+<script>
+(async function(){
+  const params = new URLSearchParams(location.search);
+  const track = params.get('track');
+  const subdomain = params.get('sub');
+  const n = parseInt(params.get('n') || '1', 10);
+
+  if (!track || !subdomain) {
+    location.href = 'tracks.html';
+    return;
+  }
+
+  let rubric, index;
+  try {
+    [rubric, index] = await Promise.all([
+      PA_Evaluator.loadRubric(track, subdomain, n),
+      fetch('../../content/levels-index.json').then(r => r.json())
+    ]);
+  } catch (e) {
+    document.getElementById('scenario-body').textContent = 'Could not load this level. Try the home page.';
+    return;
+  }
+
+  const trackCfg = index.tracks[track];
+  const subCfg = (trackCfg.subdomains || []).find(s => s.id === subdomain);
+
+  document.title = `${rubric.title} · PromptArcade`;
+  document.getElementById('track-tag').textContent =
+    `${trackCfg.label.toUpperCase()} · ${subCfg.label.toUpperCase()} · ${rubric.level}/6`;
+  // Track identity is carried by the label text, not by colour, so this
+  // no longer needs to know which tracks exist.
+  document.getElementById('track-tag').className = 'tag';
+  document.getElementById('crumb-track').textContent = trackCfg.label;
+  document.getElementById('crumb-sub').innerHTML = `<a href="../../tracks.html?track=${track}&sub=${subdomain}">${subCfg.label}</a>`;
+  document.getElementById('level-title').textContent = rubric.title;
+  document.getElementById('level-meta').innerHTML =
+    `<span class="meta-pill">${rubric.brand || ''}</span> <span class="meta-pill">${rubric.domain || ''}</span>`;
+  document.getElementById('level-persona').textContent = rubric.persona;
+  document.getElementById('scenario-body').textContent = rubric.scenario;
+  document.getElementById('bad-prompt-text').textContent = rubric.badPrompt;
+  document.getElementById('m-budget').textContent = rubric.tokenBudget + ' tok';
+  document.getElementById('guide-link').href = `../../guide.html#${rubric.guideAnchor || 'basics'}`;
+
+  // Hints (hint 1 immediate, hint 2 unlocks after a 2-minute timer)
+  const hintsDisclosure = document.getElementById('hints-disclosure');
+  const hintsUl = document.getElementById('hints-list');
+  const hints = (rubric.hints || []).slice(0, 2);
+  const HINT2_DELAY_MS = 2 * 60 * 1000;
+  const unlockKey = `pa.hint2.${rubric.id}`;
+
+  function renderHint1() {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${hints[0].title}</strong><span>${hints[0].body}</span>`;
+    hintsUl.appendChild(li);
+  }
+
+  function renderHint2Locked() {
+    const li = document.createElement('li');
+    li.className = 'hint-locked';
+    li.id = 'hint-2-slot';
+    li.innerHTML = `<strong>🔒 Hint 2 · unlocks in <span id="hint-countdown">2:00</span></strong><span>Sit with hint 1 first. Try a draft. The second hint shows up in two minutes — that's the point.</span>`;
+    hintsUl.appendChild(li);
+  }
+
+  function renderHint2Unlocked() {
+    const slot = document.getElementById('hint-2-slot');
+    if (!slot) return;
+    slot.className = '';
+    slot.innerHTML = `<strong>${hints[1].title}</strong><span>${hints[1].body}</span>`;
+  }
+
+  let countdownTimer = null;
+  function startCountdown(unlockAt) {
+    function tick() {
+      const remaining = unlockAt - Date.now();
+      if (remaining <= 0) {
+        clearInterval(countdownTimer);
+        renderHint2Unlocked();
+        return;
+      }
+      const mm = Math.floor(remaining / 60000);
+      const ss = Math.floor((remaining % 60000) / 1000).toString().padStart(2, '0');
+      const el = document.getElementById('hint-countdown');
+      if (el) el.textContent = `${mm}:${ss}`;
+    }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
+
+  if (hints.length >= 1) renderHint1();
+  if (hints.length >= 2) {
+    const stored = parseInt(localStorage.getItem(unlockKey) || '0', 10);
+    if (stored && Date.now() >= stored) {
+      const li = document.createElement('li');
+      li.id = 'hint-2-slot';
+      li.innerHTML = `<strong>${hints[1].title}</strong><span>${hints[1].body}</span>`;
+      hintsUl.appendChild(li);
+    } else {
+      renderHint2Locked();
+      hintsDisclosure.addEventListener('toggle', () => {
+        if (!hintsDisclosure.open) return;
+        let unlockAt = parseInt(localStorage.getItem(unlockKey) || '0', 10);
+        if (!unlockAt) {
+          unlockAt = Date.now() + HINT2_DELAY_MS;
+          localStorage.setItem(unlockKey, String(unlockAt));
+        }
+        if (!countdownTimer) startCountdown(unlockAt);
+      }, { once: false });
+      const existingUnlock = parseInt(localStorage.getItem(unlockKey) || '0', 10);
+      if (existingUnlock && Date.now() < existingUnlock) startCountdown(existingUnlock);
+    }
+  }
+
+  // Scenario picker at top
+  const picker = document.getElementById('scenario-picker');
+  const completedMap = (PA_State.get().levels || {});
+  subCfg.levels.forEach(lv => {
+    const a = document.createElement('a');
+    a.className = 'sp-card';
+    if (lv.n === n) a.classList.add('active');
+    if (completedMap[`${track}-${subdomain}-${lv.n}`]) a.classList.add('done');
+    a.href = `level.html?track=${track}&sub=${subdomain}&n=${lv.n}`;
+    a.innerHTML = `
+      <span class="sp-num">${lv.n}</span>
+      <span class="sp-title">${lv.title}</span>
+      <span class="sp-brand">${lv.brand || ''}</span>
+    `;
+    picker.appendChild(a);
+  });
+
+  // Live token meter
+  const ta = document.getElementById('prompt-input');
+  function updateMeter() {
+    const t = PA_Tokens.estimate(ta.value);
+    document.getElementById('m-tokens').textContent = t;
+    document.getElementById('m-co2').textContent = PA_Tokens.format(PA_Tokens.co2Grams(t)) + ' g';
+    document.getElementById('m-water').textContent = PA_Tokens.format(PA_Tokens.waterMl(t)) + ' ml';
+    document.getElementById('row-tokens').classList.toggle('warn', t > rubric.tokenBudget);
+    if (ta.value.trim().length >= 12) {
+      hintsDisclosure.style.display = '';
+    } else {
+      hintsDisclosure.style.display = 'none';
+    }
+  }
+  ta.addEventListener('input', updateMeter);
+  updateMeter();
+
+  // Persisted draft
+  const draftKey = `pa.draft.${rubric.id}`;
+  ta.value = localStorage.getItem(draftKey) || '';
+  updateMeter();
+  ta.addEventListener('input', () => localStorage.setItem(draftKey, ta.value));
+
+  // Save selection
+  PA_State.setSelection(track, subdomain);
+
+  // Evaluate
+  document.getElementById('evaluate-btn').addEventListener('click', () => {
+    const text = ta.value.trim();
+    if (text.length < 20) {
+      if (window.PA_Sfx) PA_Sfx.error();
+      alert('Write a more complete prompt before evaluating, at least a couple of sentences.');
+      return;
+    }
+    const result = PA_Evaluator.score(text, rubric);
+
+    const tb = document.getElementById('tier-badge');
+    tb.className = 'tier-badge tier-' + result.tier.name.toLowerCase();
+    tb.querySelector('.tier-name').textContent = result.tier.name;
+    tb.querySelector('.tier-blurb').textContent = result.tier.blurb;
+
+    document.getElementById('score-num').textContent = result.score;
+    const budgetTag = document.getElementById('budget-tag');
+    budgetTag.textContent = `${result.tokens} / ${result.budget} tok`;
+    budgetTag.className = 'tag ' + (result.passedBudget ? 'tag-lime' : 'tag-coral');
+
+    const dimWrap = document.getElementById('dimensions');
+    dimWrap.innerHTML = '';
+    result.dimensions.forEach(d => {
+      const pct = d.pts / d.max;
+      const cls = pct === 1 ? 'full' : pct >= 0.5 ? 'partial' : 'empty';
+      const tipsHtml = d.tips.length
+        ? d.tips.map(t => `<span class="tip">→ ${t}</span>`).join('')
+        : '<span class="tip tip-strong">✓ Strong on this dimension.</span>';
+      dimWrap.insertAdjacentHTML('beforeend', `
+        <div class="dim-row">
+          <div class="dim-head">
+            <span class="dim-name">${d.label}</span>
+            <span class="dim-pts">${d.pts}/${d.max}</span>
+          </div>
+          <div class="dim-bar"><div class="dim-fill ${cls}" style="width:${pct*100}%"></div></div>
+          <div class="dim-tips">${tipsHtml}</div>
+        </div>
+      `);
+    });
+
+    // Cost card (no bad-prompt tokens)
+    document.getElementById('cost-good').textContent = result.tokens + ' tok';
+    const headroom = result.budget - result.tokens;
+    const diffEl = document.getElementById('cost-diff');
+    const diffSub = document.getElementById('cost-diff-sub');
+    if (headroom >= 0) {
+      diffEl.textContent = headroom + ' tok';
+      diffSub.textContent = `under budget`;
+      document.getElementById('cost-quip').textContent =
+        `You're ${headroom} tokens under the scenario's tight-prompt budget. That's water and electricity you didn't burn for nothing.`;
+    } else {
+      diffEl.textContent = '−' + Math.abs(headroom) + ' tok';
+      diffSub.textContent = `over budget`;
+      document.getElementById('cost-quip').textContent =
+        `You went ${Math.abs(headroom)} tokens over budget. If those tokens bought specificity, that's the right trade. If they're padding, trim and re-evaluate.`;
+    }
+
+    document.getElementById('bad-output').textContent = rubric.badOutput;
+    document.getElementById('good-output').textContent = PA_Reveal.makeGoodOutput(rubric, result);
+
+    if (rubric.goldPrompt) {
+      const goldPanel = document.getElementById('gold-panel');
+      const goldText = document.getElementById('gold-prompt-text');
+      goldText.textContent = rubric.goldPrompt;
+      goldPanel.style.display = '';
+      const copyBtn = document.getElementById('gold-copy');
+      const loadBtn = document.getElementById('gold-load');
+      copyBtn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(rubric.goldPrompt);
+          copyBtn.textContent = 'Copied ✓';
+          setTimeout(() => copyBtn.textContent = 'Copy reference prompt', 1800);
+        } catch (e) {
+          copyBtn.textContent = 'Copy failed';
+        }
+      };
+      loadBtn.onclick = () => {
+        ta.value = rubric.goldPrompt;
+        localStorage.setItem(draftKey, ta.value);
+        updateMeter();
+        ta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        ta.focus();
+      };
+    }
+
+    document.getElementById('tip-if-low').textContent =
+      result.tier.level < 3 ? rubric.tipIfLow : '⭐ Surgical. Try the next scenario.';
+
+    PA_State.recordLevel(rubric.id, {
+      tier: result.tier.name,
+      tierLevel: result.tier.level,
+      score: result.score,
+      tokens: result.tokens,
+      badTokens: result.badTokens,
+      savedTokens: Math.max(0, result.budget - result.tokens),
+      passedBudget: result.passedBudget,
+      ts: Date.now()
+    });
+
+    // Mark current picker card as done
+    document.querySelectorAll('.sp-card.active').forEach(b => {
+      if (result.tier.level > 0) b.classList.add('done');
+    });
+
+    const fb = document.getElementById('feedback');
+    fb.classList.add('vis');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (!confirm('Clear your prompt?')) return;
+    ta.value = '';
+    localStorage.removeItem(draftKey);
+    updateMeter();
+    document.getElementById('feedback').classList.remove('vis');
+  });
+})();
+</script>
+</body>
+</html>
