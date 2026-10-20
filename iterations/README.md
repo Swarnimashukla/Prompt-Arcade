@@ -3,13 +3,17 @@
 Frozen explorations kept for reference. Nothing here is part of the live
 site; the production pages are at the repository root.
 
-## `mario/` — late-90s 3D platformer, bright variant
+## `mario/` — late-90s 3D platformer
 
-**Superseded.** The live site now uses the dusk variant of this theme
-(`css/mario.css`). This folder keeps the original noon-blue version for
-reference: same structure, but `#5CB8FF` sky and gold-on-black outlined
-headings throughout. It was shelved because the saturation read as a
-playground against scenarios like defending a pricing memo to a CFO.
+**This is the live direction.** `css/mario.css` at the repository root
+is the maintained version; this folder holds the original two-page
+build it grew from, kept because it is a self-contained snapshot.
+
+A dusk palette was tried and rejected: slate sky, white headings, bright
+primaries only on controls. It is a palette-only delta and lives in
+commit `6ad0953` if it is ever wanted again. It is deliberately not kept
+as a file here, because it predates the Read-more field reports and the
+hero-stamp fix and would quietly regress them if swapped back in.
 
 Built from `prompt_arcade_mario_spec.md`: sky-blue world with drawn
 clouds and a faint castle-floor checkerboard, floating translucent

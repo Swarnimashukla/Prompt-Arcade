@@ -29,7 +29,7 @@
 
   <!-- STEP 1: Pick track -->
   <section class="picker-step" id="step-track">
-    <div class="section-eyebrow">01 · Pick your track</div>
+    <div class="section-eyebrow">Pick your track</div>
     <h2 style="margin-top:8px">Where are you in your prompt journey?</h2>
     <p class="muted" style="max-width:640px; margin-top:8px">
       You can switch later. The receipts and XP move with you.
@@ -63,7 +63,7 @@
   <!-- STEP 2: Pick sub-domain -->
   <section class="picker-step" id="step-subdomain" style="display:none">
     <button class="btn btn-ghost btn-sm back-btn" id="back-to-track">← Pick a different track</button>
-    <div class="section-eyebrow" id="track-eyebrow">02 · Pick your sub-domain</div>
+    <div class="section-eyebrow" id="track-eyebrow">Pick your sub-domain</div>
     <h2 style="margin-top:8px" id="track-h2">…</h2>
     <p class="muted" style="max-width:640px; margin-top:8px" id="track-blurb">…</p>
     <div class="subdomain-grid" id="subdomain-grid"></div>
@@ -72,7 +72,7 @@
   <!-- STEP 3: Pick scenario -->
   <section class="picker-step" id="step-scenario" style="display:none">
     <button class="btn btn-ghost btn-sm back-btn" id="back-to-sub">← Pick a different sub-domain</button>
-    <div class="section-eyebrow" id="sub-eyebrow">03 · Pick a scenario</div>
+    <div class="section-eyebrow" id="sub-eyebrow">Pick a scenario</div>
     <h2 style="margin-top:8px" id="sub-h2">…</h2>
     <p class="muted" style="max-width:680px; margin-top:8px" id="sub-blurb">…</p>
     <div class="scenario-grid" id="scenario-grid"></div>
@@ -152,7 +152,7 @@
     if (!track) return showTrack();
     history.replaceState(null, '', `tracks.html?track=${trackId}`);
     document.getElementById('track-eyebrow').textContent =
-      `02 · ${track.label} · pick your sub-domain`;
+      `${track.label} · pick your sub-domain`;
     document.getElementById('track-eyebrow').className =
       'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
     document.getElementById('track-h2').textContent = track.label + ' · which side of you needs sharpening?';
@@ -187,7 +187,7 @@
     const sub = track.subdomains.find(s => s.id === subId);
     if (!sub) return showSubdomains(trackId);
     history.replaceState(null, '', `tracks.html?track=${trackId}&sub=${subId}`);
-    document.getElementById('sub-eyebrow').textContent = `03 · ${track.label} · ${sub.label} · pick a scenario`;
+    document.getElementById('sub-eyebrow').textContent = `${track.label} · ${sub.label} · pick a scenario`;
     document.getElementById('sub-eyebrow').className =
       'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
     document.getElementById('sub-h2').textContent = sub.label + ' · which one are you in this week?';

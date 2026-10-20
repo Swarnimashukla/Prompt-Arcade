@@ -1,11 +1,6 @@
 /* ============================================================
-   PromptArcade — Super Mario 64 theme, dusk variant
-   Floating signboards in an open world at golden hour.
-
-   Same structure, bounce and Nunito body as the bright version in
-   iterations/mario/. The sky is pulled to dusk and the bright primaries
-   are reserved for controls and state, so the page stops reading as a
-   playground while keeping the playfulness and the readability.
+   PromptArcade — Super Mario 64 theme
+   Floating signboards in a sunny open world.
 
    Loaded INSTEAD of arcade.css. Every class name from arcade.css
    is preserved, so no JS changes are needed.
@@ -16,13 +11,13 @@
    ============================================================ */
 
 :root {
-  --sky:        #6E88A8;   /* dusk slate, not noon blue */
-  --sky-deep:   #45597A;
-  --card:       rgba(255,255,255,0.94);  /* more opaque: the ground is darker now */
+  --sky:        #5CB8FF;
+  --sky-deep:   #2E96E8;
+  --card:       rgba(255,255,255,0.88);
   --card-solid: #FFFFFF;
-  --text:       #2B2F36;
-  --text-soft:  #545B66;
-  --text-faint: #7E8691;
+  --text:       #333333;
+  --text-soft:  #5A5A64;
+  --text-faint: #8A8A94;
 
   --red:    #FF3B30;
   --green:  #4CD964;
@@ -73,22 +68,22 @@ body {
   background-color: var(--sky);
   background-image:
     /* soft clouds, drawn not downloaded */
-    radial-gradient(ellipse 140px 48px at 12% 14%, rgba(255,246,235,.34), transparent 72%),
-    radial-gradient(ellipse 100px 38px at 20% 17%, rgba(255,246,235,.28), transparent 72%),
-    radial-gradient(ellipse 170px 54px at 78% 9%,  rgba(255,246,235,.30), transparent 72%),
-    radial-gradient(ellipse 120px 42px at 88% 13%, rgba(255,246,235,.24), transparent 72%),
-    radial-gradient(ellipse 150px 50px at 46% 30%, rgba(255,246,235,.20), transparent 74%),
-    radial-gradient(ellipse 130px 44px at 6%  48%, rgba(255,246,235,.16), transparent 74%),
-    radial-gradient(ellipse 160px 52px at 94% 42%, rgba(255,246,235,.16), transparent 74%),
-    linear-gradient(180deg, #3F5676 0%, #5E7899 34%, var(--sky) 64%, #A9A398 100%);
+    radial-gradient(ellipse 140px 48px at 12% 14%, rgba(255,255,255,.85), transparent 70%),
+    radial-gradient(ellipse 100px 38px at 20% 17%, rgba(255,255,255,.75), transparent 70%),
+    radial-gradient(ellipse 170px 54px at 78% 9%,  rgba(255,255,255,.80), transparent 70%),
+    radial-gradient(ellipse 120px 42px at 88% 13%, rgba(255,255,255,.70), transparent 70%),
+    radial-gradient(ellipse 150px 50px at 46% 30%, rgba(255,255,255,.55), transparent 72%),
+    radial-gradient(ellipse 130px 44px at 6%  48%, rgba(255,255,255,.45), transparent 72%),
+    radial-gradient(ellipse 160px 52px at 94% 42%, rgba(255,255,255,.45), transparent 72%),
+    linear-gradient(180deg, #7FCBFF 0%, var(--sky) 38%, #8FD4FF 100%);
   background-attachment: fixed;
 }
 /* The castle floor: a faint checkerboard pinned to the bottom. */
 body::after {
   content: ''; position: fixed; left: 0; right: 0; bottom: 0; height: 190px;
-  pointer-events: none; z-index: 0; opacity: .13;
+  pointer-events: none; z-index: 0; opacity: .20;
   background-image:
-    repeating-conic-gradient(rgba(255,250,242,.75) 0% 25%, transparent 0% 50%);
+    repeating-conic-gradient(rgba(255,255,255,.9) 0% 25%, transparent 0% 50%);
   background-size: 64px 64px;
   -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
           mask-image: linear-gradient(to top, #000 0%, transparent 100%);
@@ -135,11 +130,10 @@ h1, h2, h3, .brand, .score-num, .why-card .num, .tier-badge .tier-name,
   letter-spacing: .5px;
   line-height: 1.15;
 }
-/* On the sky, headings are white with a soft shadow rather than gold
-   with a hard black outline. Same Fredoka shape, none of the shouting. */
 h1, h2, h3 {
-  color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(16,28,45,.45), 0 1px 2px rgba(16,28,45,.5);
+  color: var(--yellow);
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+               4px 4px 0 rgba(0,0,0,.3);
 }
 h1 { font-size: clamp(38px, 5.5vw, 62px); }
 h2 { font-size: clamp(27px, 3.4vw, 38px); }
@@ -148,7 +142,7 @@ h3 { font-size: 21px; }
    card is small, so headings there take a flat bright colour instead. */
 .card h3, .why-card h3, .case-card h3, .track-card h3, .sub-card h3,
 .scenario-card h3, .gold-head h4 {
-  color: var(--ink-head); text-shadow: none; letter-spacing: 0;
+  color: var(--blue-deep); text-shadow: none; letter-spacing: 0;
   font-family: 'Fredoka One', sans-serif;
 }
 .track-card h3, .sub-card h3 { font-size: 24px; }
@@ -177,7 +171,7 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 .picker-step > p {
   color: #FFFFFF;
   font-weight: 600;
-  text-shadow: 0 1px 6px rgba(16,28,45,.55);
+  text-shadow: 0 2px 5px rgba(0,45,90,.5);
 }
 .handwrit { font-family: 'Nunito', sans-serif; font-weight: 700; font-style: normal; color: var(--blue-deep); }
 
@@ -195,8 +189,9 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
   color: var(--text-faint); display: block; margin-bottom: 8px;
 }
 .section-eyebrow {
-  color: rgba(255,255,255,.88); font-size: 12px;
-  text-shadow: 0 1px 4px rgba(16,28,45,.5);
+  color: #fff; font-size: 13px;
+  text-shadow: -1.5px -1.5px 0 rgba(0,0,0,.45), 1.5px -1.5px 0 rgba(0,0,0,.45),
+               -1.5px 1.5px 0 rgba(0,0,0,.45), 1.5px 1.5px 0 rgba(0,0,0,.45);
   margin-bottom: 10px;
 }
 .section-eyebrow.lime, .section-eyebrow.uv { color: #fff; }
@@ -210,8 +205,8 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
   box-shadow: 0 4px 0 rgba(0,0,0,.10);
 }
 .topbar-inner { max-width: 1120px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 18px; }
-.brand { font-size: 19px; color: var(--ink-head); letter-spacing: .6px; display: inline-flex; align-items: center; gap: 9px;
-  text-shadow: none; }
+.brand { font-size: 19px; color: var(--red); letter-spacing: .6px; display: inline-flex; align-items: center; gap: 9px;
+  text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff, 2px 3px 0 rgba(0,0,0,.18); }
 .brand-dot { width: 15px; height: 15px; border-radius: 50%; flex: none;
   background: radial-gradient(circle at 34% 30%, #FFF0A8, var(--coin) 55%, #D9A400);
   box-shadow: 0 2px 0 rgba(0,0,0,.2); }
@@ -263,18 +258,19 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 
 /* ---- Hero ---- */
 .hero { padding: 72px 0 48px; position: relative; }
-.hero h1 .squig { color: var(--amber); display: inline; }
-.hero-sub { font-size: 18px; max-width: 620px; margin-top: 20px; color: rgba(255,255,255,.94);
-  font-weight: 600; text-shadow: 0 1px 6px rgba(16,28,45,.5); }
+.hero .wrap { position: relative; }
+.hero h1 .squig { color: var(--red); display: inline; }
+.hero-sub { font-size: 18px; max-width: 620px; margin-top: 20px; color: #1F3347; font-weight: 600; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .hero-stamp {
-  position: absolute; top: 76px; right: 24px; max-width: 180px;
+  position: absolute; top: 56px; left: 62%; right: auto; max-width: 170px;
   padding: 12px 16px; text-align: center;
-  background: rgba(255,255,255,.94); border: 4px solid #fff; border-radius: 18px;
+  background: var(--coin); border: 4px solid #fff; border-radius: 18px;
   box-shadow: var(--drop); transform: rotate(5deg);
-  font-family: 'Fredoka One', sans-serif; font-size: 14px;
-  color: var(--ink-head); line-height: 1.3;
+  font-family: 'Fredoka One', sans-serif; font-size: 15px;
+  color: #5A4000; line-height: 1.25;
 }
+@media (max-width: 1150px) { .hero-stamp { left: auto; right: 2%; } }
 @media (max-width: 920px) { .hero-stamp { display: none; } }
 
 /* ---- Ticker ---- */
@@ -326,11 +322,12 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 .lock-badge { position: absolute; top: 16px; right: 16px; }
 
 .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; margin-top: 30px; }
-.why-card .num { font-size: 46px; color: var(--ink-head); line-height: 1; }
+.why-card .num { font-size: 46px; color: var(--coin); line-height: 1;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 3px 4px 0 rgba(0,0,0,.25); }
 .why-card h3 { margin: 12px 0 8px; font-size: 18px; }
 .why-card p { font-size: 14px; }
 
-.case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; margin-top: 30px; }
+.case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; margin-top: 30px; align-items: start; }
 .case-card { display: flex; flex-direction: column; transition: transform .2s var(--bounce); }
 .case-card:hover { transform: translateY(-5px); }
 .case-card .case-tag { align-self: flex-start; margin-bottom: 12px; background: var(--blue); color: #fff; box-shadow: 0 2px 0 var(--blue-deep); }
@@ -340,11 +337,25 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 .case-card .lesson strong { display: block; margin-bottom: 4px; color: var(--green-deep); font-weight: 800; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .case-card .src { font-size: 11.5px; margin-top: 12px; }
 
+/* Field reports stay short by default; the rest sits behind a
+   secondary control rather than on the card. */
+.case-more[hidden] { display: none; }
+.case-more { margin-top: 2px; }
+.case-more p { font-size: 14px; color: var(--text); margin-bottom: 14px; }
+.case-toggle {
+  align-self: flex-start; margin-top: 4px; margin-bottom: 14px;
+  padding: 8px 16px; font-size: 12px;
+  background: #fff; color: var(--blue-deep);
+  box-shadow: 0 4px 0 rgba(0,0,0,.14), 0 7px 7px rgba(0,0,0,.08);
+}
+.case-toggle:hover { box-shadow: 0 7px 0 rgba(0,0,0,.14), 0 11px 11px rgba(0,0,0,.10); }
+.case-card .src { margin-top: auto; }
+
 /* ---- Level screen ---- */
 .level-shell { display: grid; grid-template-columns: 1fr 310px; gap: 26px; margin-top: 26px; align-items: start; }
 @media (max-width: 1020px) { .level-shell { grid-template-columns: 1fr; } }
 .level-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
-.crumb { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); text-shadow: 0 1px 4px rgba(16,28,45,.5); }
+.crumb { font-size: 13px; font-weight: 600; color: #1F3347; }
 .level-meta { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
 .scenario .body p { font-size: 15.5px; margin-bottom: 14px; max-width: 70ch; }
 
@@ -386,7 +397,8 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 @keyframes pop-in { 0% { opacity:0; transform: scale(.94) translateY(14px); } 100% { opacity:1; transform:none; } }
 
 .score-head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 3px dashed rgba(0,0,0,.12); }
-.score-num { font-size: 50px; color: var(--ink-head); line-height: 1; }
+.score-num { font-size: 50px; color: var(--coin); line-height: 1;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 4px 5px 0 rgba(0,0,0,.25); }
 .score-lbl { font-size: 12px; color: var(--text-faint); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
 .stars { font-size: 26px; letter-spacing: 4px; }
 .star-on { color: var(--coin); } .star-off { color: #D6DCE2; }
@@ -523,7 +535,7 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 .tier-cell.tier-surgical .t { color: #B98700; }
 
 /* ---- Footer ---- */
-.foot { margin-top: 64px; padding: 26px 24px; font-size: 13px; color: var(--text); font-weight: 600;
+.foot { margin-top: 64px; padding: 26px 24px; font-size: 13px; color: #1F3347; font-weight: 600;
   background: rgba(255,255,255,.72); border-top: 4px solid #fff; }
 .foot p { max-width: 1120px; margin: 0 auto; }
 

@@ -78,7 +78,7 @@
 <!-- TRACKS -->
 <section class="section" id="tracks">
   <div class="wrap">
-    <div class="section-eyebrow">02 · Pick your character</div>
+    <div class="section-eyebrow">Pick your character</div>
     <h2>Two tracks. One arcade.</h2>
     <p class="muted" style="max-width:640px; margin-top:8px">
       Working pro or college student. Same engine, different scenarios. You can switch later, the receipts move with you.
@@ -113,7 +113,7 @@
 <!-- WHY -->
 <section class="section band">
   <div class="wrap">
-    <div class="section-eyebrow lime">03 · Why bother</div>
+    <div class="section-eyebrow lime">Why bother</div>
     <h2 style="margin-top:14px">Bad prompts aren't just annoying. They're expensive.</h2>
     <div class="why-grid">
       <div class="why-card">
@@ -138,7 +138,7 @@
 <!-- CASE STUDIES (replaces how-it-works on home) -->
 <section class="section" id="case-studies">
   <div class="wrap">
-    <div class="section-eyebrow uv">04 · Field reports</div>
+    <div class="section-eyebrow uv">Field reports</div>
     <h2 style="margin-top:14px">When prompts go wrong, this is what it looks like.</h2>
     <p class="muted" style="max-width:640px; margin-top:8px">
       Six real incidents. Each one starts with someone, somewhere, sending a prompt that lacked a constraint, a citation, a refusal, or a check.
@@ -201,10 +201,22 @@
       card.innerHTML = `
         <span class="case-tag">${c.tag}</span>
         <h3>${c.title}</h3>
-        <div class="body">${c.body}</div>
-        <div class="lesson"><strong>What prompt-craft would have caught it:</strong><br>${c.lesson}</div>
+        <div class="body">${c.hook}</div>
+        <div class="case-more" hidden>
+          <p>${c.detail}</p>
+          <div class="lesson"><strong>What prompt-craft would have caught it:</strong><br>${c.lesson}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm case-toggle" type="button" aria-expanded="false">Read more</button>
         <div class="src">Source: <a href="${c.src}" target="_blank" rel="noopener">${c.srcLabel}</a></div>
       `;
+      const more = card.querySelector('.case-more');
+      const toggle = card.querySelector('.case-toggle');
+      toggle.addEventListener('click', () => {
+        const open = more.hasAttribute('hidden');
+        more.toggleAttribute('hidden', !open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.textContent = open ? 'Show less' : 'Read more';
+      });
       grid.appendChild(card);
     });
   } catch (e) {
