@@ -680,3 +680,38 @@ main.wrap > p {
   .build-notes dl { grid-template-columns: 1fr; gap: 4px 0; }
   .build-notes dd { margin-bottom: 14px; }
 }
+
+/* ---- Accounts --------------------------------------------------------
+   Anonymous-first: the control reads "Save progress", not "Sign in",
+   because that is the thing being offered. */
+.pa-account {
+  margin-left: 8px; padding: 7px 14px; font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 12px; letter-spacing: .04em;
+  background: #fff; color: var(--blue-deep); border: none; border-radius: 999px;
+  box-shadow: 0 3px 0 rgba(0,0,0,.15); cursor: var(--glove); white-space: nowrap;
+  transition: transform .2s var(--bounce);
+}
+.pa-account:hover { transform: translateY(-2px) scale(1.04); }
+.pa-account[data-signed-in] { background: var(--green); color: #14521F; box-shadow: 0 3px 0 var(--green-deep); }
+
+.pa-nudge {
+  margin-top: 22px; padding: 18px 22px;
+  background: #FFFAE8; border-radius: var(--radius-sm);
+  border-left: 6px solid var(--coin);
+  display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  animation: pop-in .4s var(--bounce) both;
+}
+.pa-nudge-body { flex: 1; min-width: 240px; }
+.pa-nudge-body strong { display: block; font-family: 'Fredoka One', sans-serif; font-size: 16px; color: var(--ink-head); }
+.pa-nudge-body span { display: block; font-size: 13.5px; color: var(--text); margin-top: 4px; line-height: 1.55; }
+.pa-nudge-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.pa-toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px);
+  background: var(--ink-head); color: #fff; font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 13.5px; padding: 12px 20px; border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28); z-index: 200;
+  opacity: 0; transition: opacity .3s ease, transform .3s var(--bounce);
+  pointer-events: none; max-width: calc(100vw - 32px);
+}
+.pa-toast.vis { opacity: 1; transform: translate(-50%, 0); }

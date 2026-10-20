@@ -52,6 +52,11 @@ const PA_State = (() => {
     s.sessionPromptTokens += result.tokens;
     s.badPromptTokens += result.badTokens || 0;
     save(s);
+    // Announce it so account sync (js/auth.js) can mirror the result
+    // remotely without state.js needing to know accounts exist.
+    try {
+      window.dispatchEvent(new CustomEvent('pa:level-recorded', { detail: { id, result, state: s } }));
+    } catch (e) {}
     return s;
   }
 
