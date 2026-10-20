@@ -168,7 +168,8 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
 .section > .wrap > p.muted,
 .band > .wrap > p,
 .how-section > p,
-.picker-step > p {
+.picker-step > p,
+main.wrap > p {
   color: #FFFFFF;
   font-weight: 600;
   text-shadow: 0 2px 5px rgba(0,45,90,.5);
@@ -564,3 +565,92 @@ p, .hero-sub, .desc, .who, .why-card p, .case-card .body, .scenario .body p,
   .hero { padding: 44px 0 30px; }
   .card, .scenario, .feedback, .gold-panel { padding: 20px 20px; }
 }
+
+/* ---- Agent Studio ----------------------------------------------------
+   The one surface where you assemble a system rather than write a prompt. */
+.studio-shell { display: grid; grid-template-columns: 1fr 320px; gap: 26px; margin-top: 8px; align-items: start; }
+@media (max-width: 1020px) { .studio-shell { grid-template-columns: 1fr; } }
+
+.studio-palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.studio-chip {
+  text-align: left; font-family: 'Nunito', sans-serif; cursor: var(--glove);
+  background: #F4F7FA; border: 3px solid transparent; border-radius: 16px;
+  padding: 12px 14px; box-shadow: 0 3px 0 rgba(0,0,0,.10);
+  transition: transform .2s var(--bounce), border-color .15s ease, background .15s ease;
+}
+.studio-chip strong { display: block; font-family: 'Fredoka One', sans-serif; font-size: 15px; color: var(--ink-head, var(--blue-deep)); }
+.studio-chip span { display: block; font-size: 12px; color: var(--text-soft); line-height: 1.45; margin-top: 3px; }
+.studio-chip:hover { transform: translateY(-3px) scale(1.02); }
+.studio-chip.placed { background: #E4F0FF; border-color: var(--blue); }
+
+.studio-pipeline { display: flex; flex-direction: column; gap: 12px; }
+.studio-node { background: #F4F7FA; border-radius: 16px; padding: 12px 14px; border-left: 6px solid var(--blue); }
+.studio-node.is-human { border-left-color: var(--coin); background: #FFFAE8; }
+.studio-node-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.studio-node-head strong { font-family: 'Fredoka One', sans-serif; font-size: 15px; }
+.studio-step {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--blue); color: #fff;
+  font-family: 'Fredoka One', sans-serif; font-size: 12px;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+}
+.studio-up {
+  margin-left: auto; width: 28px; height: 28px; border: none; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 0 rgba(0,0,0,.14); cursor: var(--glove);
+  font-size: 13px; color: var(--text-soft);
+}
+.studio-up:hover { color: var(--blue-deep); }
+.studio-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.studio-tool {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+  background: #fff; color: var(--text-soft); cursor: var(--glove);
+  box-shadow: 0 2px 0 rgba(0,0,0,.10);
+}
+.studio-tool input { accent-color: var(--blue); cursor: var(--glove); }
+.studio-tool.danger { color: var(--red-deep); }
+.studio-tool:has(input:checked) { background: var(--blue); color: #fff; box-shadow: 0 2px 0 var(--blue-deep); }
+.studio-tool.danger:has(input:checked) { background: var(--red); color: #fff; box-shadow: 0 2px 0 var(--red-deep); }
+
+.studio-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.studio-opt {
+  text-align: left; font-family: 'Nunito', sans-serif; cursor: var(--glove);
+  background: #F4F7FA; border: 3px solid transparent; border-radius: 16px;
+  padding: 12px 14px; box-shadow: 0 3px 0 rgba(0,0,0,.10);
+  transition: transform .2s var(--bounce), border-color .15s ease;
+}
+.studio-opt strong { display: block; font-weight: 800; font-size: 13.5px; }
+.studio-opt span { display: block; font-size: 12px; color: var(--text-soft); margin-top: 3px; line-height: 1.45; }
+.studio-opt:hover { transform: translateY(-3px); }
+.studio-opt.on { background: #E4F0FF; border-color: var(--blue); }
+
+.studio-switch { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; font-size: 13px; cursor: var(--glove); }
+.studio-switch input { margin-top: 3px; accent-color: var(--green); width: 18px; height: 18px; cursor: var(--glove); }
+
+.studio-checks { margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+.studio-check { display: flex; gap: 9px; align-items: flex-start; font-size: 12px; line-height: 1.45; }
+.studio-mark {
+  width: 20px; height: 20px; border-radius: 50%; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 12px;
+}
+.studio-check.pass .studio-mark { background: var(--green); color: #14521F; }
+.studio-check.fail .studio-mark { background: #E4E9EE; color: var(--text-faint); }
+.studio-check-body strong { display: block; font-size: 12.5px; }
+.studio-check.pass .studio-check-body span { color: var(--text-soft); }
+.studio-check.fail .studio-check-body span { color: var(--red-deep); }
+
+#studio-result { display: none; }
+#studio-result.vis { display: block; animation: pop-in .4s var(--bounce) both; }
+.studio-trace { display: flex; flex-direction: column; gap: 8px; }
+.trace-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: baseline;
+  background: #F4F7FA; border-radius: 12px; padding: 10px 14px; font-size: 13px;
+  animation: pop-in .3s var(--bounce) both;
+}
+.trace-hop { font-weight: 700; }
+.trace-meta { grid-column: 1 / -1; font-size: 12px; color: var(--text-soft); }
+.trace-tok { font-family: 'Fredoka One', sans-serif; font-size: 13px; color: var(--blue-deep); }
+.trace-note { background: #E4F0FF; }
+.trace-gate { background: #FFFAE8; }
+.trace-break { background: #FFF1EF; border-left: 5px solid var(--red); }
+.trace-break .trace-hop { color: var(--red-deep); }

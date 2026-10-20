@@ -1,0 +1,42 @@
+{
+  "id": "refund-desk",
+  "title": "Refund dispute desk",
+  "brand": "Quick-commerce app",
+  "brief": "Customers dispute refunds on a quick-commerce app: wrong item, missing item, damaged on arrival. Today one overloaded agent reads the ticket, looks up the order, checks policy, decides, issues the refund and replies. It has issued duplicate refunds, quoted policy that does not exist, and replied to angry customers with the wrong order attached. Design the system that replaces it.",
+  "stakes": "Issuing a refund moves real money and cannot be undone from inside the system.",
+  "tools": [
+    { "id": "read_ticket",   "label": "read_ticket",   "cost": 400,  "irreversible": false },
+    { "id": "order_lookup",  "label": "order_lookup",  "cost": 1200, "irreversible": false },
+    { "id": "policy_lookup", "label": "policy_lookup", "cost": 900,  "irreversible": false },
+    { "id": "search_history","label": "search_history","cost": 2200, "irreversible": false },
+    { "id": "issue_refund",  "label": "issue_refund",  "cost": 120,  "irreversible": true },
+    { "id": "reply_ticket",  "label": "reply_ticket",  "cost": 300,  "irreversible": false }
+  ],
+  "palette": [
+    { "id": "dispatcher", "name": "Dispatcher",   "kind": "orchestrator", "blurb": "Routes work and decides when the case is done. Should not do the work itself." },
+    { "id": "lookup",     "name": "Order Lookup", "kind": "worker",       "blurb": "Pulls the order, its items and its delivery record." },
+    { "id": "policy",     "name": "Policy Checker","kind": "worker",      "blurb": "Reads refund policy and returns what it permits for this case." },
+    { "id": "drafter",    "name": "Reply Drafter","kind": "worker",       "blurb": "Writes the customer-facing message." },
+    { "id": "verifier",   "name": "Verifier",     "kind": "worker",       "blurb": "Checks a decision against the evidence before it leaves the system." },
+    { "id": "gate",       "name": "Human Gate",   "kind": "human",        "blurb": "A person approves before an irreversible action runs." },
+    { "id": "issuer",     "name": "Refund Issuer","kind": "worker",       "blurb": "Executes the refund. Holds the only irreversible tool." }
+  ],
+  "handoffs": [
+    { "id": "prose",      "label": "Free-form prose",            "score": 0, "note": "Nothing downstream can tell a claim from a guess." },
+    { "id": "structured", "label": "Structured record",          "score": 1, "note": "Fields are readable, but their origin is lost." },
+    { "id": "provenance", "label": "Structured + provenance",    "score": 2, "note": "Each field carries its source and the stage that set it." }
+  ],
+  "checks": [
+    { "id": "isolation", "label": "Context isolation",   "want": "No agent holds both the policy context and the fraud-shaped history context, and the Dispatcher does not hold tools of its own.", "fail": "One agent is carrying everything again. This is the overloaded agent with extra hops." },
+    { "id": "gate",      "label": "Human gate",          "want": "A Human Gate sits immediately before the agent holding issue_refund.", "fail": "An irreversible money movement runs with no person in the loop." },
+    { "id": "verify",    "label": "Verification",        "want": "A Verifier checks the decision before the reply or the refund goes out.", "fail": "Nothing checks the decision. The wrong order attached to an angry customer is this failure." },
+    { "id": "handoff",   "label": "Handoff contract",    "want": "Every hop passes structured records, ideally carrying provenance.", "fail": "Prose between stages. When a claim is wrong, nothing says which stage introduced it." },
+    { "id": "stop",      "label": "Stop condition",      "want": "A step budget is set, so the system escalates rather than looping.", "fail": "No terminal state. The duplicate refunds came from a loop nobody bounded." },
+    { "id": "budget",    "label": "Token budget",        "want": "Estimated cost per case stays under 12,000 tokens.", "fail": "Every extra agent is another hop paying for context. This design is expensive per case." }
+  ],
+  "trace": {
+    "intro": "Ticket #48213 — 'ordered 2 kg onions, got 1 kg, want my money back'",
+    "resolved": "Case closed. Refund of Rs 84 issued after approval.",
+    "unresolved": "Case closed. Refund of Rs 84 issued."
+  }
+}

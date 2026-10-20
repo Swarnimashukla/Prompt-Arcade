@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Studio · PromptArcade</title>
+<meta name="description" content="Assemble a dummy agent system and have its architecture scored: context isolation, handoff contracts, stop conditions, verification and the human gate on irreversible actions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mario.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      PROMPT ARCADE
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="tracks.html" class="nav-link">Tracks</a>
+      <a href="studio.html" class="nav-link active">Studio</a>
+      <a href="guide.html" class="nav-link">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+
+  <div class="section-eyebrow">Agent Studio</div>
+  <h2>Wire the system, not the sentence.</h2>
+  <p class="muted" style="max-width:680px; margin-top:8px">
+    Every other level asks you to write one thing well. This one asks you to decide who does what, what they pass each other, and where a human has to stand. Nothing here calls a model: the verdict is your architecture, scored.
+  </p>
+
+  <div class="studio-shell">
+    <div>
+      <div class="card" style="margin-top:24px">
+        <div class="section-eyebrow" style="color:var(--text-faint)">The brief</div>
+        <p id="studio-brief">Loading…</p>
+        <div class="bad-prompt" style="margin-top:16px">
+          <span class="bad-prompt-label">Why this is hard</span>
+          <span id="studio-stakes"></span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="section-eyebrow" style="color:var(--text-faint)">1 · Choose your agents</div>
+        <p class="muted" style="font-size:13px; margin-bottom:12px">Click to place or remove. You do not need all of them, and more is not better.</p>
+        <div class="studio-palette" id="studio-palette"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="section-eyebrow" style="color:var(--text-faint)">2 · Give each one its tools</div>
+        <p class="muted" style="font-size:13px; margin-bottom:12px">Order is the order work flows. <strong>issue_refund ⚠ moves real money and cannot be undone.</strong></p>
+        <div class="studio-pipeline" id="studio-pipeline"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="section-eyebrow" style="color:var(--text-faint)">3 · Decide what each hop carries</div>
+        <div class="studio-opts" id="studio-handoff"></div>
+        <label class="studio-switch">
+          <input type="checkbox" id="studio-stop">
+          <span><strong>Set a step budget</strong><br>After N steps the system escalates to a human instead of looping again.</span>
+        </label>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-coral" id="studio-run" disabled>Run the trace →</button>
+        <button class="btn btn-ghost btn-sm" id="studio-reset">Reset</button>
+      </div>
+
+      <div class="card" id="studio-result" style="margin-top:22px">
+        <div class="section-eyebrow" style="color:var(--text-faint)">Replay</div>
+        <div class="studio-trace" id="studio-trace"></div>
+      </div>
+    </div>
+
+    <div class="side-stack">
+      <div class="meter-card">
+        <h4>Design review</h4>
+        <div class="meter-row">
+          <span>Checks passed</span>
+          <span class="num" id="studio-score">0/6</span>
+        </div>
+        <div class="meter-row" id="studio-cost-row">
+          <span>≈ Tokens per case</span>
+          <span class="num" id="studio-tokens">0</span>
+        </div>
+        <div class="studio-checks" id="studio-checks"></div>
+        <div class="meter-foot">
+          Cost is indicative: each agent pays to receive context, plus its tool calls. Prose handoffs cost more because the next stage re-derives what it was already told.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top:48px"></div>
+  <section class="how-section">
+    <div class="section-eyebrow">What is being scored</div>
+    <h3 style="margin-top:8px">Six properties, not six opinions.</h3>
+    <p style="max-width:720px; margin-top:8px">
+      Each one maps to a failure that has actually happened in production systems: an orchestrator that quietly became the overloaded agent, an irreversible action with nobody watching, prose handoffs that destroyed provenance, and a loop that nobody gave a terminal state. Getting all six is possible with four agents.
+    </p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+</footer>
+
+<script src="js/sfx.js"></script>
+<script src="js/studio.js"></script>
+</body>
+</html>
