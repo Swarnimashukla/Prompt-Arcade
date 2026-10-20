@@ -13,6 +13,6 @@
 // Never put the service_role key in this file. It bypasses RLS entirely.
 
 window.PA_SUPABASE = {
-  url:     'YOUR_SUPABASE_PROJECT_URL',   // https://xxxxxxxx.supabase.co
-  anonKey: 'YOUR_SUPABASE_ANON_KEY'       // the "anon public" key, not service_role
+  url:     'https://umcietxtyfpwmlqvjieq.supabase.co',
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtY2lldHh0eWZwd21scXZqaWVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1MTU5NDAsImV4cCI6MjEwODA5MTk0MH0.OuwPelGUUwsF9PXKdj9lo4kjaziCIi5SnSYqUUVlk18'
 };
