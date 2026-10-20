@@ -56,14 +56,24 @@ function tierFromScore(score10, passedBudget, responsibilityCue) {
 
 const RESPONSIBILITY = /not |don.?t |avoid|cite|source|verbatim|flag|refus|bias|pii|privacy|hallucinat|verify|uncertain/i;
 
-function scoreText(prompt, rubric) {
+// `verdicts` is optional. When the evidence-grounded judge in judge.js
+// has graded the attempt, it arrives here as a map of criterion id ->
+// { passed, quote } and replaces the regex decision for every check.
+// The arithmetic above and below it is untouched either way, so a tier
+// means the same thing whichever engine decided the checks.
+function scoreText(prompt, rubric, verdicts) {
   const text = String(prompt || '').trim();
+  const judged = verdicts && verdicts.verdicts ? verdicts.verdicts : null;
 
   const dimensions = (rubric.dimensions || []).map(dim => {
-    const results = dim.checks.map(c => ({
-      passed: new RegExp(c.pattern, 'i').test(text),
-      tip: c.tip
-    }));
+    const results = dim.checks.map((c, i) => {
+      const v = judged ? judged[`${dim.key}:${i}`] : null;
+      return {
+        passed: v ? v.passed : new RegExp(c.pattern, 'i').test(text),
+        quote: v ? v.quote : null,
+        tip: c.tip
+      };
+    });
     return {
       key: dim.key,
       label: dim.label,
@@ -72,7 +82,10 @@ function scoreText(prompt, rubric) {
       // Only the tips for FAILED checks go back, and never the patterns.
       // The tip says what is missing; the pattern would say exactly which
       // characters to paste, which is the thing worth protecting.
-      tips: results.filter(r => !r.passed).map(r => r.tip)
+      tips: results.filter(r => !r.passed).map(r => r.tip),
+      // The learner's own words, quoted back as the reason each point was
+      // awarded. Empty on the regex path, which has no evidence to show.
+      evidence: results.filter(r => r.passed && r.quote).map(r => r.quote)
     };
   });
 
@@ -84,12 +97,22 @@ function scoreText(prompt, rubric) {
   const badTokens = estimateTokens(rubric.badPrompt || '');
   const budget = rubric.tokenBudget || 300;
   const passedBudget = tokens <= budget;
-  const responsibilityCue = RESPONSIBILITY.test(text);
+
+  // The token budget stays arithmetic — it needs no model and must not
+  // drift. The responsibility cue is a judgement, so the judge takes it
+  // when it is available; the regex is the fallback, and it is a crude
+  // one, since it passes on the word "not" appearing for any reason.
+  const respVerdict = judged ? judged.responsibility : null;
+  const responsibilityCue = respVerdict ? respVerdict.passed : RESPONSIBILITY.test(text);
 
   return {
     score: score10,
     tier: tierFromScore(score10, passedBudget, responsibilityCue),
-    dimensions, tokens, badTokens, budget, responsibilityCue, passedBudget
+    dimensions, tokens, badTokens, budget, responsibilityCue, passedBudget,
+    responsibilityQuote: respVerdict ? respVerdict.quote : null,
+    engine: judged ? 'judge' : 'rubric',
+    judgeModel: judged ? verdicts.model : null,
+    evidenceRejected: judged ? verdicts.evidenceRejected : 0
   };
 }
 
