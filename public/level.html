@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/mario.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
   </div>
 </header>
 
-<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+<main class="wrap page">
 
   <div class="level-head">
     <span class="tag" id="track-tag">Loading…</span>
@@ -36,9 +37,9 @@
   <!-- Scenario picker pinned at top -->
   <div class="scenario-picker" id="scenario-picker"></div>
 
-  <h2 id="level-title" style="margin-top:18px">Loading…</h2>
+  <h2 class="mt-18" id="level-title">Loading…</h2>
   <div class="level-meta" id="level-meta"></div>
-  <p class="handwrit" id="level-persona" style="font-size:20px; color:var(--soot); margin-top:6px"></p>
+  <p class="handwrit fs-20 soft mt-6" id="level-persona"></p>
 
   <div class="level-shell">
     <!-- LEFT: scenario + prompt -->
@@ -50,7 +51,7 @@
 
         <div class="bad-prompt" id="bad-prompt-wrap">
           <span class="bad-prompt-label">The lazy version, this is what most people send</span>
-          <div id="bad-prompt-text" style="margin-top:6px"></div>
+          <div class="mt-6" id="bad-prompt-text"></div>
         </div>
 
         <div class="prompt-area-wrap">
@@ -81,7 +82,7 @@
             <div class="score-num" id="score-num">…</div>
             <div class="score-lbl">/ 10</div>
           </div>
-          <div style="margin-left:auto">
+          <div class="push-right">
             <span class="tag" id="budget-tag">tokens …</span>
           </div>
         </div>
@@ -103,7 +104,7 @@
             </div>
           </div>
           <div class="cost-quip" id="cost-quip"></div>
-          <details class="how-calc" style="margin-top:14px">
+          <details class="how-calc mt-14">
             <summary>How is this calculated?</summary>
             <div>
               <p>Tokens are estimated at ~4 characters per token. Budget is set per scenario based on what a tight, well-specified prompt looks like, not a hard limit. Going over isn't failure, but tokens are a real cost: each one consumes electricity and cooling water in a data centre.</p>
@@ -127,7 +128,7 @@
           <div class="gold-head">
             <span class="gold-tag">★ Reference prompt</span>
             <h4>What a Surgical-tier prompt looks like for this scenario</h4>
-            <p class="muted" style="font-size:14px;margin-top:6px">Compare yours to the reference. Notice the moves: persona, exact data inventory, structured output, negative constraints, and a responsibility cue. There's no single "right" prompt — this is one strong version.</p>
+            <p class="muted fs-14 mt-6">Compare yours to the reference. Notice the moves: persona, exact data inventory, structured output, negative constraints, and a responsibility cue. There's no single "right" prompt — this is one strong version.</p>
           </div>
           <pre class="gold-prompt" id="gold-prompt-text"></pre>
           <div class="gold-foot">
@@ -136,7 +137,7 @@
           </div>
         </div>
 
-        <p class="handwrit" id="tip-if-low" style="font-size:18px; margin-top:18px; color:var(--soot)"></p>
+        <p class="handwrit fs-18 mt-18 soft" id="tip-if-low"></p>
       </div>
     </div>
 
@@ -168,20 +169,20 @@
   </div>
 
   <!-- HOW IT WORKS, at the bottom -->
-  <div class="divider" style="margin-top:60px"></div>
+  <div class="divider mt-60"></div>
   <section class="how-section">
     <div class="section-eyebrow uv">How this scoring works</div>
-    <h3 style="margin-top:8px">Four tiers. One feedback loop.</h3>
+    <h3 class="mt-8">Four tiers. One feedback loop.</h3>
     <div class="tier-rail">
       <div class="tier-cell tier-draft"><div class="t">Draft</div><div class="d">Rubric &lt; 6/10. The prompt is underspecified.</div></div>
       <div class="tier-cell tier-solid"><div class="t">Solid</div><div class="d">Rubric ≥ 6/10. Clean pass.</div></div>
       <div class="tier-cell tier-sharp"><div class="t">Sharp</div><div class="d">Rubric ≥ 7 + under token budget.</div></div>
       <div class="tier-cell tier-surgical"><div class="t">Surgical</div><div class="d">Rubric ≥ 8 + budget + a responsibility move.</div></div>
     </div>
-    <p class="muted" style="max-width:680px; margin-top:18px">
+    <p class="muted measure-wide mt-18">
       <strong>How the scoring works, honestly:</strong> deterministic pattern matching, run in your browser. Same prompt, same score, every time, with no model involved. That makes it instant and free, and it also means it rewards naming the constraint rather than understanding it. Treat the tier as a prompt-shaped checklist, not a verdict on your thinking.
     </p>
-    <p class="muted" style="max-width:680px; margin-top:18px">
+    <p class="muted measure-wide mt-18">
       A responsibility move is anything that prevents downstream harm: a refusal instruction, a citation requirement, a fact-check flag, a privacy/PII guard, or a clear ‘flag if uncertain’. Surgical isn't about word count, it's about whether your prompt would survive a stakeholder review.
     </p>
   </section>
@@ -403,8 +404,9 @@
         'Read by a language judge. Every point below is quoted from your own prompt — if it cannot quote you, it does not score you.';
       engineNote.className = 'engine-note engine-judge';
     } else {
-      engineNote.textContent =
-        'Scored by the pattern rubric — the language judge was unreachable, so this read is coarser than usual.';
+      engineNote.textContent = result.fallbackReason === 'not-configured'
+        ? 'Scored by the pattern rubric. The language judge is not switched on for this deployment, so this read only checks which words you used — not whether you gave an instruction.'
+        : 'Scored by the pattern rubric — the language judge could not be reached, so this read only checks which words you used, not whether you gave an instruction.';
       engineNote.className = 'engine-note engine-rubric';
     }
 

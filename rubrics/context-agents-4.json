@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-4",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 4,
+  "title": "Give an agent a way to check its own work",
+  "brand": "Tata 1mg prescription intake",
+  "domain": "Self-verification",
+  "persona": "Nikhil, engineer on an agent that reads uploaded prescriptions",
+  "scenario": "Your agent extracts drug name, strength and dosage from photographed prescriptions and writes them into a cart. It is right about 94% of the time and confident 100% of the time. The 6% are not random: handwritten strengths read '5mg' as '50mg', and two drug names in the catalogue differ by one letter. A pharmacist reviews every order today, which is the only reason this has not hurt anyone. Leadership wants throughput raised by reviewing fewer orders.",
+  "techniques": [
+    "Self-verification",
+    "Calibrated confidence",
+    "Escalation criteria"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "double check your answer before responding and make sure it's accurate",
+  "badOutput": "I've double-checked my extraction and can confirm it is accurate. Drug: Amlodipine. Strength: 50mg. Dosage: once daily. The extraction has been verified and the item has been added to the cart.",
+  "hints": [
+    {
+      "title": "'Check your work' checks nothing",
+      "body": "An agent asked to verify itself will re-read its own answer and agree. A real check names a different operation — re-read the source, compare against the catalogue, recompute independently."
+    },
+    {
+      "title": "Route the uncertainty, don't just report it",
+      "body": "A confidence score nobody acts on is decoration. Say which band goes to a human, and what the agent must not do while it waits."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "verif|check|validat|confirm|cross.?check|second pass",
+          "tip": "Name the verification step as a distinct operation, not an instruction to be careful."
+        },
+        {
+          "pattern": "separate|independent|re.?read|different|against|from the source|without looking",
+          "tip": "Require the check to be independent of the first pass. Re-reading its own answer proves nothing."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "94|6%|handwrit|5mg|50mg|one letter|catalogue|look.?alike",
+          "tip": "Give the actual failure shapes: misread strengths and near-identical drug names."
+        },
+        {
+          "pattern": "confident|calibrat|overconfiden|always sure|100%",
+          "tip": "Name the real problem: it is confident on the wrong ones too."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "escalat|human|pharmacist|review|hand off|flag for|hold",
+          "tip": "Define escalation: which cases must reach a pharmacist regardless of confidence."
+        },
+        {
+          "pattern": "not |don.?t |never|must not|refuse|stop|do not add",
+          "tip": "Add a hard negative: it must not write to the cart while a check is unresolved."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "threshold|band|below|above|score|certain|uncertain|confidence",
+          "tip": "Set thresholds, so 'uncertain' becomes a routable state rather than a mood."
+        },
+        {
+          "pattern": "throughput|fewer|volume|rate|reduce review|which .{0,15}skip",
+          "tip": "Tie it back to the ask: fewer reviews, chosen deliberately rather than by trusting the model."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "field|json|schema|structur|format|per item|table",
+          "tip": "Specify the output shape: extraction plus the verification result per field."
+        },
+        {
+          "pattern": "evidence|cite|quote|which pixel|where|source|reason",
+          "tip": "Require evidence for each extracted field, so a reviewer can check the check."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is making the check a different operation from the extraction. Strong version: 'After extracting drug, strength and dosage, run a SECOND independent pass: re-read the image for the strength without looking at your first answer, and match the drug name against the catalogue, flagging any name within one character of another entry. Known failures: handwritten 5mg read as 50mg, and look-alike names. Return per field: value, agreement between passes, and the evidence. If the passes disagree, or the name has a one-character neighbour, route to a pharmacist and do NOT write to the cart. Only auto-approve when both passes agree and the name is unambiguous.'",
+  "goldPrompt": "You are a reliability engineer designing a verification step. I'm Nikhil, on Tata 1mg's prescription intake agent.\n\nThe agent reads drug name, strength and dosage from photographed prescriptions. It is right 94% of the time and confident 100% of the time, which is the actual problem. The 6% are not random: handwritten '5mg' reads as '50mg', and some catalogue names differ by a single letter. A pharmacist currently reviews everything; I am being asked to review less.\n\nDesign the check as a SECOND operation, not as 'be careful':\n- Re-read the strength from the image without reference to the first answer, and compare.\n- Match the drug name against the catalogue and flag any name within one character of another entry.\n\nRoute on the result, do not just report it:\n- passes disagree, OR a one-character neighbour exists → pharmacist, and the agent must NOT write to the cart\n- both passes agree and the name is unambiguous → auto-approve\n\nReturn JSON per field: value, whether the two passes agreed, and the evidence the value rests on, so a reviewer can check the check rather than taking it on trust.\n\nThen tell me, in two lines, which orders this lets me stop reviewing — and which failure would still get through.",
+  "guideAnchor": "agents"
+}

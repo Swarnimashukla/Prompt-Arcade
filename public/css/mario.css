@@ -743,3 +743,41 @@ main.wrap > p {
   pointer-events: none; max-width: calc(100vw - 32px);
 }
 .pa-toast.vis { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---- Layout utilities ----
+   These replace ~79 inline style attributes lifted out of the five
+   pages. The values are exactly what was inline, so nothing moved on
+   screen; what changed is that spacing is now nameable and greppable
+   instead of scattered through the markup.
+
+   The scale is honestly noisy — 6, 8, 10, 14, 16, 18, 20, 22, 24, 28,
+   30, 32, 36, 48, 60 — because it accreted a tag at a time. Snapping it
+   to a real scale is a separate change with visible consequences, so it
+   is not folded in here. */
+.mt-6  { margin-top: 6px; }   .mt-8  { margin-top: 8px; }
+.mt-10 { margin-top: 10px; }  .mt-14 { margin-top: 14px; }
+.mt-16 { margin-top: 16px; }  .mt-18 { margin-top: 18px; }
+.mt-20 { margin-top: 20px; }  .mt-22 { margin-top: 22px; }
+.mt-24 { margin-top: 24px; }  .mt-28 { margin-top: 28px; }
+.mt-30 { margin-top: 30px; }  .mt-32 { margin-top: 32px; }
+.mt-36 { margin-top: 36px; }  .mt-48 { margin-top: 48px; }
+.mt-60 { margin-top: 60px; }
+.mb-12 { margin-bottom: 12px; }
+
+.fs-13 { font-size: 13px; }   .fs-14 { font-size: 14px; }
+.fs-17 { font-size: 17px; }   .fs-18 { font-size: 18px; }
+.fs-20 { font-size: 20px; }
+
+/* Measure: how wide prose is allowed to get before it stops being
+   readable. Three widths because the pages carry three kinds of text. */
+.measure       { max-width: 640px; }
+.measure-wide  { max-width: 680px; }
+.measure-wider { max-width: 720px; }
+
+.page      { padding-top: 32px; padding-bottom: 60px; }
+.page-tall { padding-top: 48px; padding-bottom: 60px; }
+
+.push-right { margin-left: auto; }
+.center     { text-align: center; }
+.faint      { color: var(--text-faint); }
+.soft       { color: var(--soot); }

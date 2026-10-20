@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-5",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 5,
+  "title": "Tell an agent what to do when a tool fails",
+  "brand": "IRCTC booking assistant",
+  "domain": "Failure paths",
+  "persona": "Sana, engineer on a train-booking agent",
+  "scenario": "Your agent calls four tools: seat availability, fare lookup, a payment charge, and a booking confirm. Last week it hit a 504 on availability, retried eleven times in ninety seconds, then told the user no trains were running on that route. Separately it got a timeout on the payment charge — which had actually succeeded — retried, and charged twice. Both failures are currently handled by the same instruction: 'if a tool fails, try again'.",
+  "techniques": [
+    "Error taxonomy",
+    "Idempotency",
+    "Retry policy"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "if a tool call fails, retry it until it works",
+  "badOutput": "I attempted to check seat availability several times but the request did not succeed. Based on the available information, there appear to be no trains running on this route today. Would you like me to check an alternative date?",
+  "hints": [
+    {
+      "title": "Not all failures are the same failure",
+      "body": "A 504 on a read and a timeout on a charge want opposite responses. One instruction cannot cover both without causing one of the two bugs above."
+    },
+    {
+      "title": "Never invent an answer from a failure",
+      "body": "'No trains are running' was manufactured out of an error. Say explicitly that a tool failure is reported as a failure, not converted into a result."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "per tool|each tool|by tool|different|category|class|taxonom|kind of",
+          "tip": "Ask for a policy per tool or per error class, not one rule for all four."
+        },
+        {
+          "pattern": "retry|retries|attempt|back.?off|give up|stop",
+          "tip": "Name retries explicitly, including when to stop."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "504|timeout|eleven|11|ninety|90|twice|double|charged",
+          "tip": "Give the two real incidents: the retry storm and the double charge."
+        },
+        {
+          "pattern": "availab|fare|payment|charge|confirm|four tool",
+          "tip": "Name the four tools. They do not deserve the same policy."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "idempot|safe to retry|side.?effect|mutat|write|irreversib|money|charge twice",
+          "tip": "Separate reads from writes. A charge is not safe to retry blind."
+        },
+        {
+          "pattern": "not |don.?t |never|must not|without|do not invent|no fabricat",
+          "tip": "Forbid converting an error into an answer. That is how 'no trains' happened."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "limit|max|cap|budget|two|three|ceiling|bounded|total",
+          "tip": "Bound the retries numerically, or eleven happens again."
+        },
+        {
+          "pattern": "user|tell|surfac|report|inform|escalat|say so",
+          "tip": "Say what the user is told when it gives up. Silence is its own failure."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|matrix|per row|format|structur|list",
+          "tip": "Specify the shape: four tools against their failure policy."
+        },
+        {
+          "pattern": "check|verify|reconcil|confirm.{0,20}(state|status|succeeded)|query before|look up",
+          "tip": "Require checking actual state before retrying a write. That is what prevents the double charge."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is that reads and writes need opposite policies. Strong version: 'Write the failure policy per tool: availability and fare are reads — retry at most twice with backoff, then tell the user the lookup failed. Payment charge and booking confirm are writes — on timeout do NOT retry; query the charge status by idempotency key first and act on what you find. Cap total retries at 3 across the turn. A tool failure is reported as a failure; never convert an error into an answer like \"no trains are running\". Output a 4-row table: tool · read or write · on failure · what the user sees.'",
+  "goldPrompt": "Act as a reliability engineer. I'm Sana, on the IRCTC booking agent.\n\nFour tools: seat availability, fare lookup, payment charge, booking confirm. Today one instruction covers all four — 'if a tool fails, try again' — and it produced two incidents. A 504 on availability was retried eleven times in ninety seconds and then reported to the user as 'no trains are running on this route'. A timeout on the payment charge, which had actually succeeded, was retried and charged the user twice.\n\nWrite the policy per tool, split by whether the call is safe to repeat:\n- Reads (availability, fare): retry at most twice with backoff, then stop and say the lookup failed.\n- Writes (charge, confirm): on a timeout do NOT retry. Query the real state first by idempotency key, and act on what you find.\n\nCap retries at 3 across the whole turn.\n\nTwo hard rules: a tool failure is reported as a failure and never converted into an answer; and nothing that moves money is repeated without first confirming it did not already happen.\n\nOutput a 4-row table — tool · read or write · on failure · what the user is told — then one line naming the failure this policy still does not cover.",
+  "guideAnchor": "agents"
+}

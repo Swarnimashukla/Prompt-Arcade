@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-5",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 5,
+  "title": "Resolve two workers that came back disagreeing",
+  "brand": "PhonePe fraud review",
+  "domain": "Conflict resolution",
+  "persona": "Kabir, engineer on a transaction-review orchestrator",
+  "scenario": "Your orchestrator sends each flagged transaction to two workers. On a ₹48,000 transfer, the pattern worker says 'fraud, 0.91 confidence — device fingerprint seen in three confirmed cases'. The history worker says 'legitimate, 0.88 — this merchant and amount match the user's rent payment for fourteen months'. Both are reasoning correctly from what they were given. The orchestrator currently takes the higher confidence score, which is how a rent payment got blocked last Tuesday.",
+  "techniques": [
+    "Conflict resolution",
+    "Asymmetric error cost",
+    "Tie-breaking"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "if the agents disagree, go with whichever one is more confident",
+  "badOutput": "Agent A reports fraud with 0.91 confidence and Agent B reports legitimate with 0.88 confidence. Taking the higher-confidence result, this transaction is classified as fraudulent and has been blocked. The user has been notified that their payment could not be completed.",
+  "hints": [
+    {
+      "title": "Confidence scores from different agents are not comparable",
+      "body": "0.91 and 0.88 were produced by different reasoning over different evidence. Comparing them as numbers is a category error dressed up as arithmetic."
+    },
+    {
+      "title": "The two mistakes do not cost the same",
+      "body": "Blocking a legitimate rent payment and letting one fraud through have very different costs. Say which way to err and the tie stops being a tie."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "disagree|conflict|contradict|differ|split|tie",
+          "tip": "Name the situation as a conflict to resolve, not a score to compare."
+        },
+        {
+          "pattern": "rule|polic|procedure|how to|resolv|decide|protocol",
+          "tip": "Ask for a resolution rule, not a verdict on this one transaction."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "0\\.9|0\\.8|confidence|91|88|score",
+          "tip": "Include both confidences, and that they came from different evidence."
+        },
+        {
+          "pattern": "device|fingerprint|fourteen|14 month|rent|merchant|history|pattern",
+          "tip": "Give what each worker actually saw. The reasoning matters more than the number."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not |don.?t |never|must not|rather than|instead of|do not compar",
+          "tip": "Forbid comparing confidence across agents. That rule is what blocked the rent."
+        },
+        {
+          "pattern": "cost|asymmetr|worse|false positive|false negative|which error|err on",
+          "tip": "State which error is worse, so the rule has something to optimise."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "evidence|reason|basis|why|underlying|what each saw|grounds",
+          "tip": "Require the resolution to work on the evidence, not the scores."
+        },
+        {
+          "pattern": "escalat|human|review|hold|third|arbitr|defer|pause",
+          "tip": "Give it somewhere to go when the conflict cannot be resolved cleanly."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "record|log|audit|trace|document|state|explain",
+          "tip": "Require the decision and both inputs to be recorded, not just the winner."
+        },
+        {
+          "pattern": "format|structur|field|json|schema|table|shape",
+          "tip": "Specify the output shape so the resolution is machine-readable."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is that cross-agent confidence scores are not comparable. Strong version: 'Write the rule for resolving disagreement between the pattern worker and the history worker. Do NOT compare their confidence scores — they come from different evidence and comparing them is what blocked a legitimate rent payment. Resolve on evidence: a fourteen-month exact-match history is strong disconfirming evidence for this specific transaction; a shared device fingerprint is strong but not transaction-specific. Blocking a legitimate payment costs more than holding a fraudulent one for review, so when both have real evidence, HOLD for human review rather than deciding. Record both workers\\' claims, the evidence each rests on, and the rule applied.'",
+  "goldPrompt": "You are designing the orchestrator's conflict rule. I'm Kabir, on PhonePe transaction review.\n\nTwo workers see each flagged transaction. On a ₹48,000 transfer:\n- pattern worker: fraud, 0.91 — the device fingerprint appears in three confirmed cases\n- history worker: legitimate, 0.88 — this merchant and amount match the user's rent for fourteen months\n\nBoth reasoned correctly from what they were given. The orchestrator takes the higher score, which is how a rent payment got blocked last Tuesday.\n\nWrite the resolution rule. Do NOT compare confidence across workers — those numbers were produced by different reasoning over different evidence, and treating them as commensurable is the bug.\n\nResolve on the evidence instead, and say how you weigh these two kinds:\n- transaction-specific history (fourteen exact matches) — strong disconfirmation for THIS transaction\n- account-level signal (shared device fingerprint) — strong, but not specific to this transaction\n\nThe errors are not symmetric: blocking a legitimate rent payment costs more than holding a fraudulent one for twenty minutes. When both sides hold real evidence, HOLD for human review rather than deciding — and say explicitly that a hold is not a block.\n\nOutput JSON: decision (allow / hold / block), the rule clause that produced it, and both workers' claims with the evidence each rests on, so the next reviewer sees the disagreement rather than the winner.",
+  "guideAnchor": "agents"
+}

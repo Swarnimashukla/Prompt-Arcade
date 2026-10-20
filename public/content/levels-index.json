@@ -318,6 +318,24 @@
               "title": "Write a compaction brief for a 40-turn session",
               "brand": "Research assistant",
               "domain": "Compaction"
+            },
+            {
+              "n": 4,
+              "title": "Pick four examples out of two hundred",
+              "brand": "Swiggy Instamart support",
+              "domain": "Few-shot curation"
+            },
+            {
+              "n": 5,
+              "title": "Decide what to load up front and what to fetch",
+              "brand": "Razorpay merchant support",
+              "domain": "Retrieval strategy"
+            },
+            {
+              "n": 6,
+              "title": "Write the contract for an agent's memory file",
+              "brand": "Zoho CRM assistant",
+              "domain": "Memory"
             }
           ]
         },
@@ -344,6 +362,24 @@
               "title": "Set the permission boundary: unattended vs ask first",
               "brand": "DevOps assistant",
               "domain": "Permissions"
+            },
+            {
+              "n": 4,
+              "title": "Give an agent a way to check its own work",
+              "brand": "Tata 1mg prescription intake",
+              "domain": "Self-verification"
+            },
+            {
+              "n": 5,
+              "title": "Tell an agent what to do when a tool fails",
+              "brand": "IRCTC booking assistant",
+              "domain": "Failure paths"
+            },
+            {
+              "n": 6,
+              "title": "Put an agent on a token and latency budget",
+              "brand": "Urban Company booking flow",
+              "domain": "Budgets"
             }
           ]
         },
@@ -370,6 +406,24 @@
               "title": "Define the handoff schema between agents",
               "brand": "Content pipeline",
               "domain": "Handoff contracts"
+            },
+            {
+              "n": 4,
+              "title": "Decide what agents share and what they pass",
+              "brand": "Nykaa catalogue enrichment",
+              "domain": "Shared state"
+            },
+            {
+              "n": 5,
+              "title": "Resolve two workers that came back disagreeing",
+              "brand": "PhonePe fraud review",
+              "domain": "Conflict resolution"
+            },
+            {
+              "n": 6,
+              "title": "Make a swarm's decision reconstructable afterwards",
+              "brand": "HDFC loan pre-assessment",
+              "domain": "Audit trails"
             }
           ]
         }

@@ -51,6 +51,8 @@ Rules you must follow.
 
 3. Quote the span that does the work. A criterion is not satisfied by a keyword that happens to be present. The word "ranked" sitting in a sentence is not a ranking instruction; "rank the five hypotheses by likelihood" is. If the only thing you could quote is vocabulary with no instruction around it, the criterion fails.
 
+3a. Describing the situation is not instructing the assistant. A learner who restates the brief back at you has written no prompt, however much of the brief's vocabulary they reproduced. "Tomorrow you owe category leadership a memo" is a fact about their week; "write this for category leadership, due tomorrow" is an instruction. Quote only spans that tell the assistant something to do, be, or avoid.
+
 4. When a criterion fails, return an empty quote.
 
 5. Grade the prompt as written, not the prompt you would have written. Different wording that achieves the same thing passes. A criterion met implicitly by a clear instruction passes. A criterion the learner only gestures at does not.
@@ -138,6 +140,21 @@ function criteriaFor(rubric) {
     (dim.checks || []).forEach((check, i) => {
       out.push({ id: `${dim.key}:${i}`, dimension: dim.label, text: check.tip });
     });
+  });
+  // The gate. Every criterion above asks what the prompt INSTRUCTS, so
+  // all of them can be satisfied by a brief pasted back at the scorer —
+  // the rubric patterns were authored from the scenario, which makes the
+  // scenario a near-perfect match for its own rubric. Measured across
+  // the 45 levels, pasting the brief back scores 8/10 or better on 28 of
+  // them under the regex rubric, and reaches the top tier on 20.
+  //
+  // Asking a separate question fixes it: did you ask for anything at
+  // all? It is not a dimension, it is a precondition.
+  out.push({
+    id: 'instruction',
+    dimension: 'Is this a prompt',
+    text:
+      'The submission instructs an assistant: it asks for something, assigns a task, sets a role, or constrains an answer. Text that only describes the situation — a brief restated, context with nothing asked of it — does not satisfy this.'
   });
   // The regex version of this was /not |don.?t |avoid|cite|.../, which
   // passes on the word "not" appearing anywhere for any reason. Asked as
@@ -245,20 +262,28 @@ function parseBody(message) {
   try { return JSON.parse(block.text); } catch (e) { return null; }
 }
 
-// Resolves to { verdicts, model, evidenceRejected } or null when the
-// judge could not be used. `verdicts` maps criterion id ->
-// { passed, quote }, and `passed` is already the verified answer: a pass
-// whose quote did not check out arrives here as a fail.
+// Resolves to { verdicts, model, evidenceRejected } when the judge
+// graded the attempt, or { unavailable: <reason> } when it did not.
+// `verdicts` maps criterion id -> { passed, quote }, and `passed` is
+// already the verified answer: a pass whose quote did not check out
+// arrives here as a fail.
+//
+// The reason is carried rather than collapsed to a single "it didn't
+// work", because "nobody configured a key" and "the call failed" are
+// different problems with different fixes, and the results panel should
+// not tell a learner the second when it is the first.
 async function judge(prompt, rubric) {
+  if (!process.env.ANTHROPIC_API_KEY) return { unavailable: 'not-configured' };
+
   const client = await getClient();
-  if (!client) return null;
+  if (!client) return { unavailable: 'not-configured' };
 
   const key = cacheKey(rubric, prompt);
   const hit = cacheGet(key);
   if (hit) return { ...hit, cached: true };
 
   const criteria = criteriaFor(rubric);
-  if (!criteria.length) return null;
+  if (!criteria.length) return { unavailable: 'unusable' };
 
   let message;
   try {
@@ -271,11 +296,11 @@ async function judge(prompt, rubric) {
     });
   } catch (e) {
     console.warn('[judge] call failed, falling back to the rubric:', e.message);
-    return null;
+    return { unavailable: 'failed' };
   }
 
   const graded = gradeFromResponse(parseBody(message), prompt, criteria);
-  if (!graded) return null;
+  if (!graded) return { unavailable: 'unusable' };
 
   const result = { ...graded, model: MODEL };
   cacheSet(key, result);

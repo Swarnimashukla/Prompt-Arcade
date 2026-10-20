@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/mario.css">
 </head>
 <body>
@@ -27,39 +28,39 @@
   </div>
 </header>
 
-<main class="wrap" style="padding-top:32px; padding-bottom:60px">
+<main class="wrap page">
 
   <div class="section-eyebrow">Agent Studio</div>
   <h2>Wire the system, not the sentence.</h2>
-  <p class="muted" style="max-width:680px; margin-top:8px">
+  <p class="muted measure-wide mt-8">
     Every other level asks you to write one thing well. This one asks you to decide who does what, what they pass each other, and where a human has to stand. Nothing here calls a model: the verdict is your architecture, scored.
   </p>
 
   <div class="studio-shell">
     <div>
-      <div class="card" style="margin-top:24px">
-        <div class="section-eyebrow" style="color:var(--text-faint)">The brief</div>
+      <div class="card mt-24">
+        <div class="section-eyebrow faint">The brief</div>
         <p id="studio-brief">Loading…</p>
-        <div class="bad-prompt" style="margin-top:16px">
+        <div class="bad-prompt mt-16">
           <span class="bad-prompt-label">Why this is hard</span>
           <span id="studio-stakes"></span>
         </div>
       </div>
 
-      <div class="card" style="margin-top:20px">
-        <div class="section-eyebrow" style="color:var(--text-faint)">1 · Choose your agents</div>
-        <p class="muted" style="font-size:13px; margin-bottom:12px">Click to place or remove. You do not need all of them, and more is not better.</p>
+      <div class="card mt-20">
+        <div class="section-eyebrow faint">1 · Choose your agents</div>
+        <p class="muted fs-13 mb-12">Click to place or remove. You do not need all of them, and more is not better.</p>
         <div class="studio-palette" id="studio-palette"></div>
       </div>
 
-      <div class="card" style="margin-top:20px">
-        <div class="section-eyebrow" style="color:var(--text-faint)">2 · Give each one its tools</div>
-        <p class="muted" style="font-size:13px; margin-bottom:12px">Order is the order work flows. <strong>issue_refund ⚠ moves real money and cannot be undone.</strong></p>
+      <div class="card mt-20">
+        <div class="section-eyebrow faint">2 · Give each one its tools</div>
+        <p class="muted fs-13 mb-12">Order is the order work flows. <strong>issue_refund ⚠ moves real money and cannot be undone.</strong></p>
         <div class="studio-pipeline" id="studio-pipeline"></div>
       </div>
 
-      <div class="card" style="margin-top:20px">
-        <div class="section-eyebrow" style="color:var(--text-faint)">3 · Decide what each hop carries</div>
+      <div class="card mt-20">
+        <div class="section-eyebrow faint">3 · Decide what each hop carries</div>
         <div class="studio-opts" id="studio-handoff"></div>
         <label class="studio-switch">
           <input type="checkbox" id="studio-stop">
@@ -72,8 +73,8 @@
         <button class="btn btn-ghost btn-sm" id="studio-reset">Reset</button>
       </div>
 
-      <div class="card" id="studio-result" style="margin-top:22px">
-        <div class="section-eyebrow" style="color:var(--text-faint)">Replay</div>
+      <div class="card mt-22" id="studio-result">
+        <div class="section-eyebrow faint">Replay</div>
         <div class="studio-trace" id="studio-trace"></div>
       </div>
     </div>
@@ -97,11 +98,11 @@
     </div>
   </div>
 
-  <div class="divider" style="margin-top:48px"></div>
+  <div class="divider mt-48"></div>
   <section class="how-section">
     <div class="section-eyebrow">What is being scored</div>
-    <h3 style="margin-top:8px">Six properties, not six opinions.</h3>
-    <p style="max-width:720px; margin-top:8px">
+    <h3 class="mt-8">Six properties, not six opinions.</h3>
+    <p class="measure-wider mt-8">
       Each one maps to a failure that has actually happened in production systems: an orchestrator that quietly became the overloaded agent, an irreversible action with nobody watching, prose handoffs that destroyed provenance, and a loop that nobody gave a terminal state. Getting all six is possible with four agents.
     </p>
   </section>

@@ -1,0 +1,106 @@
+{
+  "id": "context-window-4",
+  "track": "context",
+  "trackLabel": "Context",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 4,
+  "title": "Pick four examples out of two hundred",
+  "brand": "Swiggy Instamart support",
+  "domain": "Few-shot curation",
+  "persona": "Tara, support lead automating first-reply drafts",
+  "scenario": "You have 200 human-written replies rated 5/5 by customers, and room in the window for about four as examples. The 200 are not evenly spread: 140 are simple 'where is my order' replies, 35 are refund refusals, 18 are partial-delivery apologies, 7 are abuse escalations. The agent currently copies whichever example it saw most and opens every reply with 'I completely understand your frustration', including on 'where is my order'. Four examples is the budget. Which four, and why those.",
+  "techniques": [
+    "Example selection",
+    "Coverage over volume",
+    "Failure-case anchoring"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "here are some good support replies, use them as examples",
+  "badOutput": "I completely understand your frustration, and I'm so sorry for the inconvenience this has caused. Let me look into your order right away and get back to you as soon as possible with an update. Thank you so much for your patience.",
+  "hints": [
+    {
+      "title": "Frequency is not coverage",
+      "body": "140 of the 200 are one shape. Sampling by frequency hands the agent four near-identical examples and teaches it one reply."
+    },
+    {
+      "title": "Say what each example is for",
+      "body": "An example without a stated job is decoration. Name what each one is demonstrating, so the model generalises along that axis instead of copying the tone."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "four|4 example|select|choose|pick|curat",
+          "tip": "State the task: select four examples from the pool, not summarise them."
+        },
+        {
+          "pattern": "why|reason|justif|because|rationale|what it demonstrat",
+          "tip": "Ask for the reasoning behind each pick, not just the picks."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "140|35|18|7|200|skew|imbalanc|uneven|distribut",
+          "tip": "Give the actual distribution. 140 of one shape is the whole problem."
+        },
+        {
+          "pattern": "frustrat|opens every|copy|copie|mimic|tone|parrot",
+          "tip": "Describe the observed failure: it copies the most common example's opening onto everything."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "not |don.?t |avoid|rather than|instead of|no more than",
+          "tip": "Add a negative: do not pick by frequency, and do not exceed the four."
+        },
+        {
+          "pattern": "cover|each category|one per|spread|range|different|distinct",
+          "tip": "Require coverage across the four categories rather than four of the same kind."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "budget|room|window|token|four is|only four|limit",
+          "tip": "Name the budget as a hard constraint, so trade-offs get made explicitly."
+        },
+        {
+          "pattern": "generalis|generaliz|pattern|axis|teach|learn|demonstrat",
+          "tip": "Say what the examples are for: teaching a pattern, not supplying text to copy."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|list|number|format|structur|one line|per example",
+          "tip": "Specify the shape: four rows, each with the pick and its job."
+        },
+        {
+          "pattern": "reject|left out|not chosen|discard|runner.?up|which 196|excluded",
+          "tip": "Ask what was rejected and why. The exclusions are where the thinking shows."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is telling it that frequency is the trap. Strong version: 'Pick 4 examples from these 200 for a few-shot block. The pool is skewed — 140 where-is-my-order, 35 refund refusals, 18 partial-delivery apologies, 7 abuse escalations — and the agent currently copies the majority example's opening (\"I completely understand your frustration\") onto every reply including simple order lookups. Select for COVERAGE, not frequency: at most one per category. For each pick state in one line what it demonstrates that the other three do not. Then name the two strongest examples you rejected and why. Do NOT pick four variations of the same shape.'",
+  "goldPrompt": "Act as a prompt engineer curating a few-shot block. I'm Tara, support lead on Swiggy Instamart.\n\nI have 200 human replies rated 5/5 and room for exactly 4 as examples. The pool is skewed: 140 'where is my order', 35 refund refusals, 18 partial-delivery apologies, 7 abuse escalations. The agent today copies whatever it saw most — every reply now opens 'I completely understand your frustration', including simple order lookups.\n\nSelect 4 for COVERAGE, not frequency: at most one per category, and prefer the case where getting it wrong costs most. Treat the 4 as teaching a pattern, not as text to copy.\n\nFor each pick give one line on what it demonstrates that the other three do not — the behaviour it anchors, not its subject matter. Then name the 2 strongest examples you rejected and say why they lost.\n\nDo NOT pick four variants of the same shape, and do not exceed 4 even if a fifth looks useful — tell me what the fifth would have been instead.\n\nOutput: a 4-row table (example · category · what it anchors), then a short Rejected section.",
+  "guideAnchor": "context"
+}
