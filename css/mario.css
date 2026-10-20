@@ -655,3 +655,28 @@ main.wrap > p {
 .trace-gate { background: #FFFAE8; }
 .trace-break { background: #FFF1EF; border-left: 5px solid var(--red); }
 .trace-break .trace-hop { color: var(--red-deep); }
+
+/* ---- Provenance block ------------------------------------------------
+   Credibility markers for a portfolio audience. Set as a definition
+   list, because that is what it is: term and evidence. */
+.build-notes {
+  margin-top: 28px; padding: 24px 28px;
+  background: rgba(255,255,255,.88);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  border: 4px solid var(--card-solid); border-radius: var(--radius);
+  box-shadow: var(--drop);
+}
+.build-notes h3 { font-family: 'Fredoka One', sans-serif; color: var(--ink-head); text-shadow: none; font-size: 18px; }
+.build-notes dl { margin-top: 16px; display: grid; grid-template-columns: 170px 1fr; gap: 14px 24px; }
+.build-notes dt {
+  font-family: 'Nunito', sans-serif; font-weight: 800;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--blue-deep); padding-top: 3px;
+}
+.build-notes dd { font-size: 13.5px; line-height: 1.65; color: var(--text); margin: 0; }
+.build-notes dd a { color: var(--blue-deep); text-decoration: underline; font-weight: 700; }
+@media (max-width: 760px) {
+  .build-notes { padding: 20px; }
+  .build-notes dl { grid-template-columns: 1fr; gap: 4px 0; }
+  .build-notes dd { margin-bottom: 14px; }
+}
