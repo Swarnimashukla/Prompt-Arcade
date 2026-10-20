@@ -6,39 +6,45 @@
 <title>Field Guide · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/arcade.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mario.css">
 <style>
-/* Field Guide specifics. Everything shared lives in css/arcade.css. */
+/* Field Guide specifics. Everything shared lives in css/mario.css. */
 .toc a {
-  font-family:'Geist Mono',monospace; font-size:10px; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  padding:5px 10px; border:1px solid var(--line-strong);
-  border-radius:var(--radius-sm); background:transparent; color:var(--muted);
-  transition:color .12s ease, border-color .12s ease;
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:12px;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:8px 16px; border-radius:999px; background:#fff; color:var(--text-soft);
+  box-shadow:0 3px 0 rgba(0,0,0,.14);
+  transition:transform .2s var(--bounce), color .15s ease;
 }
-.toc a:hover { color:var(--ink); border-color:var(--ink); }
+.toc a:hover { transform:translateY(-3px) scale(1.04); color:var(--blue-deep); }
 .guide-block:first-of-type { border-top:none; padding-top:0; }
-.kv-card h4 { margin-top:8px; font-size:14px; letter-spacing:-.02em; }
-.kv-card p { font-family:'Inter',sans-serif; font-size:13px; color:var(--soot); margin-top:6px; line-height:1.6; }
-.kv-card .kv-tag { color:var(--muted); }
+.guide-block { margin-top:52px; padding-top:34px; border-top:3px dashed rgba(255,255,255,.4); }
+.kv-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; margin-top:20px; }
+.kv-card h4 { margin-top:8px; font-size:16px; color:var(--ink-head); font-family:'Fredoka One',sans-serif; }
+.kv-card p { font-family:'Nunito',sans-serif; font-size:13.5px; color:var(--text); margin-top:6px; line-height:1.65; }
+.kv-card .kv-tag { color:var(--text-faint); }
+.tactic-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
 @media(max-width:700px) { .tactic-row, .examples { grid-template-columns:1fr; } }
+.tactic { background:var(--card); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  border:4px solid var(--card-solid); border-radius:var(--radius); box-shadow:var(--drop); padding:20px 24px; }
 .tactic .ic {
-  font-family:'Geist Mono',monospace; font-weight:700; font-size:13px;
-  color:var(--muted); border:1px solid var(--line-strong);
-  width:26px; height:26px; border-radius:var(--radius-sm);
+  font-family:'Fredoka One',sans-serif; font-size:16px; color:#fff;
+  background:var(--blue); width:34px; height:34px; border-radius:50%;
   display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 3px 0 var(--blue-deep);
 }
-.tactic h4 { margin-top:12px; font-size:14px; letter-spacing:-.02em; }
-.tactic p { font-family:'Inter',sans-serif; font-size:13px; color:var(--soot); margin-top:6px; line-height:1.6; }
+.tactic h4 { margin-top:12px; font-size:16px; color:var(--ink-head); font-family:'Fredoka One',sans-serif; }
+.tactic p { font-family:'Nunito',sans-serif; font-size:13.5px; color:var(--text); margin-top:6px; line-height:1.65; }
+.examples { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
 .ex-bad, .ex-good {
-  padding:18px; font-family:'Geist Mono',monospace;
-  font-size:12.5px; line-height:1.7; color:var(--soot);
+  padding:20px 24px; border-radius:var(--radius); border:4px solid var(--card-solid);
+  box-shadow:var(--drop); font-family:'Nunito',sans-serif; font-size:13.5px; line-height:1.7; color:var(--text);
 }
-.ex-bad  { background:var(--fail-bg); }
-.ex-good { background:var(--pass-bg); }
-.ex-bad .ex-lbl  { color:var(--fail); }
-.ex-good .ex-lbl { color:var(--pass); }
+.ex-bad  { background:rgba(255,241,239,.95); }
+.ex-good { background:rgba(242,251,244,.95); }
+.ex-bad .ex-lbl  { color:var(--red-deep); }
+.ex-good .ex-lbl { color:var(--green-deep); }
 .ex-lbl { margin-bottom:10px; }
 </style>
 </head>
@@ -186,5 +192,6 @@
   <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
 </footer>
 
+<script src="js/sfx.js"></script>
 </body>
 </html>

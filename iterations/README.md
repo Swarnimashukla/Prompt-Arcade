@@ -3,7 +3,13 @@
 Frozen explorations kept for reference. Nothing here is part of the live
 site; the production pages are at the repository root.
 
-## `mario/` — late-90s 3D platformer (Super Mario 64)
+## `mario/` — late-90s 3D platformer, bright variant
+
+**Superseded.** The live site now uses the dusk variant of this theme
+(`css/mario.css`). This folder keeps the original noon-blue version for
+reference: same structure, but `#5CB8FF` sky and gold-on-black outlined
+headings throughout. It was shelved because the saturation read as a
+playground against scenarios like defending a pricing memo to a CFO.
 
 Built from `prompt_arcade_mario_spec.md`: sky-blue world with drawn
 clouds and a faint castle-floor checkerboard, floating translucent

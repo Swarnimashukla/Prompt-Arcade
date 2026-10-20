@@ -6,8 +6,8 @@
 <title>Level · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/arcade.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mario.css">
 </head>
 <body>
 
@@ -187,6 +187,7 @@
   <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
 </footer>
 
+<script src="js/sfx.js"></script>
 <script src="js/tokens.js"></script>
 <script src="js/state.js"></script>
 <script src="js/evaluator.js"></script>
@@ -351,6 +352,7 @@
   document.getElementById('evaluate-btn').addEventListener('click', () => {
     const text = ta.value.trim();
     if (text.length < 20) {
+      if (window.PA_Sfx) PA_Sfx.error();
       alert('Write a more complete prompt before evaluating, at least a couple of sentences.');
       return;
     }
