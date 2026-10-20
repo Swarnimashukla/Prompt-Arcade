@@ -3,7 +3,10 @@
 
 const PA_Evaluator = (() => {
   async function loadRubric(track, subdomain, n) {
-    const url = `rubrics/${track}-${subdomain}-${n}.json`;
+    // Pages served from a subdirectory (the archived iterations) set
+    // PA_BASE so rubric URLs still resolve against the repo root.
+    const base = (typeof window !== 'undefined' && window.PA_BASE) || '';
+    const url = `${base}rubrics/${track}-${subdomain}-${n}.json`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Could not load rubric ${url}`);
     return res.json();
