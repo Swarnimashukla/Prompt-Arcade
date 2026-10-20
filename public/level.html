@@ -403,8 +403,9 @@
         'Read by a language judge. Every point below is quoted from your own prompt — if it cannot quote you, it does not score you.';
       engineNote.className = 'engine-note engine-judge';
     } else {
-      engineNote.textContent =
-        'Scored by the pattern rubric — the language judge was unreachable, so this read is coarser than usual.';
+      engineNote.textContent = result.fallbackReason === 'not-configured'
+        ? 'Scored by the pattern rubric. The language judge is not switched on for this deployment, so this read only checks which words you used — not whether you gave an instruction.'
+        : 'Scored by the pattern rubric — the language judge could not be reached, so this read only checks which words you used, not whether you gave an instruction.';
       engineNote.className = 'engine-note engine-rubric';
     }
 

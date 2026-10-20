@@ -254,5 +254,29 @@ check('omitting verdicts is the same as passing null',
   JSON.stringify(scoreText('Diagnose returns, rank for exec.', rubric, null)),
   JSON.stringify(scoreText('Diagnose returns, rank for exec.', rubric)));
 
+// ---------------------------------------------------------------------
+// Why the fallback happened
+// ---------------------------------------------------------------------
+
+// A missing key and a failed call are different problems with different
+// fixes. Collapsing them into one message sent the site's owner looking
+// for a network fault when nobody had set the key.
+const { judge } = require(join(here, 'judge.js'));
+
+const savedKey = process.env.ANTHROPIC_API_KEY;
+delete process.env.ANTHROPIC_API_KEY;
+const noKey = await judge('anything at all', rubric);
+if (savedKey !== undefined) process.env.ANTHROPIC_API_KEY = savedKey;
+
+check('no key reports not-configured, not a failure', noKey, { unavailable: 'not-configured' });
+check('an unavailable judge carries no verdicts', 'verdicts' in noKey, false);
+
+check('the reason reaches the score',
+  scoreText('x', rubric, noKey).fallbackReason, 'not-configured');
+check('a failed call is reported as a failure',
+  scoreText('x', rubric, { unavailable: 'failed' }).fallbackReason, 'failed');
+check('the judge path has no fallback reason', judged.fallbackReason, null);
+
+
 console.log(failures ? `\n${failures} failing` : '\nall passing');
 process.exit(failures ? 1 : 0);

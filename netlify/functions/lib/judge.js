@@ -245,20 +245,28 @@ function parseBody(message) {
   try { return JSON.parse(block.text); } catch (e) { return null; }
 }
 
-// Resolves to { verdicts, model, evidenceRejected } or null when the
-// judge could not be used. `verdicts` maps criterion id ->
-// { passed, quote }, and `passed` is already the verified answer: a pass
-// whose quote did not check out arrives here as a fail.
+// Resolves to { verdicts, model, evidenceRejected } when the judge
+// graded the attempt, or { unavailable: <reason> } when it did not.
+// `verdicts` maps criterion id -> { passed, quote }, and `passed` is
+// already the verified answer: a pass whose quote did not check out
+// arrives here as a fail.
+//
+// The reason is carried rather than collapsed to a single "it didn't
+// work", because "nobody configured a key" and "the call failed" are
+// different problems with different fixes, and the results panel should
+// not tell a learner the second when it is the first.
 async function judge(prompt, rubric) {
+  if (!process.env.ANTHROPIC_API_KEY) return { unavailable: 'not-configured' };
+
   const client = await getClient();
-  if (!client) return null;
+  if (!client) return { unavailable: 'not-configured' };
 
   const key = cacheKey(rubric, prompt);
   const hit = cacheGet(key);
   if (hit) return { ...hit, cached: true };
 
   const criteria = criteriaFor(rubric);
-  if (!criteria.length) return null;
+  if (!criteria.length) return { unavailable: 'unusable' };
 
   let message;
   try {
@@ -271,11 +279,11 @@ async function judge(prompt, rubric) {
     });
   } catch (e) {
     console.warn('[judge] call failed, falling back to the rubric:', e.message);
-    return null;
+    return { unavailable: 'failed' };
   }
 
   const graded = gradeFromResponse(parseBody(message), prompt, criteria);
-  if (!graded) return null;
+  if (!graded) return { unavailable: 'unusable' };
 
   const result = { ...graded, model: MODEL };
   cacheSet(key, result);

@@ -112,7 +112,10 @@ function scoreText(prompt, rubric, verdicts) {
     responsibilityQuote: respVerdict ? respVerdict.quote : null,
     engine: judged ? 'judge' : 'rubric',
     judgeModel: judged ? verdicts.model : null,
-    evidenceRejected: judged ? verdicts.evidenceRejected : 0
+    evidenceRejected: judged ? verdicts.evidenceRejected : 0,
+    // Why the regex path was taken, so the panel can say which problem
+    // this is rather than guessing at one.
+    fallbackReason: judged ? null : ((verdicts && verdicts.unavailable) || 'not-configured')
   };
 }
 
