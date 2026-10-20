@@ -1,13 +1,38 @@
 # Deploy configuration for promptarcade.netlify.app
 #
-# PromptArcade is a static site: no build step, no dependencies, no bundler.
-# Netlify publishes the repository root exactly as it is committed.
+# The site is static and has no build step. The publish directory is
+# `public/`, deliberately NOT the repository root: `rubrics/` sits
+# outside it so scoring patterns and reference answers are never served
+# to a browser. They reach the scoring function through included_files
+# instead.
 
 [build]
-  publish = "."
+  publish = "public"
+  functions = "netlify/functions"
 
-# Netlify already sends X-Robots-Tag: noindex on deploy previews and branch
-# deploys, so preview URLs stay out of search results without extra config here.
+[functions]
+  # Bundles the rubrics with the functions. This is how they stay
+  # readable server-side while being unreachable over HTTP.
+  included_files = ["rubrics/**"]
+  node_bundler = "esbuild"
+
+# Friendly paths for the scoring API.
+[[redirects]]
+  from = "/api/brief"
+  to = "/.netlify/functions/brief"
+  status = 200
+
+[[redirects]]
+  from = "/api/score"
+  to = "/.netlify/functions/score"
+  status = 200
+
+# Belt and braces: even if rubrics were ever copied into the publish
+# directory by mistake, this path does not resolve.
+[[redirects]]
+  from = "/rubrics/*"
+  to = "/404.html"
+  status = 404
 
 [[headers]]
   for = "/*"
@@ -16,14 +41,8 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Scenario and rubric data ship with each release and are fetched at runtime.
-# Revalidate so a deploy is visible immediately instead of serving stale JSON.
+# Scenario listings ship with each release and are fetched at runtime.
 [[headers]]
   for = "/content/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/rubrics/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"

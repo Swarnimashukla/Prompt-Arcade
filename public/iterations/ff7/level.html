@@ -6,8 +6,8 @@
 <title>Level · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mario.css">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ff7.css">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
     <!-- RIGHT: meter only -->
     <div class="side-stack">
       <div class="meter-card" id="meter-card">
-        <h4>⚡ live token meter</h4>
+        <h4>Live token meter</h4>
         <div class="meter-row" id="row-tokens">
           <span>Input tokens</span>
           <span class="num" id="m-tokens">0</span>
@@ -253,7 +253,7 @@
     const li = document.createElement('li');
     li.className = 'hint-locked';
     li.id = 'hint-2-slot';
-    li.innerHTML = `<strong>🔒 Hint 2 · unlocks in <span id="hint-countdown">2:00</span></strong><span>Sit with hint 1 first. Try a draft. The second hint shows up in two minutes — that's the point.</span>`;
+    li.innerHTML = `<strong>[LOCKED] Hint 2 · unlocks in <span id="hint-countdown">2:00</span></strong><span>Sit with hint 1 first. Try a draft. The second hint shows up in two minutes — that's the point.</span>`;
     hintsUl.appendChild(li);
   }
 
@@ -350,14 +350,21 @@
   PA_State.setSelection(track, subdomain);
 
   // Evaluate
-  document.getElementById('evaluate-btn').addEventListener('click', () => {
+  document.getElementById('evaluate-btn').addEventListener('click', async () => {
     const text = ta.value.trim();
     if (text.length < 20) {
       if (window.PA_Sfx) PA_Sfx.error();
       alert('Write a more complete prompt before evaluating, at least a couple of sentences.');
       return;
     }
-    const result = PA_Evaluator.score(text, rubric);
+    let result;
+    try {
+      result = await PA_Evaluator.score(text, rubric);
+    } catch (err) {
+      if (window.PA_Sfx) PA_Sfx.error();
+      alert('Could not reach the scorer. Check your connection and try again.');
+      return;
+    }
 
     const tb = document.getElementById('tier-badge');
     tb.className = 'tier-badge tier-' + result.tier.name.toLowerCase();
@@ -406,19 +413,19 @@
         `You went ${Math.abs(headroom)} tokens over budget. If those tokens bought specificity, that's the right trade. If they're padding, trim and re-evaluate.`;
     }
 
-    document.getElementById('bad-output').textContent = rubric.badOutput;
+    document.getElementById('bad-output').textContent = result.badOutput;
     document.getElementById('good-output').textContent = PA_Reveal.makeGoodOutput(rubric, result);
 
-    if (rubric.goldPrompt) {
+    if (result.goldPrompt) {
       const goldPanel = document.getElementById('gold-panel');
       const goldText = document.getElementById('gold-prompt-text');
-      goldText.textContent = rubric.goldPrompt;
+      goldText.textContent = result.goldPrompt;
       goldPanel.style.display = '';
       const copyBtn = document.getElementById('gold-copy');
       const loadBtn = document.getElementById('gold-load');
       copyBtn.onclick = async () => {
         try {
-          await navigator.clipboard.writeText(rubric.goldPrompt);
+          await navigator.clipboard.writeText(result.goldPrompt);
           copyBtn.textContent = 'Copied ✓';
           setTimeout(() => copyBtn.textContent = 'Copy reference prompt', 1800);
         } catch (e) {
@@ -426,7 +433,7 @@
         }
       };
       loadBtn.onclick = () => {
-        ta.value = rubric.goldPrompt;
+        ta.value = result.goldPrompt;
         localStorage.setItem(draftKey, ta.value);
         updateMeter();
         ta.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -435,7 +442,7 @@
     }
 
     document.getElementById('tip-if-low').textContent =
-      result.tier.level < 3 ? rubric.tipIfLow : '⭐ Surgical. Try the next scenario.';
+      result.tier.level < 3 ? result.tipIfLow : '★ Surgical. Try the next scenario.';
 
     PA_State.recordLevel(rubric.id, {
       tier: result.tier.name,

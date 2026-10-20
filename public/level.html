@@ -355,14 +355,29 @@
   PA_State.setSelection(track, subdomain);
 
   // Evaluate
-  document.getElementById('evaluate-btn').addEventListener('click', () => {
+  const evaluateBtn = document.getElementById('evaluate-btn');
+  evaluateBtn.addEventListener('click', async () => {
     const text = ta.value.trim();
     if (text.length < 20) {
       if (window.PA_Sfx) PA_Sfx.error();
       alert('Write a more complete prompt before evaluating, at least a couple of sentences.');
       return;
     }
-    const result = PA_Evaluator.score(text, rubric);
+
+    const label = evaluateBtn.textContent;
+    evaluateBtn.disabled = true;
+    evaluateBtn.textContent = 'Scoring…';
+    let result;
+    try {
+      result = await PA_Evaluator.score(text, rubric);
+    } catch (err) {
+      if (window.PA_Sfx) PA_Sfx.error();
+      alert('Could not reach the scorer. Check your connection and try again.');
+      return;
+    } finally {
+      evaluateBtn.disabled = false;
+      evaluateBtn.textContent = label;
+    }
 
     const tb = document.getElementById('tier-badge');
     tb.className = 'tier-badge tier-' + result.tier.name.toLowerCase();
@@ -411,19 +426,19 @@
         `You went ${Math.abs(headroom)} tokens over budget. If those tokens bought specificity, that's the right trade. If they're padding, trim and re-evaluate.`;
     }
 
-    document.getElementById('bad-output').textContent = rubric.badOutput;
+    document.getElementById('bad-output').textContent = result.badOutput;
     document.getElementById('good-output').textContent = PA_Reveal.makeGoodOutput(rubric, result);
 
-    if (rubric.goldPrompt) {
+    if (result.goldPrompt) {
       const goldPanel = document.getElementById('gold-panel');
       const goldText = document.getElementById('gold-prompt-text');
-      goldText.textContent = rubric.goldPrompt;
+      goldText.textContent = result.goldPrompt;
       goldPanel.style.display = '';
       const copyBtn = document.getElementById('gold-copy');
       const loadBtn = document.getElementById('gold-load');
       copyBtn.onclick = async () => {
         try {
-          await navigator.clipboard.writeText(rubric.goldPrompt);
+          await navigator.clipboard.writeText(result.goldPrompt);
           copyBtn.textContent = 'Copied ✓';
           setTimeout(() => copyBtn.textContent = 'Copy reference prompt', 1800);
         } catch (e) {
@@ -431,7 +446,7 @@
         }
       };
       loadBtn.onclick = () => {
-        ta.value = rubric.goldPrompt;
+        ta.value = result.goldPrompt;
         localStorage.setItem(draftKey, ta.value);
         updateMeter();
         ta.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -440,7 +455,7 @@
     }
 
     document.getElementById('tip-if-low').textContent =
-      result.tier.level < 3 ? rubric.tipIfLow : '⭐ Surgical. Try the next scenario.';
+      result.tier.level < 3 ? result.tipIfLow : '⭐ Surgical. Try the next scenario.';
 
     PA_State.recordLevel(rubric.id, {
       tier: result.tier.name,
