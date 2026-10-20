@@ -6,7 +6,7 @@
 <title>Level · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/arcade.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
 <main class="wrap" style="padding-top:32px; padding-bottom:60px">
 
   <div class="level-head">
-    <span class="tag tag-coral" id="track-tag">Loading…</span>
+    <span class="tag" id="track-tag">Loading…</span>
     <span class="crumb"><a href="index.html">Home</a> / <a href="tracks.html">Tracks</a> / <span id="crumb-track">…</span> / <span id="crumb-sub">…</span></span>
   </div>
 
@@ -184,7 +184,7 @@
 </main>
 
 <footer class="foot">
-  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+  <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
 </footer>
 
 <script src="js/tokens.js"></script>
@@ -220,8 +220,9 @@
   document.title = `${rubric.title} · PromptArcade`;
   document.getElementById('track-tag').textContent =
     `${trackCfg.label.toUpperCase()} · ${subCfg.label.toUpperCase()} · ${rubric.level}/6`;
-  document.getElementById('track-tag').className =
-    'tag ' + (track === 'builder' ? 'tag-coral' : 'tag-lime');
+  // Track identity is carried by the label text, not by colour, so this
+  // no longer needs to know which tracks exist.
+  document.getElementById('track-tag').className = 'tag';
   document.getElementById('crumb-track').textContent = trackCfg.label;
   document.getElementById('crumb-sub').innerHTML = `<a href="tracks.html?track=${track}&sub=${subdomain}">${subCfg.label}</a>`;
   document.getElementById('level-title').textContent = rubric.title;

@@ -6,31 +6,40 @@
 <title>Field Guide · PromptArcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/arcade.css">
 <style>
-.toc { display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 36px; }
-.toc a { font-family:'Geist Mono',monospace; font-size:12px; padding:6px 12px; border:2px solid var(--ink); border-radius:100px; background:var(--paper); }
-.toc a:hover { background:var(--ink); color:var(--paper); }
-.guide-block { margin-top:48px; padding-top:32px; border-top:2px dashed var(--ink); }
+/* Field Guide specifics. Everything shared lives in css/arcade.css. */
+.toc a {
+  font-family:'Geist Mono',monospace; font-size:10px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  padding:5px 10px; border:1px solid var(--line-strong);
+  border-radius:var(--radius-sm); background:transparent; color:var(--muted);
+  transition:color .12s ease, border-color .12s ease;
+}
+.toc a:hover { color:var(--ink); border-color:var(--ink); }
 .guide-block:first-of-type { border-top:none; padding-top:0; }
-.kv-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:18px; }
-.kv-card { background:var(--paper); border:2px solid var(--ink); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-soft); }
-.kv-card .kv-tag { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
-.kv-card h4 { margin-top:6px; font-size:16px; }
-.kv-card p { font-size:14px; color:var(--soot); margin-top:6px; }
-.tactic-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
-@media(max-width:700px) { .tactic-row { grid-template-columns:1fr; } }
-.tactic { background:var(--paper); border:2px solid var(--ink); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-soft); }
-.tactic .ic { font-family:'Geist Mono',monospace; font-weight:800; font-size:18px; background:var(--coral); color:var(--paper); border:2px solid var(--ink); width:34px; height:34px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
-.tactic h4 { margin-top:10px; font-size:15px; }
-.tactic p { font-size:13px; color:var(--soot); margin-top:4px; }
-.examples { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
-@media(max-width:700px) { .examples { grid-template-columns:1fr; } }
-.ex-bad, .ex-good { padding:18px; border:2px solid var(--ink); border-radius:var(--radius); font-family:'Geist Mono',monospace; font-size:13px; line-height:1.6; }
-.ex-bad { background:var(--coral-soft); }
-.ex-good { background:var(--lime-soft); }
-.ex-lbl { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+.kv-card h4 { margin-top:8px; font-size:14px; letter-spacing:-.02em; }
+.kv-card p { font-family:'Inter',sans-serif; font-size:13px; color:var(--soot); margin-top:6px; line-height:1.6; }
+.kv-card .kv-tag { color:var(--muted); }
+@media(max-width:700px) { .tactic-row, .examples { grid-template-columns:1fr; } }
+.tactic .ic {
+  font-family:'Geist Mono',monospace; font-weight:700; font-size:13px;
+  color:var(--muted); border:1px solid var(--line-strong);
+  width:26px; height:26px; border-radius:var(--radius-sm);
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.tactic h4 { margin-top:12px; font-size:14px; letter-spacing:-.02em; }
+.tactic p { font-family:'Inter',sans-serif; font-size:13px; color:var(--soot); margin-top:6px; line-height:1.6; }
+.ex-bad, .ex-good {
+  padding:18px; font-family:'Geist Mono',monospace;
+  font-size:12.5px; line-height:1.7; color:var(--soot);
+}
+.ex-bad  { background:var(--fail-bg); }
+.ex-good { background:var(--pass-bg); }
+.ex-bad .ex-lbl  { color:var(--fail); }
+.ex-good .ex-lbl { color:var(--pass); }
+.ex-lbl { margin-bottom:10px; }
 </style>
 </head>
 <body>
@@ -51,7 +60,7 @@
 
 <main class="wrap" style="padding-top:48px; padding-bottom:60px">
 
-  <span class="tag">📖 Field Guide</span>
+  <span class="tag">Field Guide</span>
   <h2 style="margin-top:14px">Everything you need, nothing you don't.</h2>
   <p class="muted" style="max-width:640px; margin-top:8px">
     The reference handbook. Pop in mid-level when stuck. Each section is anchored by what it changes about your prompt.
@@ -74,9 +83,9 @@
       AI tools are everywhere, but most professionals use them like they're DM-ing a junior colleague. Vague, contextless, then surprised when the output is mush. The shift: execution cost has dropped to near-zero. The value of your work now lives in the decisions you make: what to build, what to exclude, what to challenge.
     </p>
     <div class="kv-grid">
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Judgment</div><h4>Direction over execution</h4><p>You're not a typist anymore, you're a director. The prompt IS the work.</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Compounding</div><h4>It pays back</h4><p>Each session makes the next faster. Better prompts today → better outputs forever.</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Practice</div><h4>It's a craft, not a hack</h4><p>Plan, direct, refine, encode, shifting roles. Not a single skill, a practice.</p></div>
+      <div class="kv-card"><div class="kv-tag">Judgment</div><h4>Direction over execution</h4><p>You're not a typist anymore, you're a director. The prompt IS the work.</p></div>
+      <div class="kv-card"><div class="kv-tag">Compounding</div><h4>It pays back</h4><p>Each session makes the next faster. Better prompts today → better outputs forever.</p></div>
+      <div class="kv-card"><div class="kv-tag">Practice</div><h4>It's a craft, not a hack</h4><p>Plan, direct, refine, encode, shifting roles. Not a single skill, a practice.</p></div>
     </div>
   </section>
 
@@ -89,12 +98,12 @@
     </p>
     <div class="examples">
       <div class="ex-bad">
-        <div class="ex-lbl" style="color:#B54A2D">🔴 Inefficient</div>
+        <div class="ex-lbl">Inefficient</div>
         Vague prompt → long generic output → 3-5 corrections.<br>
         High token spend, low signal, output isn't reusable.
       </div>
       <div class="ex-good">
-        <div class="ex-lbl" style="color:#3D7A35">🟢 Sustainable</div>
+        <div class="ex-lbl">Sustainable</div>
         Front-loaded prompt → targeted output → 1 light refinement.<br>
         Lower token spend, high signal, prompt becomes a reusable template.
       </div>
@@ -107,9 +116,9 @@
     <h2 style="margin-top:6px">Why use AI responsibly?</h2>
     <p style="margin-top:10px">AI use should be effective and efficient, but also ethical and safe. Three diligences to anchor your practice:</p>
     <div class="kv-grid">
-      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Creation</div><h4>Be intentional</h4><p>Critically aware of which AI systems you use, how you work with them, and the impacts.</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Transparency</div><h4>Be open</h4><p>Open about AI interactions with relevant stakeholders. Who needs to know? At what level of detail?</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--uv)">Deployment</div><h4>Take responsibility</h4><p>Verify facts, check for biases, ensure accuracy, and check usage rights before deploying.</p></div>
+      <div class="kv-card"><div class="kv-tag">Creation</div><h4>Be intentional</h4><p>Critically aware of which AI systems you use, how you work with them, and the impacts.</p></div>
+      <div class="kv-card"><div class="kv-tag">Transparency</div><h4>Be open</h4><p>Open about AI interactions with relevant stakeholders. Who needs to know? At what level of detail?</p></div>
+      <div class="kv-card"><div class="kv-tag">Deployment</div><h4>Take responsibility</h4><p>Verify facts, check for biases, ensure accuracy, and check usage rights before deploying.</p></div>
     </div>
   </section>
 
@@ -127,9 +136,9 @@
 
     <h3 style="margin-top:32px">Description has three flavours</h3>
     <div class="kv-grid">
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Product</div><h4>What you want</h4><p>Output characteristics: context, format, audience, style, constraints.</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Process</div><h4>How to approach it</h4><p>Should AI think step by step? Debate itself? Explore multiple paths before concluding?</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Performance</div><h4>How to behave</h4><p>The behavioral aspects of the interaction. AI behaves differently in different contexts.</p></div>
+      <div class="kv-card"><div class="kv-tag">Product</div><h4>What you want</h4><p>Output characteristics: context, format, audience, style, constraints.</p></div>
+      <div class="kv-card"><div class="kv-tag">Process</div><h4>How to approach it</h4><p>Should AI think step by step? Debate itself? Explore multiple paths before concluding?</p></div>
+      <div class="kv-card"><div class="kv-tag">Performance</div><h4>How to behave</h4><p>The behavioral aspects of the interaction. AI behaves differently in different contexts.</p></div>
     </div>
   </section>
 
@@ -154,9 +163,9 @@
     <h2 style="margin-top:6px">Evaluating AI output</h2>
     <p style="margin-top:10px">Discernment ensures AI collaboration remains guided by human judgment. Three lenses:</p>
     <div class="kv-grid">
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Product</div><h4>Did it produce good work?</h4><p>Factually accurate? Appropriate to audience? Coherent? Adds value?</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Process</div><h4>Did it reason well?</h4><p>Watch for: logical inconsistency, lapses in attention, getting trapped in circular reasoning.</p></div>
-      <div class="kv-card"><div class="kv-tag" style="color:var(--coral)">Performance</div><h4>Did it behave right?</h4><p>Communication style appropriate? Right level of detail? Response to feedback efficient?</p></div>
+      <div class="kv-card"><div class="kv-tag">Product</div><h4>Did it produce good work?</h4><p>Factually accurate? Appropriate to audience? Coherent? Adds value?</p></div>
+      <div class="kv-card"><div class="kv-tag">Process</div><h4>Did it reason well?</h4><p>Watch for: logical inconsistency, lapses in attention, getting trapped in circular reasoning.</p></div>
+      <div class="kv-card"><div class="kv-tag">Performance</div><h4>Did it behave right?</h4><p>Communication style appropriate? Right level of detail? Response to feedback efficient?</p></div>
     </div>
 
     <div class="card card-coral" style="margin-top:30px">
@@ -174,7 +183,7 @@
 </main>
 
 <footer class="foot">
-  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+  <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
 </footer>
 
 </body>
