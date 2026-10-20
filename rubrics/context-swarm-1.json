@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-1",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 1,
+  "title": "Split one overloaded agent into orchestrator and workers",
+  "brand": "Insurance claims triage",
+  "domain": "Orchestration",
+  "persona": "Nikhil, re-architecting a claims agent that has outgrown itself",
+  "scenario": "One agent handles a whole claim: read the FNOL document, extract structured fields, check the policy, pull repair-shop quotes, detect fraud signals, and draft the adjuster's summary. It has 23 tools and a 4,000-word system prompt. Accuracy has fallen as you added capabilities, and it now confuses fraud heuristics with policy rules. You can restructure it however you like, but the six jobs all still have to happen.",
+  "techniques": [
+    "Orchestrator / worker",
+    "Context isolation",
+    "Decomposition"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "should i split my agent into multiple agents?",
+  "badOutput": "Yes, splitting a complex agent into multiple specialised agents is often a good idea. You could have separate agents for different tasks, coordinated by a main agent. This improves modularity and makes the system easier to maintain and debug.",
+  "hints": [
+    {
+      "title": "Split on context, not on verbs",
+      "body": "The reason to separate fraud detection from policy checking is that each needs a different, non-overlapping context. Splitting by task name alone just adds hops."
+    },
+    {
+      "title": "Say what the orchestrator may not do",
+      "body": "An orchestrator that also does the work becomes the same overloaded agent with extra steps. Name what it is forbidden from deciding itself."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "orchestrat|coordinator|supervisor|worker|subagent|sub.?agent",
+          "tip": "Name the pattern explicitly: orchestrator and workers."
+        },
+        {
+          "pattern": "split|decompos|separat|restructur|break",
+          "tip": "State the operation on the existing agent."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "23|twenty.?three|tool|4,?000|4000|word|prompt",
+          "tip": "Give the size: 23 tools, a 4,000-word prompt."
+        },
+        {
+          "pattern": "fraud|policy|confus|accuracy|fell|degrad",
+          "tip": "Name the actual symptom: fraud heuristics bleeding into policy rules."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "context|isolat|separate context|non.?overlap|boundary",
+          "tip": "Require the split to be justified by context isolation, not tidiness."
+        },
+        {
+          "pattern": "not |don.?t |must not|avoid|forbid|never",
+          "tip": "Say what the orchestrator must not do itself."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "six|6 job|all still|must happen|coverage|nothing lost",
+          "tip": "Require all six jobs to remain covered after the split."
+        },
+        {
+          "pattern": "cost|latency|hop|round.?trip|overhead|budget",
+          "tip": "Acknowledge the cost: more agents means more hops."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "diagram|table|per.?agent|list|map|spec",
+          "tip": "Specify the deliverable: an agent-by-agent breakdown."
+        },
+        {
+          "pattern": "tool|which tool|assign|own|allocat",
+          "tip": "Require tool ownership per worker, since that is the real isolation."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Split where the contexts don't overlap, and starve the orchestrator of the work. Strong version: 'One claims agent does six jobs with 23 tools and a 4,000-word prompt; accuracy fell as capabilities were added and it now confuses fraud heuristics with policy rules. Propose an orchestrator/worker split justified by CONTEXT ISOLATION, not by task names: for each proposed worker, give its single responsibility, the subset of the 23 tools it owns exclusively, and the context it must NOT see. State what the orchestrator is forbidden from deciding itself. Confirm all six jobs remain covered, and estimate the added latency per claim.'",
+  "goldPrompt": "You are helping me re-architect an overloaded agent. I'm Nikhil, working on insurance claims triage.\n\nToday one agent does six jobs — read the FNOL document, extract structured fields, check the policy, pull repair-shop quotes, detect fraud signals, draft the adjuster's summary — with 23 tools and a 4,000-word system prompt. Accuracy fell as capabilities were added, and it now confuses fraud heuristics with policy rules.\n\nPropose an orchestrator/worker split. Justify every boundary by CONTEXT ISOLATION, not by task name: two jobs belong in separate agents only if they need materially different context, and I would rather have three good workers than six thin ones.\n\nFor each worker give: its single responsibility, which of the 23 tools it owns exclusively, and what context it must NOT be able to see. The fraud/policy confusion should be impossible by construction after your split — show me why.\n\nFor the orchestrator, state what it is FORBIDDEN from deciding itself, so it does not quietly become the overloaded agent again.\n\nThen: confirm all six jobs are still covered, name any that no longer have an owner, and give a rough added-latency estimate per claim so I can weigh the trade. Do not propose a split you cannot justify on context grounds.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}

@@ -3,7 +3,8 @@
     {
       "tag": "Hallucination",
       "title": "The lawyer who cited fake cases (Mata v. Avianca, 2023)",
-      "body": "A New York attorney filed a court brief citing six legal precedents fabricated by ChatGPT. The judge sanctioned him $5,000 and the firm; the cases didn't exist. He'd asked ChatGPT to find supporting cases and trusted the output without verification.",
+      "hook": "A New York attorney filed a court brief citing six precedents ChatGPT invented. The judge fined him $5,000.",
+      "detail": "He had asked ChatGPT to find supporting cases and trusted the output without verification. None of the six existed.",
       "lesson": "Demand sources. 'Cite only real cases, flag if you can't find one' would have caught it.",
       "src": "https://www.reuters.com/legal/new-york-lawyers-sanctioned-using-fake-chatgpt-cases-legal-brief-2023-06-22/",
       "srcLabel": "Reuters, June 2023"
@@ -11,23 +12,26 @@
     {
       "tag": "Bias",
       "title": "Amazon's hiring tool penalised women",
-      "body": "Amazon built an internal recruitment AI trained on 10 years of resumes, most from men. The model learned to downrank resumes containing the word 'women's' (e.g. 'women's chess club'). Amazon scrapped it in 2018 after fairness audits failed.",
+      "hook": "A recruitment AI trained on a decade of mostly male resumes learned to downrank anything containing 'women's'.",
+      "detail": "'Women's chess club' was enough to cost a candidate. Amazon scrapped the tool in 2018 after fairness audits failed.",
       "lesson": "Bias isn't a UI problem; it's in the prompt and the data. Fairness checks belong inside the prompt itself.",
-      "src": "https://www.reuters.com/article/world/insight-amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK0AG/",
+      "src": "https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G",
       "srcLabel": "Reuters, October 2018"
     },
     {
       "tag": "Election harm",
       "title": "New Hampshire deepfake robocalls (2024)",
-      "body": "Voters received AI-generated robocalls mimicking President Biden, telling them not to vote in the New Hampshire primary. The political consultant behind it was indicted; the underlying TTS model had no provenance check on the script. Cost to make: under $1.",
+      "hook": "AI robocalls mimicking President Biden told voters to stay home. Cost to produce: under $1.",
+      "detail": "The political consultant behind the calls was indicted. The text-to-speech model had no provenance check on the script it was given.",
       "lesson": "When prompts can impersonate, content provenance matters as much as content quality. 'Refuse impersonation requests' is a system-prompt baseline.",
-      "src": "https://www.npr.org/2024/05/23/1253026303/fake-biden-robocall-fcc-fine-political-consultant",
+      "src": "https://www.npr.org/2024/05/23/nx-s1-4977582/fcc-ai-robocall-biden-new-hampshire-fine",
       "srcLabel": "NPR, May 2024"
     },
     {
       "tag": "Water + energy",
       "title": "Microsoft's data centres drank 6.4 billion litres in 2022",
-      "body": "Microsoft's 2023 sustainability report disclosed water consumption rose 34% YoY, attributed largely to AI training and inference loads. A short ChatGPT conversation can consume around 500ml of water for cooling. Tokens add up.",
+      "hook": "Microsoft's water use rose 34% in a year, attributed largely to AI training and inference.",
+      "detail": "A short ChatGPT conversation can consume around 500ml of water for cooling. Individually trivial, collectively not. Tokens add up.",
       "lesson": "Verbose prompts and bloated system messages directly drive water and electricity use. Token efficiency is environmental hygiene.",
       "src": "https://apnews.com/article/chatgpt-gpt4-iowa-ai-water-consumption-microsoft-f551fde98083d17a7e8d904f8be822c4",
       "srcLabel": "AP News, September 2023"
@@ -35,7 +39,8 @@
     {
       "tag": "Training data",
       "title": "Getty Images v. Stability AI",
-      "body": "Getty sued Stability AI in 2023 for training Stable Diffusion on millions of Getty photos without licence, some outputs even included distorted Getty watermarks. The case raised a core question: when does prompting count as laundering copyrighted training data?",
+      "hook": "Getty sued Stability AI for training on millions of its photos without licence. Some outputs carried distorted Getty watermarks.",
+      "detail": "The 2023 case raised a core question still unsettled: when does prompting count as laundering copyrighted training data?",
       "lesson": "Outputs inherit the legal status of inputs. 'Don't reproduce branded or watermarked imagery' belongs in production prompts.",
       "src": "https://www.theverge.com/2023/2/6/23587393/ai-art-copyright-lawsuit-getty-images-stable-diffusion",
       "srcLabel": "The Verge, February 2023"
@@ -43,7 +48,8 @@
     {
       "tag": "Hidden labour",
       "title": "Kenyan moderators trained ChatGPT for $2/hour",
-      "body": "OpenAI contracted Sama to label toxic content, abuse, gore, hate speech, so ChatGPT's safety filters could learn what to refuse. Workers in Kenya saw thousands of pieces of disturbing content per shift. Many reported lasting psychological harm.",
+      "hook": "Workers in Kenya were paid around $2 an hour to label toxic content so ChatGPT's filters could learn what to refuse.",
+      "detail": "OpenAI contracted Sama for the work. Workers saw thousands of pieces of abuse, gore and hate speech per shift. Many reported lasting psychological harm.",
       "lesson": "The fluent answer you get is the cleaned-up version of work someone did at scale. Responsibility extends upstream of the prompt.",
       "src": "https://time.com/6247678/openai-chatgpt-kenya-workers/",
       "srcLabel": "TIME, January 2023"

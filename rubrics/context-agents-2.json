@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-2",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 2,
+  "title": "Define the loop and stop condition for a refund agent",
+  "brand": "Quick-commerce refunds",
+  "domain": "Agent loops",
+  "persona": "Meera, PM on a refunds desk at a quick-commerce app",
+  "scenario": "You're specifying an agent that processes refund requests end to end: read the ticket, pull the order, check the policy, decide, and either issue the refund or explain the decline. In testing it loops — re-reading the same order, re-checking the same policy, occasionally issuing two refunds for one order. It has tools for order lookup, policy lookup, refund issuance and ticket reply. Issuing a refund moves real money and cannot be undone from inside the agent.",
+  "techniques": [
+    "Agent loop",
+    "Stop conditions",
+    "Idempotency"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "write a prompt for a refund agent that handles refund requests",
+  "badOutput": "You are a helpful refund assistant. Read the customer's request, look up their order, check our refund policy, and decide whether to issue a refund. Be polite and empathetic. If a refund is warranted, issue it. Otherwise explain why not.",
+  "hints": [
+    {
+      "title": "Name the terminal states",
+      "body": "A loop ends when it reaches a state you listed. Refund issued, refund declined with reason, escalated to a human — and nothing else counts as done."
+    },
+    {
+      "title": "Double refunds are an idempotency bug",
+      "body": "Say that issuance must be checked against what has already been issued for this order, and that a second issuance needs a human."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "loop|cycle|step|sequence|iterat",
+          "tip": "Describe it as a loop with defined steps, not a vibe."
+        },
+        {
+          "pattern": "refund|ticket|order",
+          "tip": "Name the domain concretely."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "tool|lookup|issuance|reply|four|4 tool",
+          "tip": "Inventory the tools the agent actually has."
+        },
+        {
+          "pattern": "loop|re.?read|re.?check|repeat|twice|double",
+          "tip": "Describe the observed failure: looping and double issuance."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "stop|terminal|halt|done|exit|end state",
+          "tip": "Require explicit stop conditions."
+        },
+        {
+          "pattern": "not |don.?t |never|cannot|irreversib|undo|once",
+          "tip": "State that issuance is irreversible and must not repeat."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "idempot|already issued|check first|dedup|guard",
+          "tip": "Ask for an idempotency guard before issuance."
+        },
+        {
+          "pattern": "escalat|human|hand.?off|ask|uncertain|unclear",
+          "tip": "Require an escalation path when the policy is ambiguous."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "state|diagram|pseudo|numbered|table|spec",
+          "tip": "Specify a structured spec: states and transitions."
+        },
+        {
+          "pattern": "budget|max|limit|attempt|turn|cap",
+          "tip": "Bound the loop: a maximum number of steps before forced escalation."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "A loop without terminal states is just a while(true). Strong version: 'Specify the control loop for a refund agent with four tools: order lookup, policy lookup, refund issuance, ticket reply. It currently re-reads the same order, re-checks the same policy, and has issued two refunds for one order. Define: the ordered steps, the exact terminal states (issued / declined with reason / escalated), an idempotency check that must pass before issuance, a maximum step count after which it escalates rather than continuing, and the rule that issuance is irreversible so any second attempt on an order goes to a human. Output as states and transitions, not prose.'",
+  "goldPrompt": "You are helping me specify an agent's control loop. I'm Meera, PM on a quick-commerce refunds desk.\n\nThe agent has exactly four tools: order_lookup, policy_lookup, issue_refund, reply_to_ticket. Issuing a refund moves real money and CANNOT be undone from inside the agent.\n\nObserved failures in testing: it re-reads the same order, re-checks the same policy, and has issued two refunds against a single order.\n\nSpecify the loop:\n1. The ordered steps, and the precondition for each.\n2. The exact terminal states. I believe they are: refund issued, refund declined with a reason given to the customer, escalated to a human. Tell me if a fourth is genuinely needed; do not invent one otherwise.\n3. An idempotency guard that must pass before issue_refund is called, given that a second issuance on the same order is always a bug.\n4. A step budget, after which it escalates rather than continuing.\n5. The ambiguity rule: when policy does not clearly cover the case, escalate rather than deciding.\n\nOutput as a state-and-transition table, not prose. For each transition, name the tool call that triggers it. Flag any step where you are assuming behaviour I have not described.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}

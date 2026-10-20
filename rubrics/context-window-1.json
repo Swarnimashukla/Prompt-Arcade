@@ -1,0 +1,102 @@
+{
+  "id": "context-window-1",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 1,
+  "title": "Right-size a bloated system prompt",
+  "brand": "Fintech support assistant",
+  "domain": "System prompts",
+  "persona": "Priya, building a support assistant at a payments company",
+  "scenario": "Your system prompt has grown to 2,300 words over six months. Every incident added a rule: 'never say refund without checking', 'always greet by name', 'if the user is angry, apologise twice'. It now contradicts itself in three places, and the model follows the early rules and ignores the late ones. You have the full prompt, a log of the 12 incidents that caused each addition, and eval results showing 61% pass. You cannot rewrite the product, only the prompt.",
+  "techniques": [
+    "Altitude",
+    "Rule consolidation",
+    "Contradiction hunting"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "clean up my system prompt and make it shorter",
+  "badOutput": "Here's a tightened version of your system prompt. I've removed redundancy, improved the structure with clear headings, and made the language more concise while preserving all your original instructions.",
+  "hints": [
+    {
+      "title": "Name the altitude you want",
+      "body": "Too rigid and the model can't handle the case you didn't foresee; too vague and it invents policy. Ask for heuristics with worked examples, not a longer rule list."
+    },
+    {
+      "title": "Make the contradictions the deliverable",
+      "body": "Don't ask for 'shorter'. Ask it to surface every pair of rules that conflict and say which should win, so you're reviewing decisions rather than prose."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "rewrite|consolidat|restructur|rationalis|rationaliz|right.?size",
+          "tip": "State the operation: consolidate and right-size, not merely shorten."
+        },
+        {
+          "pattern": "system prompt|instruction|rule set",
+          "tip": "Name the artefact you're working on, the system prompt itself."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "2,?300|2300|word|six month|6 month|grew|accret|junk",
+          "tip": "Give the size and how it got there. Accretion over time is the actual problem."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "contradict|conflict|inconsistent|overlap|duplicate",
+          "tip": "Point at the contradictions explicitly; that's the real defect, not length."
+        },
+        {
+          "pattern": "not |don.?t |avoid|keep|preserve|must still|without los",
+          "tip": "Say what must survive the edit. Shortening that drops a real rule is a regression."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "altitude|heuristic|principle|judgment|judgement|example|too rigid|too vague",
+          "tip": "Ask for the right altitude: principles plus examples, not more rules."
+        },
+        {
+          "pattern": "61|eval|pass rate|regress|measure|test",
+          "tip": "Reference the eval baseline so the rewrite can be judged, not admired."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|list|pair|side.?by.?side|before|after|diff",
+          "tip": "Specify the shape: conflicting pairs side by side with a recommended winner."
+        },
+        {
+          "pattern": "why|rationale|reason|justif|cite|which incident",
+          "tip": "Require a rationale per change, traced to the incident that caused the rule."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The unlock is asking for decisions, not prose. Strong version: 'Here is a 2,300-word system prompt that grew by accretion across 12 incidents, now at 61% eval pass. Find every pair of rules that contradict. For each pair, show both rules, name which should win and why, and cite the incident that added the loser. Do not shorten anything that is not a contradiction. Then propose a consolidated version that states principles with one worked example each, rather than enumerating rules.'",
+  "goldPrompt": "You are a prompt engineer reviewing a production system prompt with me. I'm Priya, building a support assistant at a payments company.\n\nContext: the prompt is 2,300 words, grown by accretion across 12 incidents over six months. Each incident bolted on a rule. It now contradicts itself in at least three places, the model honours early rules and ignores later ones, and evals sit at 61% pass.\n\nTask, in this order:\n1. Find every pair of rules that conflict. Show both verbatim, name which should win, and say which incident added the loser.\n2. Flag any rule that is actually a product decision wearing a prompt costume — I'll route those elsewhere.\n3. Propose a consolidated prompt that states principles with ONE worked example each, rather than enumerating cases.\n\nConstraints: do NOT shorten for its own sake. Every deletion must be a contradiction, a duplicate, or a misplaced product decision. If removing something risks a behaviour I rely on, say so and leave it.\n\nOutput: the conflict table first, then the rewrite, then a short list of what you deliberately did not touch and why.",
+  "guideAnchor": "context",
+  "track": "context",
+  "trackLabel": "Context"
+}

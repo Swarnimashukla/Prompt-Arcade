@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-2",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 2,
+  "title": "Write a subagent brief a cold worker can act on",
+  "brand": "Market research swarm",
+  "domain": "Subagent briefs",
+  "persona": "Sana, orchestrating research subagents",
+  "scenario": "Your orchestrator spawns research subagents to investigate competitors. Each worker starts cold: it sees only the brief it is given, not the conversation that produced it. Current briefs look like 'research Zomato's pricing'. Workers come back with wildly different scopes, some duplicate each other, two came back with consumer-app pricing when you needed enterprise, and none cited sources consistently. You cannot give workers more turns to ask clarifying questions; the brief is the entire contract.",
+  "techniques": [
+    "Subagent briefs",
+    "Cold-start specification",
+    "Scope boundaries"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "write a brief for a research subagent looking into competitors",
+  "badOutput": "Research Task: Investigate the competitor's pricing strategy. Look into their pricing tiers, any recent changes, and how they compare to the market. Provide a summary of your findings with relevant details and insights.",
+  "hints": [
+    {
+      "title": "Write it as if you'll never speak again",
+      "body": "The worker cannot ask. Every ambiguity you leave becomes a guess. Name the segment, the time window, and what 'done' means."
+    },
+    {
+      "title": "Scope out, not just in",
+      "body": "Duplicate work happens because briefs say what to cover but never what belongs to a different worker. State the out-of-scope edges explicitly."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "brief|task spec|contract|instruction|assignment",
+          "tip": "Call it a brief or contract, with the worker as the audience."
+        },
+        {
+          "pattern": "subagent|sub.?agent|worker|cold|no context|fresh",
+          "tip": "Make the cold start explicit: the worker sees only this."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "enterprise|segment|b2b|consumer|tier|which",
+          "tip": "Pin the segment; this is the mistake that already happened."
+        },
+        {
+          "pattern": "date|time|window|recent|quarter|month|as of",
+          "tip": "Bound the time window so findings are comparable."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "out.?of.?scope|not |don.?t |exclude|other worker|boundary",
+          "tip": "State what is out of scope and owned by another worker."
+        },
+        {
+          "pattern": "cite|source|link|url|evidence|verbatim",
+          "tip": "Require consistent citation; this failed last time."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "done|complete|success|acceptance|sufficient|stop when",
+          "tip": "Define done, so workers stop at the same place."
+        },
+        {
+          "pattern": "cannot ask|no clarif|one shot|single|without follow",
+          "tip": "Acknowledge there is no second turn for questions."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "schema|format|field|structur|json|template|heading",
+          "tip": "Give an exact return format so results can be merged."
+        },
+        {
+          "pattern": "unknown|uncertain|gap|not found|flag|missing",
+          "tip": "Require unknowns to be reported rather than filled in."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The brief is the whole contract. Strong version: 'Write a subagent brief for a cold worker that can ask no questions. Target: Zomato, ENTERPRISE pricing only, consumer app explicitly out of scope and owned by another worker. Time window: changes in the last 4 quarters. Require every claim to carry a source URL and an as-of date, and unknowns to be returned as explicit gaps rather than inferred. Define done as: all published tiers captured, or a stated reason why a tier could not be verified. Return in a fixed schema so results merge with other workers without reconciliation.'",
+  "goldPrompt": "You are helping me write a subagent brief. I'm Sana, orchestrating research workers.\n\nThe worker starts COLD: it sees this brief and nothing else, and it cannot come back with clarifying questions. The brief is the entire contract, so every ambiguity I leave becomes a guess.\n\nPast failures I am fixing: workers chose wildly different scopes, two duplicated each other, two returned consumer-app pricing when I needed enterprise, and citation was inconsistent.\n\nWrite a brief for: Zomato's ENTERPRISE pricing. Consumer app pricing is explicitly out of scope and belongs to a different worker.\n\nThe brief must pin down:\n- The segment, unambiguously, including what is adjacent-but-excluded.\n- The time window: changes within the last four quarters, with an as-of date on every claim.\n- Citation: a source URL per claim, no uncited assertions.\n- Unknowns: returned as explicit gaps with what was searched, never inferred or filled in.\n- Done: all published tiers captured, or a stated reason a tier could not be verified.\n- A fixed return schema, so this worker's output merges with its siblings' without me reconciling formats.\n\nWrite the brief itself, ready to send. Do not write advice about briefs.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}

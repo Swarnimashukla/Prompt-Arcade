@@ -1,0 +1,106 @@
+{
+  "id": "context-window-2",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 2,
+  "title": "Curate a 50k-token tool result",
+  "brand": "Logistics ops agent",
+  "domain": "Tool results",
+  "persona": "Rahul, building an ops agent over a fleet API",
+  "scenario": "Your agent calls a fleet API that returns 50,000 tokens of JSON per request: every vehicle, every sensor reading for 24 hours, nested maintenance history, and a large block of provider metadata. The agent's job is narrow: answer 'which vehicles will miss their next service window'. Right now the whole payload goes into the context and the agent degrades after two calls. You control the code between the API and the model.",
+  "techniques": [
+    "Tool-result curation",
+    "Attention budget",
+    "Projection"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "summarize this api response for the model",
+  "badOutput": "Here is a summary of the fleet API response. It contains data for 240 vehicles including sensor readings, maintenance records and metadata. Key observations: most vehicles are operating normally, some have upcoming maintenance, and sensor data is within expected ranges.",
+  "hints": [
+    {
+      "title": "Work backwards from the question",
+      "body": "One question is being asked: who misses their service window. Every field that cannot change that answer is noise, however interesting it looks."
+    },
+    {
+      "title": "Decide what happens to the rest",
+      "body": "Curation isn't deletion. Say where the dropped detail goes and how the agent fetches it if a specific vehicle turns out to matter."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "curat|filter|project|reduce|select|trim|shape",
+          "tip": "Name the operation: curate or project the payload, not 'summarise' it."
+        },
+        {
+          "pattern": "tool result|api|payload|json|response",
+          "tip": "Say you're shaping a tool result before it reaches the model."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "50,?000|50k|token|context window|degrad|two call|2 call",
+          "tip": "Give the size and the failure: it degrades after two calls."
+        },
+        {
+          "pattern": "service window|maintenance|miss",
+          "tip": "Name the single question the agent exists to answer."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "drop|discard|exclude|omit|remove|strip",
+          "tip": "Be explicit that most fields are to be dropped, not condensed."
+        },
+        {
+          "pattern": "not |don.?t |avoid|never|without",
+          "tip": "Add a negative: don't summarise prose over the data, don't guess missing fields."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "field|schema|column|key|minimal|smallest",
+          "tip": "Ask for the minimal field set that can still answer the question."
+        },
+        {
+          "pattern": "fetch|on.?demand|drill|follow.?up|retriev|lookup",
+          "tip": "Say how detail is recovered later, so curation isn't lossy in practice."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "schema|shape|format|structur|example|json",
+          "tip": "Specify the output shape, ideally a worked example row."
+        },
+        {
+          "pattern": "per vehicle|row|record|table|count",
+          "tip": "Define the granularity: one record per vehicle, not a narrative."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The move is projection, not summarisation. Strong version: 'This tool returns 50k tokens of fleet JSON; the agent only ever answers whether a vehicle will miss its next service window, and it degrades after two calls. Design the smallest projection of this payload that can still answer that question. List the exact fields to keep and why each is load-bearing, the fields to drop, and a fetch-by-id path for recovering detail on a single vehicle. Output a JSON example of one curated record. Do not summarise the data into prose.'",
+  "goldPrompt": "You are helping me design the layer between a tool and a model. I'm Rahul, building a logistics ops agent.\n\nThe tool returns ~50,000 tokens of JSON per call: 240 vehicles, 24h of sensor readings each, nested maintenance history, and provider metadata. The agent answers exactly one question: which vehicles will miss their next service window. Today the whole payload is passed through and the agent degrades after two calls. I control the code between the API and the model.\n\nDesign the smallest projection that can still answer that question:\n1. The exact fields to keep, each with one line on why it is load-bearing for THIS question.\n2. The fields to drop, grouped, so I can sanity-check nothing critical is in there.\n3. A fetch-by-id path for pulling full detail on one vehicle when the answer hinges on it.\n\nDo NOT summarise the data into prose — the model needs structured values it can compare, not my narration of them. Do not invent fields I have not described; if you need one that may not exist, list it as an assumption.\n\nOutput: the keep/drop tables, then a JSON example of a single curated vehicle record, then the assumptions.",
+  "guideAnchor": "context",
+  "track": "context",
+  "trackLabel": "Context"
+}

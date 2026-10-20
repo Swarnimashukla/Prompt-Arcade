@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PromptArcade · practice prompts that don't waste the planet</title>
-<meta name="description" content="A playful, gamified place to practice prompt engineering. Real workplace and college scenarios, live token meter, and the receipts on what bad prompts cost.">
+<title>PromptArcade · prompt engineering, context engineering, agents</title>
+<meta name="description" content="Practise the whole craft: writing one prompt well, engineering the context window, and wiring agents that talk to each other. Real scenarios, a live token meter, and the receipts on what sloppy AI use costs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/arcade.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mario.css">
 </head>
 <body>
 
@@ -21,6 +21,7 @@
     <nav class="nav-links">
       <a href="index.html" class="nav-link active">Home</a>
       <a href="tracks.html" class="nav-link">Tracks</a>
+      <a href="studio.html" class="nav-link">Studio</a>
       <a href="guide.html" class="nav-link">Field Guide</a>
     </nav>
   </div>
@@ -36,7 +37,7 @@
       <span class="squig">it actually matters.</span>
     </h1>
     <p class="hero-sub">
-      Practice prompt engineering on real scenarios. Better prompts, fewer wasted tokens, less water and energy spent on slop. Built for anyone tired of vibes-based AI use.
+      Three layers, one arcade: write one prompt well, engineer the whole context window, then wire agents that talk to each other. Real scenarios, fewer wasted tokens, less water and energy spent on slop.
     </p>
     <div class="hero-cta">
       <a href="tracks.html" class="btn btn-coral">Start practicing →</a>
@@ -78,10 +79,10 @@
 <!-- TRACKS -->
 <section class="section" id="tracks">
   <div class="wrap">
-    <div class="section-eyebrow">02 · Pick your character</div>
-    <h2>Two tracks. One arcade.</h2>
-    <p class="muted" style="max-width:640px; margin-top:8px">
-      Working pro or college student. Same engine, different scenarios. You can switch later, the receipts move with you.
+    <div class="section-eyebrow">Pick your layer</div>
+    <h2>Three layers of the craft.</h2>
+    <p class="muted" style="max-width:680px; margin-top:8px">
+      Start with one message done well. Then everything else in the window. Then many models talking to each other. Same engine throughout, and the receipts move with you.
     </p>
 
     <div class="tracks-grid">
@@ -91,7 +92,7 @@
         <div class="who">Working PM, designer, marketer, analyst. 1 to 8 years in.</div>
         <div class="desc">Real workplace scenarios across PM, design, and business. Diagnose drops, write specs, defend a recommendation, brief an agency.</div>
         <div class="row">
-          <span class="tag tag-coral">3 sub-domains · 18 scenarios</span>
+          <span class="tag">3 sub-domains · 18 scenarios</span>
           <span class="tag">⏱ ~12 min each</span>
         </div>
       </a>
@@ -102,24 +103,46 @@
         <div class="who">College student, AI-curious. Survives deadlines on ChatGPT.</div>
         <div class="desc">Tech, non-tech, career. Plan a DSA prep, summarise a 30-page reading, write a resume bullet that isn't fluff, prep an interview.</div>
         <div class="row">
-          <span class="tag tag-lime">3 sub-domains · 18 scenarios</span>
+          <span class="tag">3 sub-domains · 18 scenarios</span>
           <span class="tag">⏱ ~10 min each</span>
         </div>
       </a>
+
+      <a href="tracks.html?track=context" class="track-card uv">
+        <div class="track-emoji">🧭</div>
+        <h3>Context</h3>
+        <div class="who">You already write decent prompts. Now you're wiring systems.</div>
+        <div class="desc">The layer after prompting. Engineer the whole window, design a single agent's loop and permissions, then split work across many agents without losing the thread.</div>
+        <div class="row">
+          <span class="tag">3 sub-domains · 9 scenarios</span>
+          <span class="tag">⏱ ~15 min each</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="card card-uv" style="margin-top:28px">
+      <h3>And one that isn't a prompt at all</h3>
+      <p style="margin-top:8px">
+        Writing a good brief is one skill. Deciding who does what, what they pass each other, and where a human has to stand is a different one. The <strong>Agent Studio</strong> gives you a refund desk to wire up, then scores the architecture: context isolation, handoff contracts, stop conditions, verification, and the human gate on the one action that moves real money.
+      </p>
+      <div class="row" style="margin-top:18px">
+        <a href="studio.html" class="btn btn-uv">Open the Studio →</a>
+        <span class="tag">No model calls · deterministic</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WHY -->
-<section class="section" style="background:var(--paper-2); border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)">
+<section class="section band">
   <div class="wrap">
-    <div class="section-eyebrow lime">03 · Why bother</div>
+    <div class="section-eyebrow lime">Why bother</div>
     <h2 style="margin-top:14px">Bad prompts aren't just annoying. They're expensive.</h2>
     <div class="why-grid">
       <div class="why-card">
-        <div class="num">~3×</div>
+        <div class="num">3 rounds</div>
         <h3>Token spend</h3>
-        <p>A vague prompt triggers 3 to 5 correction cycles. Each one re-sends your full context. Token cost compounds, even when each individual call is cheap.</p>
+        <p>Every correction re-sends your whole context. Three rounds of "no, like this" costs about three times the tokens of getting it right once. Same answer, paid for repeatedly.</p>
       </div>
       <div class="why-card">
         <div class="num">500ml</div>
@@ -138,7 +161,7 @@
 <!-- CASE STUDIES (replaces how-it-works on home) -->
 <section class="section" id="case-studies">
   <div class="wrap">
-    <div class="section-eyebrow uv">04 · Field reports</div>
+    <div class="section-eyebrow uv">Field reports</div>
     <h2 style="margin-top:14px">When prompts go wrong, this is what it looks like.</h2>
     <p class="muted" style="max-width:640px; margin-top:8px">
       Six real incidents. Each one starts with someone, somewhere, sending a prompt that lacked a constraint, a citation, a refusal, or a check.
@@ -161,10 +184,11 @@
 </main>
 
 <footer class="foot">
-  <p>Built with <span style="color:#e11d48;">♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
+  <p>Built with <span>♥</span> by <strong>Swarnima Shukla</strong>, designer who builds. Powered by Anthropic's <a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener">AI Fluency Framework</a>.</p>
   <p class="spacer-32"></p>
 </footer>
 
+<script src="js/sfx.js"></script>
 <script src="js/tokens.js"></script>
 <script>
 (async function(){
@@ -200,10 +224,22 @@
       card.innerHTML = `
         <span class="case-tag">${c.tag}</span>
         <h3>${c.title}</h3>
-        <div class="body">${c.body}</div>
-        <div class="lesson"><strong>What prompt-craft would have caught it:</strong><br>${c.lesson}</div>
+        <div class="body">${c.hook}</div>
+        <div class="case-more" hidden>
+          <p>${c.detail}</p>
+          <div class="lesson"><strong>What prompt-craft would have caught it:</strong><br>${c.lesson}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm case-toggle" type="button" aria-expanded="false">Read more</button>
         <div class="src">Source: <a href="${c.src}" target="_blank" rel="noopener">${c.srcLabel}</a></div>
       `;
+      const more = card.querySelector('.case-more');
+      const toggle = card.querySelector('.case-toggle');
+      toggle.addEventListener('click', () => {
+        const open = more.hasAttribute('hidden');
+        more.toggleAttribute('hidden', !open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.textContent = open ? 'Show less' : 'Read more';
+      });
       grid.appendChild(card);
     });
   } catch (e) {

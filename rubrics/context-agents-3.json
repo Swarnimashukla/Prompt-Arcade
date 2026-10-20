@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-3",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 3,
+  "title": "Set the permission boundary: unattended vs ask first",
+  "brand": "DevOps assistant",
+  "domain": "Permissions",
+  "persona": "Karthik, rolling out an ops agent to an on-call team",
+  "scenario": "Your agent helps the on-call engineer: it reads logs, queries metrics, restarts services, scales deployments, rolls back releases, and can open and merge pull requests. Right now it asks permission for everything, so on-call ignores it, or it is run with everything pre-approved, in which case it once rolled back a release at 3am that was fine. You need a boundary: what it may do unattended, what needs a human, and how that changes during an active incident.",
+  "techniques": [
+    "Permission design",
+    "Reversibility",
+    "Context-dependent autonomy"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "what permissions should my devops agent have",
+  "badOutput": "Your DevOps agent should follow the principle of least privilege. Grant read-only access by default, and require approval for write operations. Consider using role-based access control and audit logging to track what the agent does.",
+  "hints": [
+    {
+      "title": "Sort by reversibility, not by risk vibes",
+      "body": "Reading logs is free. Restarting a stateless service is cheap and reversible. Merging a PR is not. Rank the actions on how hard they are to undo."
+    },
+    {
+      "title": "The boundary moves during an incident",
+      "body": "What needs approval at 3pm on a Tuesday may need to be automatic during a sev-1. Say explicitly how the boundary shifts and who can shift it."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "permission|boundary|autonom|approval|unattended",
+          "tip": "Frame it as a permission boundary, not generic security advice."
+        },
+        {
+          "pattern": "agent|on.?call|ops|devops",
+          "tip": "Anchor to this agent and this team."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "log|metric|restart|scale|roll.?back|pull request|merge",
+          "tip": "Inventory the actual capabilities you're classifying."
+        },
+        {
+          "pattern": "3am|ignored|fine|false|incident|noise",
+          "tip": "Give the two failure modes: ignored when it always asks, harmful when it never does."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "reversib|irreversib|undo|recover|blast|destructive",
+          "tip": "Rank by reversibility; that's the axis that matters."
+        },
+        {
+          "pattern": "not |don.?t |never|must not|without approval",
+          "tip": "State what it must never do unattended regardless of mode."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "incident|sev|escalat|mode|during|changes|shift",
+          "tip": "Require the boundary to be context-dependent, with incident mode spelled out."
+        },
+        {
+          "pattern": "who|authoris|authoriz|grant|lift|human|owner",
+          "tip": "Say who can widen the boundary and how it reverts."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "table|tier|matrix|categor|classif|list",
+          "tip": "Specify a classification table of action against mode."
+        },
+        {
+          "pattern": "audit|log|record|notify|trail|after",
+          "tip": "Require an audit or notification trail for unattended actions."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Classify by reversibility, then make the boundary incident-aware. Strong version: 'Design the permission boundary for an on-call agent that can read logs, query metrics, restart services, scale deployments, roll back releases and merge PRs. Two failure modes to avoid: asking for everything, so on-call ignores it; and full autonomy, which rolled back a healthy release at 3am. Classify each action by reversibility, then give a table of action against mode (normal / active incident) stating unattended, ask-first, or never. Say who can switch modes, how it reverts, and what audit trail every unattended action leaves. Name any action that should be never-unattended in all modes.'",
+  "goldPrompt": "You are helping me set a permission boundary. I'm Karthik, rolling an ops agent out to an on-call team.\n\nThe agent can: read logs, query metrics, restart a service, scale a deployment, roll back a release, open a pull request, merge a pull request.\n\nTwo failure modes I have already hit:\n- Ask-for-everything: on-call ignores the agent entirely, so it provides no value.\n- Pre-approve-everything: it rolled back a healthy release at 3am on a false signal.\n\nProduce:\n1. A reversibility ranking of the seven actions, most to least recoverable, with one line each on what undoing it actually costs.\n2. A table of action against mode — normal operations vs active incident — where each cell is unattended, ask-first, or never.\n3. The actions that are never unattended in ANY mode, and why.\n4. Who can switch the agent into incident mode, and how it reverts when the incident closes. If it does not revert automatically, say so, because that is the failure I care about.\n5. The audit trail each unattended action must leave, and who is notified.\n\nDo not give me generic least-privilege advice — I need decisions on these seven actions specifically. Where you are unsure because you lack context about our systems, say so rather than guessing.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}
