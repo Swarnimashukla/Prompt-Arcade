@@ -1,0 +1,106 @@
+{
+  "id": "context-agents-1",
+  "subdomain": "agents",
+  "subdomainLabel": "Single Agent",
+  "level": 1,
+  "title": "Write a tool description that prevents misuse",
+  "brand": "Internal analytics agent",
+  "domain": "Tool contracts",
+  "persona": "Dev, shipping tools to an internal analytics agent",
+  "scenario": "Your agent has a tool called run_query that executes SQL against a production replica. Its current description is 'Runs a SQL query and returns rows.' The agent uses it to answer questions, but it has started issuing unbounded SELECTs that time out, querying the events table (billions of rows) when the pre-aggregated daily table would do, and retrying identical failing queries. The tool itself is fine. The description is the only thing you can change.",
+  "techniques": [
+    "Tool contracts",
+    "Affordance design",
+    "Failure guidance"
+  ],
+  "tokenBudget": 300,
+  "badPrompt": "write a better description for my run_query tool",
+  "badOutput": "run_query: Executes a SQL query against the database and returns the resulting rows. Use this tool when you need to retrieve data to answer the user's question. Provide a valid SQL query as the input parameter.",
+  "hints": [
+    {
+      "title": "A tool description is a contract, not a label",
+      "body": "It should say when NOT to call it, which table to prefer, and what to do when it fails. That's where the misuse is coming from."
+    },
+    {
+      "title": "Encode the cheap path",
+      "body": "The agent reaches for the events table because nothing told it the daily rollup exists and is almost always sufficient."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "tool description|contract|docstring|schema|spec",
+          "tip": "Frame it as a tool contract, not marketing copy."
+        },
+        {
+          "pattern": "run_query|sql|query",
+          "tip": "Name the tool and what it actually does."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "timeout|time out|unbounded|billion|slow|expensive",
+          "tip": "Describe the observed failures: unbounded scans and timeouts."
+        },
+        {
+          "pattern": "retry|repeat|identical|loop",
+          "tip": "Mention the retry loop; the description must tell it not to repeat a failing call."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "when not|do not call|avoid|never|instead of|prefer",
+          "tip": "Require 'when NOT to use this' and a preferred alternative."
+        },
+        {
+          "pattern": "limit|bound|row cap|time range|window|aggregate|rollup|daily",
+          "tip": "Make bounds and the pre-aggregated table explicit."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "production|replica|cost|impact|blast|safe",
+          "tip": "Say it hits a production replica, so cost and safety are real."
+        },
+        {
+          "pattern": "fail|error|what to do|fallback|escalate|surface",
+          "tip": "Require guidance for the failure path, not just the happy path."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "parameter|argument|field|type|signature",
+          "tip": "Ask for parameter-level documentation, not one prose line."
+        },
+        {
+          "pattern": "example|worked|sample|good|bad",
+          "tip": "Require at least one good and one bad example call."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The description is where misuse gets prevented. Strong version: 'Rewrite the description for run_query, which executes SQL against a production replica. Observed misuse: unbounded SELECTs that time out, hitting the billion-row events table when the daily rollup would answer the question, and retrying identical failing queries. Write a contract that covers: what it does, when NOT to call it, the required row limit and time bound, the preferred pre-aggregated table and when the raw table is genuinely needed, and what the agent should do when a query fails rather than retrying it unchanged. Include one good example call and one bad one with an explanation.'",
+  "goldPrompt": "You are helping me write a tool contract. I'm Dev, shipping tools to an internal analytics agent.\n\nThe tool is run_query: it executes SQL against a PRODUCTION replica and returns rows. Current description, in full: \"Runs a SQL query and returns rows.\"\n\nObserved misuse, all traceable to that description being empty of guidance:\n- unbounded SELECTs that time out\n- queries against the raw events table (billions of rows) when a pre-aggregated daily table would answer the question\n- retrying an identical query after it has already failed\n\nWrite the replacement description as a contract covering, in this order:\n1. What it does, in one line.\n2. When NOT to call it, naming the cheaper alternative.\n3. Required bounds: row limit and time window, and what happens if they are omitted.\n4. When the raw events table IS genuinely the right choice.\n5. The failure path: what to do on timeout or error, stated so that retrying unchanged is clearly wrong.\n\nDocument each parameter with its type and whether it is required. Finish with one good example call and one bad one, each with a sentence on why.\n\nDo not write marketing prose, and do not describe capabilities the tool does not have.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}

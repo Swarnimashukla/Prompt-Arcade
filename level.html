@@ -220,7 +220,7 @@
 
   document.title = `${rubric.title} · PromptArcade`;
   document.getElementById('track-tag').textContent =
-    `${trackCfg.label.toUpperCase()} · ${subCfg.label.toUpperCase()} · ${rubric.level}/6`;
+    `${trackCfg.label.toUpperCase()} · ${subCfg.label.toUpperCase()} · ${rubric.level}/${subCfg.levels.length}`;
   // Track identity is carried by the label text, not by colour, so this
   // no longer needs to know which tracks exist.
   document.getElementById('track-tag').className = 'tag';

@@ -79,6 +79,8 @@
     <a href="#basics">PE 101 · 4D Framework</a>
     <a href="#advanced">Advanced techniques</a>
     <a href="#discernment">Discernment</a>
+    <a href="#context">Context engineering</a>
+    <a href="#agents">Agents</a>
   </div>
 
   <!-- WHY -->
@@ -179,6 +181,46 @@
       <p style="margin-top:8px">
         <strong>Chain-of-thought prompting.</strong> Add "Walk me through your reasoning before presenting the answer." For any ambiguous or high-stakes prompt, this dramatically improves output quality. The model is forced to show its work before concluding.
       </p>
+    </div>
+  </section>
+
+  <!-- CONTEXT ENGINEERING -->
+  <section class="guide-block" id="context">
+    <div class="section-eyebrow">Context engineering</div>
+    <h2 style="margin-top:6px">The window is the unit, not the prompt</h2>
+    <p style="margin-top:10px">Prompt engineering asks what to say. Context engineering asks what the model can see when it answers: the system prompt, the tools and their descriptions, retrieved documents, examples, and the history of the conversation so far. All of it competes for the same finite attention.</p>
+
+    <div class="kv-grid">
+      <div class="kv-card"><div class="kv-tag">Altitude</div><h4>Neither rigid nor vague</h4><p>Hard-coded rules shatter on the case you didn't foresee. Vague guidance invents policy. Aim for principles with one worked example each.</p></div>
+      <div class="kv-card"><div class="kv-tag">Curation</div><h4>Tool results are context too</h4><p>A 50k-token API response spends the same budget as 50k tokens of your prose. Project it down to the fields that can change the answer.</p></div>
+      <div class="kv-card"><div class="kv-tag">Retrieval</div><h4>Load now or fetch later</h4><p>Everything loaded upfront is paid for on every turn. Everything fetched on demand costs a round trip. Decide deliberately, per item.</p></div>
+      <div class="kv-card"><div class="kv-tag">Compaction</div><h4>Summarising is lossy and one-way</h4><p>Preserve ratified decisions, discredited sources and abandoned approaches. Drop the narrative recap. What you omit is gone.</p></div>
+      <div class="kv-card"><div class="kv-tag">Memory</div><h4>Decide what outlives the session</h4><p>A notes file that persists across runs needs a contract: what goes in, what gets overwritten, and who prunes it.</p></div>
+      <div class="kv-card"><div class="kv-tag">Attention</div><h4>Longer is not safer</h4><p>Padding a window with maybe-relevant material degrades recall of what is relevant. A tight window outperforms a full one.</p></div>
+    </div>
+
+    <h3 style="margin-top:32px">The test</h3>
+    <p style="margin-top:8px">For every token in the window, ask: if this were missing, would the answer change? If not, it is costing attention and buying nothing.</p>
+  </section>
+
+  <!-- AGENTS -->
+  <section class="guide-block" id="agents">
+    <div class="section-eyebrow">Agents</div>
+    <h2 style="margin-top:6px">One agent, then many</h2>
+    <p style="margin-top:10px">An agent is a loop: gather context, act with a tool, check the result, decide whether it is done. Most agent failures are not reasoning failures. They are missing stop conditions, tool descriptions that invited misuse, or permissions that did not match how hard an action is to undo.</p>
+
+    <div class="tactic-row">
+      <div class="tactic"><div class="ic">T</div><h4>Tool contracts</h4><p>A description is a contract, not a label. Say when NOT to call it, which cheaper tool to prefer, the required bounds, and what to do when it fails instead of retrying unchanged.</p></div>
+      <div class="tactic"><div class="ic">S</div><h4>Stop conditions</h4><p>Name the terminal states. A loop without them is a while(true) with a token bill. Add a step budget that forces escalation rather than another lap.</p></div>
+      <div class="tactic"><div class="ic">P</div><h4>Permissions by reversibility</h4><p>Rank actions by what undoing them costs, not by how risky they feel. Reading logs is free; merging a pull request is not. Say how the boundary shifts during an incident.</p></div>
+      <div class="tactic"><div class="ic">V</div><h4>Verification</h4><p>An agent that cannot check its own work will confidently hand you the wrong answer. Build the check into the loop, not into your review of it.</p></div>
+      <div class="tactic"><div class="ic">O</div><h4>Orchestrator and workers</h4><p>Split where contexts genuinely do not overlap, not by task name. Then forbid the orchestrator from doing the work itself, or you have rebuilt the overloaded agent with extra hops.</p></div>
+      <div class="tactic"><div class="ic">H</div><h4>Handoff contracts</h4><p>Free-form prose between stages destroys provenance. Pass atomic records carrying their source and the stage that last touched them, so an error traces to the hop that introduced it.</p></div>
+    </div>
+
+    <div class="card card-lime" style="margin-top:30px">
+      <h3>The cold-start rule</h3>
+      <p style="margin-top:8px">A subagent sees only the brief it is given, never the conversation that produced it, and it usually cannot come back to ask. Write every brief as if you will never speak again: pin the scope, state what is out of scope and owned by someone else, define what done means, and say what to do with unknowns. Every ambiguity you leave becomes a guess.</p>
     </div>
   </section>
 

@@ -1,0 +1,106 @@
+{
+  "id": "context-swarm-3",
+  "subdomain": "swarm",
+  "subdomainLabel": "Many Agents",
+  "level": 3,
+  "title": "Define the handoff schema between agents",
+  "brand": "Content pipeline",
+  "domain": "Handoff contracts",
+  "persona": "Tara, running a drafting pipeline of four agents",
+  "scenario": "Four agents pass work along: a researcher gathers sources, a drafter writes, a fact-checker verifies, an editor finalises. Today each hands off free-form prose. The fact-checker cannot tell which claims came from which source, the editor cannot tell what the fact-checker actually verified versus skipped, and when something is wrong nobody can tell which stage introduced it. All four agents can be changed.",
+  "techniques": [
+    "Handoff contracts",
+    "Provenance",
+    "Pipeline observability"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "how should my agents pass information to each other",
+  "badOutput": "Your agents should pass structured data between stages. Consider using JSON with clearly defined fields. Each agent should receive what it needs from the previous stage and add its own contribution before passing to the next one.",
+  "hints": [
+    {
+      "title": "Make provenance a field, not a convention",
+      "body": "If each claim carries the source that produced it and the stage that last touched it, 'who introduced this error' stops being detective work."
+    },
+    {
+      "title": "Verified and skipped are different states",
+      "body": "The editor's problem is that unchecked claims look identical to checked ones. The schema needs a third state for 'could not verify'."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "schema|contract|handoff|hand.?off|interface|payload",
+          "tip": "Name it as a handoff schema or contract between stages."
+        },
+        {
+          "pattern": "four|4 |researcher|drafter|fact.?check|editor|pipeline",
+          "tip": "Anchor to the four named stages."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "free.?form|prose|unstructur|today|currently",
+          "tip": "Say what it is now: free-form prose."
+        },
+        {
+          "pattern": "which stage|who introduced|trace|blame|attribut|provenance",
+          "tip": "Name the diagnosis problem: no one can tell which stage broke it."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "claim.?level|per claim|granular|atomic|unit",
+          "tip": "Require per-claim granularity, not per-document."
+        },
+        {
+          "pattern": "not |don.?t |avoid|must not|no prose|without",
+          "tip": "Forbid free-form prose as the carrier between stages."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "verified|unverified|could not|skip|three state|status",
+          "tip": "Require distinct states including could-not-verify."
+        },
+        {
+          "pattern": "source|citation|origin|provenance|from",
+          "tip": "Require each claim to carry its source through every stage."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "json|field|type|schema|example|typed",
+          "tip": "Specify a typed schema with an example record."
+        },
+        {
+          "pattern": "stage|stamp|touched|last modified|audit|history",
+          "tip": "Require a stage stamp so each hop is traceable."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "The schema is where observability comes from. Strong version: 'Define the handoff schema for a four-stage pipeline (researcher, drafter, fact-checker, editor) that currently passes free-form prose. Requirements: claims are atomic records, not paragraphs; each claim carries its source and an as-of date from the researcher onward; the fact-checker sets a status of verified, refuted, or could-not-verify with a reason, so the editor can tell unchecked claims from checked ones; every record carries the stage that last modified it, so an error can be traced to the hop that introduced it. Output a typed JSON schema plus one worked example that passes through all four stages.'",
+  "goldPrompt": "You are helping me define a handoff contract. I'm Tara, running a four-stage drafting pipeline: researcher, drafter, fact-checker, editor.\n\nToday each stage hands the next free-form prose. Three concrete failures result:\n- The fact-checker cannot tell which claim came from which source.\n- The editor cannot distinguish a verified claim from one the fact-checker skipped.\n- When something is wrong, nobody can tell which stage introduced it.\n\nDefine the schema that passes between stages. Requirements:\n1. Claims are atomic records, not paragraphs. Prose is assembled at the end, from records.\n2. Every claim carries its source and an as-of date, set by the researcher and preserved downstream.\n3. The fact-checker sets a status with THREE states — verified, refuted, could-not-verify — the last with a reason. 'Unchecked' must not be representable as 'fine'.\n4. Every record carries the stage that last modified it and when, so an error traces to a hop.\n5. The editor can see, without re-reading, which claims are safe to publish.\n\nOutput: a typed schema (field, type, required, set-by-which-stage), then ONE worked example claim shown at all four stages so I can see what each hop adds. Finally, name anything this schema still would not let me diagnose — I want to know the gaps, not be reassured.",
+  "guideAnchor": "agents",
+  "track": "context",
+  "trackLabel": "Context"
+}

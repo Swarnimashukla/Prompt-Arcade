@@ -15,12 +15,42 @@
           "emoji": "📦",
           "blurb": "Diagnose, spec, synthesise, decide. Across e-commerce, quick-commerce, product, healthcare, and insurance.",
           "levels": [
-            { "n": 1, "title": "Diagnose Big Billion Days returns spike", "brand": "Flipkart", "domain": "E-commerce" },
-            { "n": 2, "title": "40 dark-store interviews → 5 SKU themes", "brand": "Zepto", "domain": "Quick-commerce" },
-            { "n": 3, "title": "PRD for 10-min city rebalancing", "brand": "Blinkit", "domain": "Quick-commerce" },
-            { "n": 4, "title": "Stakeholder update on Copilot rollout", "brand": "Microsoft Teams", "domain": "Product" },
-            { "n": 5, "title": "Practo vs 1mg vs Tata 1mg gap analysis", "brand": "Practo", "domain": "Healthcare" },
-            { "n": 6, "title": "Looker spec for renewal funnel", "brand": "PolicyBazaar", "domain": "Insurance" }
+            {
+              "n": 1,
+              "title": "Diagnose Big Billion Days returns spike",
+              "brand": "Flipkart",
+              "domain": "E-commerce"
+            },
+            {
+              "n": 2,
+              "title": "40 dark-store interviews → 5 SKU themes",
+              "brand": "Zepto",
+              "domain": "Quick-commerce"
+            },
+            {
+              "n": 3,
+              "title": "PRD for 10-min city rebalancing",
+              "brand": "Blinkit",
+              "domain": "Quick-commerce"
+            },
+            {
+              "n": 4,
+              "title": "Stakeholder update on Copilot rollout",
+              "brand": "Microsoft Teams",
+              "domain": "Product"
+            },
+            {
+              "n": 5,
+              "title": "Practo vs 1mg vs Tata 1mg gap analysis",
+              "brand": "Practo",
+              "domain": "Healthcare"
+            },
+            {
+              "n": 6,
+              "title": "Looker spec for renewal funnel",
+              "brand": "PolicyBazaar",
+              "domain": "Insurance"
+            }
           ]
         },
         {
@@ -29,12 +59,42 @@
           "emoji": "🎨",
           "blurb": "Redesign, critique, audit, name, synthesise, pitch. Across fashion, fintech, food-delivery, payments, services, and mobility.",
           "levels": [
-            { "n": 1, "title": "Redesign empty cart for fashion shoppers", "brand": "Myntra", "domain": "Fashion" },
-            { "n": 2, "title": "Critique Cred onboarding vs Jupiter", "brand": "Cred / Jupiter", "domain": "Fintech" },
-            { "n": 3, "title": "Accessibility audit of restaurant page", "brand": "Swiggy", "domain": "Food-delivery" },
-            { "n": 4, "title": "Name color tokens for light/dark", "brand": "Razorpay", "domain": "Design systems" },
-            { "n": 5, "title": "12 home-service interviews → wireframes", "brand": "Urban Company", "domain": "Services" },
-            { "n": 6, "title": "Pitch driver-app redesign to eng", "brand": "Ola Maps", "domain": "Mobility" }
+            {
+              "n": 1,
+              "title": "Redesign empty cart for fashion shoppers",
+              "brand": "Myntra",
+              "domain": "Fashion"
+            },
+            {
+              "n": 2,
+              "title": "Critique Cred onboarding vs Jupiter",
+              "brand": "Cred / Jupiter",
+              "domain": "Fintech"
+            },
+            {
+              "n": 3,
+              "title": "Accessibility audit of restaurant page",
+              "brand": "Swiggy",
+              "domain": "Food-delivery"
+            },
+            {
+              "n": 4,
+              "title": "Name color tokens for light/dark",
+              "brand": "Razorpay",
+              "domain": "Design systems"
+            },
+            {
+              "n": 5,
+              "title": "12 home-service interviews → wireframes",
+              "brand": "Urban Company",
+              "domain": "Services"
+            },
+            {
+              "n": 6,
+              "title": "Pitch driver-app redesign to eng",
+              "brand": "Ola Maps",
+              "domain": "Mobility"
+            }
           ]
         },
         {
@@ -43,12 +103,42 @@
           "emoji": "📈",
           "blurb": "Decks, memos, readouts, teardowns, briefs, investor updates. Across beauty, OTT, fitness, payments, consumer brands, and SaaS.",
           "levels": [
-            { "n": 1, "title": "Q3 deck for the CFO on margins", "brand": "Nykaa", "domain": "Beauty" },
-            { "n": 2, "title": "Pricing memo: ad-tier vs premium for IPL", "brand": "Disney+ Hotstar", "domain": "OTT" },
-            { "n": 3, "title": "Cohort retention readout for January signups", "brand": "cult.fit", "domain": "Fitness" },
-            { "n": 4, "title": "Teardown of GPay's UPI Lite rollout", "brand": "PhonePe vs GPay", "domain": "Payments" },
-            { "n": 5, "title": "Diwali campaign brief for the agency", "brand": "boAt", "domain": "Consumer brand" },
-            { "n": 6, "title": "Investor update on missed Q2 targets", "brand": "Series-B HR-tech", "domain": "SaaS startup" }
+            {
+              "n": 1,
+              "title": "Q3 deck for the CFO on margins",
+              "brand": "Nykaa",
+              "domain": "Beauty"
+            },
+            {
+              "n": 2,
+              "title": "Pricing memo: ad-tier vs premium for IPL",
+              "brand": "Disney+ Hotstar",
+              "domain": "OTT"
+            },
+            {
+              "n": 3,
+              "title": "Cohort retention readout for January signups",
+              "brand": "cult.fit",
+              "domain": "Fitness"
+            },
+            {
+              "n": 4,
+              "title": "Teardown of GPay's UPI Lite rollout",
+              "brand": "PhonePe vs GPay",
+              "domain": "Payments"
+            },
+            {
+              "n": 5,
+              "title": "Diwali campaign brief for the agency",
+              "brand": "boAt",
+              "domain": "Consumer brand"
+            },
+            {
+              "n": 6,
+              "title": "Investor update on missed Q2 targets",
+              "brand": "Series-B HR-tech",
+              "domain": "SaaS startup"
+            }
           ]
         }
       ]
@@ -68,12 +158,42 @@
           "emoji": "💻",
           "blurb": "Plan a learning path, explain a paper, refactor messy code, review a friend's PR, choose a stack, write a README.",
           "levels": [
-            { "n": 1, "title": "Plan 3-month DSA prep from a YouTube playlist", "brand": "60-video DSA playlist", "domain": "Learning" },
-            { "n": 2, "title": "Explain transformer attention from the paper", "brand": "‘Attention is All You Need’", "domain": "ML paper" },
-            { "n": 3, "title": "Refactor a 300-line Python script", "brand": "Internship grunt code", "domain": "Code quality" },
-            { "n": 4, "title": "Review a friend's React PR without sounding harsh", "brand": "Hackathon team PR", "domain": "Code review" },
-            { "n": 5, "title": "Pick a stack for a campus event app", "brand": "Final-year capstone", "domain": "Architecture" },
-            { "n": 6, "title": "Write a README for a CLI tool", "brand": "Open-source side project", "domain": "Docs" }
+            {
+              "n": 1,
+              "title": "Plan 3-month DSA prep from a YouTube playlist",
+              "brand": "60-video DSA playlist",
+              "domain": "Learning"
+            },
+            {
+              "n": 2,
+              "title": "Explain transformer attention from the paper",
+              "brand": "‘Attention is All You Need’",
+              "domain": "ML paper"
+            },
+            {
+              "n": 3,
+              "title": "Refactor a 300-line Python script",
+              "brand": "Internship grunt code",
+              "domain": "Code quality"
+            },
+            {
+              "n": 4,
+              "title": "Review a friend's React PR without sounding harsh",
+              "brand": "Hackathon team PR",
+              "domain": "Code review"
+            },
+            {
+              "n": 5,
+              "title": "Pick a stack for a campus event app",
+              "brand": "Final-year capstone",
+              "domain": "Architecture"
+            },
+            {
+              "n": 6,
+              "title": "Write a README for a CLI tool",
+              "brand": "Open-source side project",
+              "domain": "Docs"
+            }
           ]
         },
         {
@@ -82,12 +202,42 @@
           "emoji": "📚",
           "blurb": "Summarise long readings, find primary sources, plan a finals week, draft an SOP, argue both sides, email a professor.",
           "levels": [
-            { "n": 1, "title": "Summarise a Foucault chapter for tutorial", "brand": "Sociology reading", "domain": "Humanities" },
-            { "n": 2, "title": "Find primary sources on the Bengal famine", "brand": "Term paper", "domain": "History research" },
-            { "n": 3, "title": "2-week plan for 3 finals + a paper", "brand": "Finals week", "domain": "Study planning" },
-            { "n": 4, "title": "SOP for MS in computational neuroscience", "brand": "Grad school app", "domain": "Application essay" },
-            { "n": 5, "title": "Argue both sides: AI tutors replacing TAs", "brand": "Debate prep", "domain": "Argumentation" },
-            { "n": 6, "title": "Email professor for a 3-day extension", "brand": "Missed deadline", "domain": "Soft email" }
+            {
+              "n": 1,
+              "title": "Summarise a Foucault chapter for tutorial",
+              "brand": "Sociology reading",
+              "domain": "Humanities"
+            },
+            {
+              "n": 2,
+              "title": "Find primary sources on the Bengal famine",
+              "brand": "Term paper",
+              "domain": "History research"
+            },
+            {
+              "n": 3,
+              "title": "2-week plan for 3 finals + a paper",
+              "brand": "Finals week",
+              "domain": "Study planning"
+            },
+            {
+              "n": 4,
+              "title": "SOP for MS in computational neuroscience",
+              "brand": "Grad school app",
+              "domain": "Application essay"
+            },
+            {
+              "n": 5,
+              "title": "Argue both sides: AI tutors replacing TAs",
+              "brand": "Debate prep",
+              "domain": "Argumentation"
+            },
+            {
+              "n": 6,
+              "title": "Email professor for a 3-day extension",
+              "brand": "Missed deadline",
+              "domain": "Soft email"
+            }
           ]
         },
         {
@@ -96,12 +246,131 @@
           "emoji": "💼",
           "blurb": "Resume bullets, JD tailoring, behavioural and case interviews, cold outreach, salary negotiation.",
           "levels": [
-            { "n": 1, "title": "Rewrite resume bullets that say ‘responsible for’", "brand": "Resume polish", "domain": "Resume" },
-            { "n": 2, "title": "Tailor resume to a McKinsey BA JD", "brand": "McKinsey BA", "domain": "JD tailoring" },
-            { "n": 3, "title": "Prep 5 STAR-format behavioural answers", "brand": "Day-1 placement", "domain": "Interview prep" },
-            { "n": 4, "title": "Guesstimate market size of paneer in Bangalore", "brand": "Consulting case", "domain": "Case prep" },
-            { "n": 5, "title": "Cold email to a senior alumna at Razorpay", "brand": "Internship hunt", "domain": "Networking" },
-            { "n": 6, "title": "Counter-offer script after a ₹4.5 LPA offer", "brand": "First job offer", "domain": "Negotiation" }
+            {
+              "n": 1,
+              "title": "Rewrite resume bullets that say ‘responsible for’",
+              "brand": "Resume polish",
+              "domain": "Resume"
+            },
+            {
+              "n": 2,
+              "title": "Tailor resume to a McKinsey BA JD",
+              "brand": "McKinsey BA",
+              "domain": "JD tailoring"
+            },
+            {
+              "n": 3,
+              "title": "Prep 5 STAR-format behavioural answers",
+              "brand": "Day-1 placement",
+              "domain": "Interview prep"
+            },
+            {
+              "n": 4,
+              "title": "Guesstimate market size of paneer in Bangalore",
+              "brand": "Consulting case",
+              "domain": "Case prep"
+            },
+            {
+              "n": 5,
+              "title": "Cold email to a senior alumna at Razorpay",
+              "brand": "Internship hunt",
+              "domain": "Networking"
+            },
+            {
+              "n": 6,
+              "title": "Counter-offer script after a ₹4.5 LPA offer",
+              "brand": "First job offer",
+              "domain": "Negotiation"
+            }
+          ]
+        }
+      ]
+    },
+    "context": {
+      "id": "context",
+      "label": "Context",
+      "emoji": "🧭",
+      "color": "blue",
+      "persona": "You already write decent prompts. Now you're wiring systems: deciding what goes in the window, what tools an agent gets, and how agents hand work to each other.",
+      "description": "The layer after prompting. Engineer the whole context window, design a single agent's loop and permissions, then split work across many agents without losing the thread.",
+      "locked": false,
+      "subdomains": [
+        {
+          "id": "window",
+          "label": "The Window",
+          "emoji": "🗂",
+          "blurb": "Everything the model sees before it answers. Right-size a system prompt, curate a tool result, survive a compaction.",
+          "levels": [
+            {
+              "n": 1,
+              "title": "Right-size a bloated system prompt",
+              "brand": "Fintech support assistant",
+              "domain": "System prompts"
+            },
+            {
+              "n": 2,
+              "title": "Curate a 50k-token tool result",
+              "brand": "Logistics ops agent",
+              "domain": "Tool results"
+            },
+            {
+              "n": 3,
+              "title": "Write a compaction brief for a 40-turn session",
+              "brand": "Research assistant",
+              "domain": "Compaction"
+            }
+          ]
+        },
+        {
+          "id": "agents",
+          "label": "Single Agent",
+          "emoji": "🤖",
+          "blurb": "One agent, done properly. Tool contracts that prevent misuse, loops that terminate, permissions that match reversibility.",
+          "levels": [
+            {
+              "n": 1,
+              "title": "Write a tool description that prevents misuse",
+              "brand": "Internal analytics agent",
+              "domain": "Tool contracts"
+            },
+            {
+              "n": 2,
+              "title": "Define the loop and stop condition for a refund agent",
+              "brand": "Quick-commerce refunds",
+              "domain": "Agent loops"
+            },
+            {
+              "n": 3,
+              "title": "Set the permission boundary: unattended vs ask first",
+              "brand": "DevOps assistant",
+              "domain": "Permissions"
+            }
+          ]
+        },
+        {
+          "id": "swarm",
+          "label": "Many Agents",
+          "emoji": "🕸",
+          "blurb": "How agents connect and communicate. Split an overloaded agent, brief a cold worker, define the contract between hops.",
+          "levels": [
+            {
+              "n": 1,
+              "title": "Split one overloaded agent into orchestrator and workers",
+              "brand": "Insurance claims triage",
+              "domain": "Orchestration"
+            },
+            {
+              "n": 2,
+              "title": "Write a subagent brief a cold worker can act on",
+              "brand": "Market research swarm",
+              "domain": "Subagent briefs"
+            },
+            {
+              "n": 3,
+              "title": "Define the handoff schema between agents",
+              "brand": "Content pipeline",
+              "domain": "Handoff contracts"
+            }
           ]
         }
       ]

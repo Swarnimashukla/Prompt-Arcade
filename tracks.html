@@ -30,7 +30,7 @@
   <!-- STEP 1: Pick track -->
   <section class="picker-step" id="step-track">
     <div class="section-eyebrow">Pick your track</div>
-    <h2 style="margin-top:8px">Where are you in your prompt journey?</h2>
+    <h2 style="margin-top:8px">Which layer are you working on?</h2>
     <p class="muted" style="max-width:640px; margin-top:8px">
       You can switch later. The receipts and XP move with you.
     </p>
@@ -55,6 +55,17 @@
         <div class="row">
           <span class="tag">3 sub-domains · 18 scenarios</span>
           <span class="tag">⏱ ~10 min each</span>
+        </div>
+      </a>
+
+      <a class="track-card uv" data-track="context">
+        <div class="track-emoji">🧭</div>
+        <h3>Context</h3>
+        <div class="who">You already write decent prompts. Now you're wiring systems.</div>
+        <div class="desc">Engineer the whole window, design a single agent's loop and permissions, then split work across many agents without losing the thread.</div>
+        <div class="row">
+          <span class="tag">3 sub-domains · 9 scenarios</span>
+          <span class="tag">⏱ ~15 min each</span>
         </div>
       </a>
     </div>
@@ -153,8 +164,6 @@
     history.replaceState(null, '', `tracks.html?track=${trackId}`);
     document.getElementById('track-eyebrow').textContent =
       `${track.label} · pick your sub-domain`;
-    document.getElementById('track-eyebrow').className =
-      'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
     document.getElementById('track-h2').textContent = track.label + ' · which side of you needs sharpening?';
     document.getElementById('track-blurb').textContent = track.persona;
 
@@ -164,7 +173,7 @@
     track.subdomains.forEach(sub => {
       const completed = sub.levels.filter(lv => completedMap[`${trackId}-${sub.id}-${lv.n}`]).length;
       const card = document.createElement('a');
-      card.className = 'sub-card ' + (trackId === 'builder' ? 'sub-coral' : 'sub-lime');
+      card.className = 'sub-card';
       card.href = `tracks.html?track=${trackId}&sub=${sub.id}`;
       card.innerHTML = `
         <div class="sub-emoji">${sub.emoji}</div>
@@ -188,8 +197,6 @@
     if (!sub) return showSubdomains(trackId);
     history.replaceState(null, '', `tracks.html?track=${trackId}&sub=${subId}`);
     document.getElementById('sub-eyebrow').textContent = `${track.label} · ${sub.label} · pick a scenario`;
-    document.getElementById('sub-eyebrow').className =
-      'section-eyebrow ' + (trackId === 'builder' ? '' : 'lime');
     document.getElementById('sub-h2').textContent = sub.label + ' · which one are you in this week?';
     document.getElementById('sub-blurb').textContent = sub.blurb;
 

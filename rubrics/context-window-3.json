@@ -1,0 +1,106 @@
+{
+  "id": "context-window-3",
+  "subdomain": "window",
+  "subdomainLabel": "The Window",
+  "level": 3,
+  "title": "Write a compaction brief for a 40-turn session",
+  "brand": "Research assistant",
+  "domain": "Compaction",
+  "persona": "Ananya, running long research sessions with an agent",
+  "scenario": "Your agent has been working a research task for 40 turns. It is about to hit the context limit and must be compacted into a summary that becomes the new starting context. The session contains: the original brief, 14 sources read (4 of which were later discredited), three abandoned approaches, two decisions you explicitly ratified, a half-finished comparison table, and a running list of open questions. Whatever the summary omits is gone for good.",
+  "techniques": [
+    "Compaction",
+    "Load-bearing state",
+    "Decision preservation"
+  ],
+  "tokenBudget": 320,
+  "badPrompt": "summarize our conversation so far so we can continue",
+  "badOutput": "So far we've been researching your topic. We looked at several sources, discussed a few different approaches, and made some decisions about direction. We have an unfinished comparison table and some open questions remaining. Let me know how you'd like to proceed.",
+  "hints": [
+    {
+      "title": "Rank by what breaks if it's lost",
+      "body": "Ratified decisions and discredited sources are load-bearing: losing them means re-litigating or re-citing a bad source. Narrative recap is not."
+    },
+    {
+      "title": "Preserve the negatives",
+      "body": "Abandoned approaches and discredited sources must survive compaction explicitly, or the agent will cheerfully try them again."
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "clarity",
+      "label": "Clarity",
+      "checks": [
+        {
+          "pattern": "compact|compress|carry.?forward|hand.?off|continuation|new context",
+          "tip": "Name it as compaction producing a continuation context, not a recap."
+        },
+        {
+          "pattern": "40|forty|turn|session|limit",
+          "tip": "Anchor the situation: a 40-turn session at the context limit."
+        }
+      ]
+    },
+    {
+      "key": "context",
+      "label": "Context",
+      "checks": [
+        {
+          "pattern": "discredit|retract|unreliable|debunk|bad source",
+          "tip": "Call out the 4 discredited sources; they must not silently return."
+        },
+        {
+          "pattern": "decision|ratif|agreed|approved|signed.?off",
+          "tip": "Name the ratified decisions as things that must survive verbatim."
+        }
+      ]
+    },
+    {
+      "key": "constraints",
+      "label": "Constraints",
+      "checks": [
+        {
+          "pattern": "abandon|rejected|tried|dead.?end|ruled out|don.?t retry",
+          "tip": "Require abandoned approaches to be carried forward, with why they failed."
+        },
+        {
+          "pattern": "not |don.?t |avoid|no narrative|without|omit nothing",
+          "tip": "Add a negative: no narrative recap, no re-summarising what's already settled."
+        }
+      ]
+    },
+    {
+      "key": "goal",
+      "label": "Goal alignment",
+      "checks": [
+        {
+          "pattern": "load.?bearing|lose|lost|irrecoverab|gone|cannot recover|one.?way",
+          "tip": "Make the stakes explicit: this is lossy and one-way."
+        },
+        {
+          "pattern": "open question|next step|outstanding|todo|unresolved",
+          "tip": "Require the open questions and next action to survive."
+        }
+      ]
+    },
+    {
+      "key": "output",
+      "label": "Output definition",
+      "checks": [
+        {
+          "pattern": "section|heading|structur|format|schema|bullet",
+          "tip": "Specify a sectioned structure, not a paragraph."
+        },
+        {
+          "pattern": "verbatim|quote|exact|cite|source list",
+          "tip": "Ask for decisions and citations verbatim rather than paraphrased."
+        }
+      ]
+    }
+  ],
+  "tipIfLow": "Compaction is triage, not summary. Strong version: 'Compact this 40-turn session into a continuation context. Treat it as lossy and one-way: anything you omit is unrecoverable. Preserve verbatim: the original brief, the two decisions I ratified, and the 4 sources found to be discredited, each flagged as do-not-reuse. Preserve with reasons: the three abandoned approaches, so they are not retried. Carry forward the comparison table as-is and the open questions list. Do NOT write a narrative recap of what we discussed. Output under fixed headings: Brief, Ratified decisions, Do-not-reuse, Abandoned approaches, Table state, Open questions, Next action.'",
+  "goldPrompt": "You are about to compact this session so we can keep working past the context limit. I'm Ananya; we are 40 turns into a research task.\n\nTreat this as lossy and one-way: anything you leave out is gone for good, so triage by what breaks if it is lost, not by what reads well.\n\nPreserve VERBATIM:\n- the original brief\n- the two decisions I explicitly ratified\n- the 4 sources we found to be discredited, each flagged do-not-reuse with one line on why\n\nPreserve WITH REASONS:\n- the three abandoned approaches, each with why it was dropped, so a future turn does not retry them\n- the current state of the comparison table, as-is and unfinished\n- the open questions list, and the single next action\n\nDo NOT write a narrative recap of our conversation, and do not re-summarise anything already settled — settled things should appear as conclusions, not as discussion.\n\nOutput under exactly these headings: Brief · Ratified decisions · Do-not-reuse sources · Abandoned approaches · Table state · Open questions · Next action. If something does not fit a heading and you judge it load-bearing, add it under Carry-forward and say why.",
+  "guideAnchor": "context",
+  "track": "context",
+  "trackLabel": "Context"
+}
