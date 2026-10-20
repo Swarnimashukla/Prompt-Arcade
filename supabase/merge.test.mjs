@@ -5,8 +5,20 @@
 //
 // Run this before touching the merge. A regression here is invisible in
 // the UI: progress just quietly goes backwards.
-import { readFileSync } from 'fs';
-const src = readFileSync(new URL('../js/auth.js', import.meta.url), 'utf8');
+import { readFileSync, existsSync } from 'fs';
+// Resolve auth.js by searching, not by a fixed relative path. This test
+// has now broken twice because the file moved; a missing module should
+// fail loudly here rather than look like a passing suite.
+const CANDIDATES = ['../public/js/auth.js', '../js/auth.js'];
+let src = null, found = null;
+for (const rel of CANDIDATES) {
+  const u = new URL(rel, import.meta.url);
+  if (existsSync(u)) { src = readFileSync(u, 'utf8'); found = rel; break; }
+}
+if (!src) {
+  console.error('FATAL: could not find auth.js. Looked in:\n  ' + CANDIDATES.join('\n  '));
+  process.exit(2);
+}
 globalThis.window = undefined; globalThis.document = undefined;
 const { PA_Auth } = await import('data:text/javascript;base64,' +
   Buffer.from(src.replace(/if \(typeof document[\s\S]*?\n  }\n/, '')
