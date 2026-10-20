@@ -98,16 +98,16 @@ const rubric = {
   ]
 };
 
-check('one criterion per check, plus responsibility',
+check('one criterion per check, plus the gate and responsibility',
   criteriaFor(rubric).map(c => c.id),
-  ['clarity:0', 'clarity:1', 'goal:0', 'goal:1', 'responsibility']);
+  ['clarity:0', 'clarity:1', 'goal:0', 'goal:1', 'instruction', 'responsibility']);
 
 // ---------------------------------------------------------------------
 // Grading a model response
 // ---------------------------------------------------------------------
 
 const CRIT = criteriaFor(rubric);
-const ids = ['clarity:0', 'clarity:1', 'goal:0', 'goal:1', 'responsibility'];
+const ids = ['clarity:0', 'clarity:1', 'goal:0', 'goal:1', 'instruction', 'responsibility'];
 
 // A response where every claim is backed by a real span.
 const honest = gradeFromResponse({
@@ -116,12 +116,13 @@ const honest = gradeFromResponse({
     { id: 'clarity:1', pass: true,  quote: 'Returns on women’s ethnic wear' },
     { id: 'goal:0',    pass: false, quote: '' },
     { id: 'goal:1',    pass: false, quote: '' },
+    { id: 'instruction', pass: true, quote: 'Rank five hypotheses by likelihood' },
     { id: 'responsibility', pass: true, quote: 'Do NOT propose redesigns' }
   ]
 }, SUBMISSION, CRIT);
 
 check('honest evidence is accepted',
-  ids.map(id => honest.verdicts[id].passed), [true, true, false, false, true]);
+  ids.map(id => honest.verdicts[id].passed), [true, true, false, false, true, true]);
 check('honest evidence rejects nothing', honest.evidenceRejected, 0);
 check('the accepted quote is kept as the learner wrote it',
   honest.verdicts['responsibility'].quote, 'Do NOT propose redesigns');
@@ -134,12 +135,13 @@ const hallucinating = gradeFromResponse({
     { id: 'clarity:1', pass: true, quote: 'break the findings down by pincode and age band' },
     { id: 'goal:0',    pass: true, quote: 'present this to the category leadership team' },
     { id: 'goal:1',    pass: false, quote: '' },
+    { id: 'instruction', pass: true, quote: 'Rank five hypotheses by likelihood' },
     { id: 'responsibility', pass: true, quote: 'cite every claim against the source data' }
   ]
 }, SUBMISSION, CRIT);
 
 check('invented evidence does not score',
-  ids.map(id => hallucinating.verdicts[id].passed), [true, false, false, false, false]);
+  ids.map(id => hallucinating.verdicts[id].passed), [true, false, false, false, true, false]);
 check('invented evidence is counted', hallucinating.evidenceRejected, 3);
 
 // A pass whose only evidence is a keyword. Three claims, three keywords,
@@ -150,13 +152,14 @@ const keywords = gradeFromResponse({
     { id: 'clarity:1', pass: true, quote: 'Returns' },
     { id: 'goal:0',    pass: true, quote: '41%' },
     { id: 'goal:1',    pass: false, quote: '' },
+    { id: 'instruction', pass: true, quote: 'Rank' },
     { id: 'responsibility', pass: true, quote: 'NOT' }
   ]
 }, SUBMISSION, CRIT);
 
 check('keywords offered as evidence score nothing',
-  ids.map(id => keywords.verdicts[id].passed), [false, false, false, false, false]);
-check('every keyword claim is counted as rejected', keywords.evidenceRejected, 4);
+  ids.map(id => keywords.verdicts[id].passed), [false, false, false, false, false, false]);
+check('every keyword claim is counted as rejected', keywords.evidenceRejected, 5);
 
 // An incomplete read is not downgraded into a bad score; it is refused,
 // so scoring falls back to the rubric rather than failing the learner
@@ -177,6 +180,7 @@ const dupes = gradeFromResponse({
     { id: 'clarity:1', pass: false, quote: '' },
     { id: 'goal:0',    pass: false, quote: '' },
     { id: 'goal:1',    pass: false, quote: '' },
+    { id: 'instruction', pass: false, quote: '' },
     { id: 'responsibility', pass: false, quote: '' }
   ]
 }, SUBMISSION, CRIT);
@@ -197,6 +201,7 @@ const judged = scoreText('Rank five hypotheses by likelihood for leadership.', r
     'clarity:1': { passed: false, quote: null },
     'goal:0':    { passed: true,  quote: 'Rank five hypotheses by likelihood' },
     'goal:1':    { passed: true,  quote: 'for leadership' },
+    'instruction': { passed: true, quote: 'Rank five hypotheses by likelihood' },
     'responsibility': { passed: false, quote: null }
   },
   model: 'test-model',
@@ -230,6 +235,7 @@ const surgical = scoreText('Rank five hypotheses. Do not guess; flag uncertainty
   verdicts: {
     'clarity:0': { passed: true, quote: 'a' }, 'clarity:1': { passed: true, quote: 'b' },
     'goal:0': { passed: true, quote: 'c' },    'goal:1': { passed: true, quote: 'd' },
+    'instruction': { passed: true, quote: 'Rank five hypotheses' },
     'responsibility': { passed: true, quote: 'flag uncertainty' }
   },
   model: 'test-model', evidenceRejected: 0
@@ -276,6 +282,43 @@ check('the reason reaches the score',
 check('a failed call is reported as a failure',
   scoreText('x', rubric, { unavailable: 'failed' }).fallbackReason, 'failed');
 check('the judge path has no fallback reason', judged.fallbackReason, null);
+
+
+// ---------------------------------------------------------------------
+// The gate: did you ask for anything?
+// ---------------------------------------------------------------------
+
+// The case that found this: pasting a level's brief back as the answer.
+// Every dimension measures what the prompt INSTRUCTS, so all of them can
+// be satisfied by material that instructs nothing — and the patterns
+// were authored from the scenario, which makes the scenario its own
+// answer key. The tier must not call that Surgical.
+const described = scoreText('Returns jumped 22% to 41% after Big Billion Days.', rubric, {
+  verdicts: {
+    'clarity:0': { passed: true, quote: 'Returns jumped 22% to 41%' },
+    'clarity:1': { passed: true, quote: 'Returns jumped 22% to 41%' },
+    'goal:0':    { passed: true, quote: 'after Big Billion Days' },
+    'goal:1':    { passed: true, quote: 'after Big Billion Days' },
+    'instruction':    { passed: false, quote: null },
+    'responsibility': { passed: true, quote: 'Returns jumped 22% to 41%' }
+  },
+  model: 'test-model', evidenceRejected: 0
+});
+
+check('a full-marks description is still a Draft', described.tier.name, 'Draft');
+check('the gate is reported', described.wroteAnInstruction, false);
+check('the dimensions are not zeroed, so the learner sees what they had',
+  described.dimensions.map(d => d.pts), [2, 2]);
+check('the blurb says what is missing',
+  /never asks for anything/.test(described.tier.blurb), true);
+
+// Nothing changes for a submission that does instruct.
+check('a real instruction is not gated', surgical.tier.name, 'Surgical');
+check('the gate passes there', surgical.wroteAnInstruction, true);
+
+// On the regex path there is no gate verdict, so nothing is gated: the
+// fallback must not start failing people on a check it cannot make.
+check('the regex path never gates', fallback.wroteAnInstruction, true);
 
 
 console.log(failures ? `\n${failures} failing` : '\nall passing');

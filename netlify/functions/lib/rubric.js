@@ -105,9 +105,28 @@ function scoreText(prompt, rubric, verdicts) {
   const respVerdict = judged ? judged.responsibility : null;
   const responsibilityCue = respVerdict ? respVerdict.passed : RESPONSIBILITY.test(text);
 
+  // The gate. Every dimension above measures what the prompt INSTRUCTS,
+  // so each one can be satisfied by material that instructs nothing —
+  // most cheaply by pasting the brief back, which the rubric patterns
+  // were written from and therefore match almost perfectly. The tier is
+  // a claim about prompt quality, and no amount of right vocabulary
+  // makes a description into a prompt. The dimension scores stay as the
+  // judge found them, because "you had all the material and never asked
+  // for anything" is the more useful thing to be shown than a zero.
+  const instrVerdict = judged ? judged.instruction : null;
+  const wroteAnInstruction = instrVerdict ? instrVerdict.passed : true;
+
+  const tier = wroteAnInstruction
+    ? tierFromScore(score10, passedBudget, responsibilityCue)
+    : {
+        name: 'Draft', level: 0,
+        blurb: 'This describes the situation but never asks for anything. The material below is all present — turn it into instructions and re-evaluate.'
+      };
+
   return {
     score: score10,
-    tier: tierFromScore(score10, passedBudget, responsibilityCue),
+    tier,
+    wroteAnInstruction,
     dimensions, tokens, badTokens, budget, responsibilityCue, passedBudget,
     responsibilityQuote: respVerdict ? respVerdict.quote : null,
     engine: judged ? 'judge' : 'rubric',
