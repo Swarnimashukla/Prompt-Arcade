@@ -147,8 +147,11 @@ h1, h2, h3, .brand, .score-num, .why-card .num, .tier-badge .tier-name,
 }
 h1, h2, h3 {
   color: var(--yellow);
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-               4px 4px 0 rgba(0,0,0,.3);
+  /* The outline is what makes gold legible on sky — 1.42:1 unaided —
+     so it stays, at half its old weight. The drop halves with it: a 4px
+     offset under a 1px outline reads as a smear, not as extrusion. */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+               2px 2px 0 rgba(0,0,0,.28);
 }
 h1 { font-size: clamp(38px, 5.5vw, 62px); }
 h2 { font-size: clamp(27px, 3.4vw, 38px); }
@@ -485,7 +488,7 @@ main.wrap > p {
 
 .score-head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 3px dashed rgba(0,0,0,.12); }
 .score-num { font-size: 50px; color: var(--coin); line-height: 1;
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 4px 5px 0 rgba(0,0,0,.25); }
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 3px 0 rgba(0,0,0,.25); }
 .score-lbl { font-size: 12px; color: var(--text-faint); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
 .stars { font-size: 26px; letter-spacing: 4px; }
 .star-on { color: var(--coin); } .star-off { color: #D6DCE2; }
