@@ -282,10 +282,10 @@ main.wrap > p {
 .hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
 
 @media (min-width: 1000px) {
-  .hero-inner { grid-template-columns: minmax(0, 1.4fr) minmax(255px, .6fr); gap: 56px; }
+  .hero-inner { grid-template-columns: minmax(0, 1.5fr) minmax(200px, .5fr); gap: 56px; }
   .hero-art { display: block; }
 }
-.hero-art svg { max-width: 330px; margin-left: auto; }
+.hero-art svg { max-width: 245px; margin-left: auto; }
 
 /* The stamp was floating alone in the empty half. Now it is a sticker
    on the artwork, which is what it always looked like it wanted to be. */
@@ -306,7 +306,8 @@ main.wrap > p {
 .layer-3 { animation-delay: -3.8s; }
 @keyframes lyr-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-.hop { animation: lyr-hop 4.4s cubic-bezier(.65,0,.35,1) infinite; }
+.hop { animation: lyr-hop 4.4s cubic-bezier(.65,0,.35,1) infinite;
+  transform-box: fill-box; transform-origin: center; }
 @keyframes lyr-hop {
   0%, 10%   { transform: translate(132px, 367px) scale(.9); opacity: 0; }
   18%       { transform: translate(140px, 367px) scale(1);  opacity: 1; }
