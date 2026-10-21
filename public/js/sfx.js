@@ -53,14 +53,30 @@ const PA_Sfx = (() => {
   // Cartoon boing for a rejected action.
   const error = () => { if (enabled) tone({ freq: 420, to: 110, dur: 0.3, type: 'triangle', gain: VOLUME * 0.8 }); };
 
+
+  const ICON_ON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+    + '<path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/>'
+    + '<path d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.6a7.6 7.6 0 0 1 0 10.8" fill="none"'
+    + ' stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
+
+  const ICON_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+    + '<path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z" fill="currentColor"/>'
+    + '<path d="M16 9.5l5 5M21 9.5l-5 5" fill="none"'
+    + ' stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
+
+  function paint(btn, on) {
+    btn.innerHTML = (on ? ICON_ON : ICON_OFF)
+      + '<span class="sfx-sr">' + (on ? 'Sound on' : 'Sound off') + '</span>';
+    btn.setAttribute('aria-pressed', String(on));
+    btn.setAttribute('aria-label', on ? 'Mute sound effects' : 'Unmute sound effects');
+    btn.title = on ? 'Mute sound effects' : 'Unmute sound effects';
+  }
+
   function setEnabled(on) {
     enabled = on;
     try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch (e) {}
     const btn = document.querySelector('.sfx-toggle');
-    if (btn) {
-      btn.setAttribute('aria-pressed', String(on));
-      btn.textContent = on ? 'Sound on' : 'Sound off';
-    }
+    if (btn) paint(btn, on);
     if (on) confirm();
   }
 
@@ -70,9 +86,7 @@ const PA_Sfx = (() => {
       const btn = document.createElement('button');
       btn.className = 'sfx-toggle';
       btn.type = 'button';
-      btn.setAttribute('aria-pressed', String(enabled));
-      btn.setAttribute('aria-label', 'Toggle sound effects');
-      btn.textContent = enabled ? 'Sound on' : 'Sound off';
+      paint(btn, enabled);
       btn.addEventListener('click', () => setEnabled(!enabled));
       bar.appendChild(btn);
     }

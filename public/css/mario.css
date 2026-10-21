@@ -282,10 +282,10 @@ main.wrap > p {
 .hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
 
 @media (min-width: 1000px) {
-  .hero-inner { grid-template-columns: minmax(0, 1.4fr) minmax(255px, .6fr); gap: 56px; }
+  .hero-inner { grid-template-columns: minmax(0, 1.5fr) minmax(200px, .5fr); gap: 56px; }
   .hero-art { display: block; }
 }
-.hero-art svg { max-width: 330px; margin-left: auto; }
+.hero-art svg { max-width: 245px; margin-left: auto; }
 
 /* The stamp was floating alone in the empty half. Now it is a sticker
    on the artwork, which is what it always looked like it wanted to be. */
@@ -306,7 +306,8 @@ main.wrap > p {
 .layer-3 { animation-delay: -3.8s; }
 @keyframes lyr-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-.hop { animation: lyr-hop 4.4s cubic-bezier(.65,0,.35,1) infinite; }
+.hop { animation: lyr-hop 4.4s cubic-bezier(.65,0,.35,1) infinite;
+  transform-box: fill-box; transform-origin: center; }
 @keyframes lyr-hop {
   0%, 10%   { transform: translate(132px, 367px) scale(.9); opacity: 0; }
   18%       { transform: translate(140px, 367px) scale(1);  opacity: 1; }
@@ -636,14 +637,27 @@ main.wrap > p {
 .how-section { margin-top: 28px; }
 
 /* ---- Sound toggle ---- */
+/* A control, not a call to action. It used to be a pill the size of the
+   nav links, which made muting look like one of the main things on
+   offer. Now a round icon button, with the state carried by the shape —
+   speaker with waves, or speaker struck through — so it still reads
+   when the colour does not. */
 .sfx-toggle {
-  margin-left: 10px; padding: 7px 14px; font-family: 'Nunito', sans-serif;
-  font-weight: 800; font-size: 14px; letter-spacing: .05em; text-transform: uppercase;
-  background: #fff; color: var(--text-soft); border: none; border-radius: 999px;
-  box-shadow: 0 3px 0 rgba(0,0,0,.15); cursor: var(--glove); white-space: nowrap;
-  transition: transform .2s var(--bounce);
+  margin-left: 10px; padding: 0; width: 38px; height: 38px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff; color: var(--text-soft); border: none; border-radius: 50%;
+  box-shadow: 0 3px 0 rgba(0,0,0,.15); cursor: var(--glove);
+  transition: transform .2s var(--bounce), color .15s ease, background .15s ease;
 }
-.sfx-toggle:hover { transform: translateY(-2px) scale(1.05); }
+.sfx-toggle svg { width: 21px; height: 21px; display: block; }
+.sfx-toggle:hover { transform: translateY(-2px) scale(1.06); }
+.sfx-toggle[aria-pressed="false"] { color: var(--text-faint); }
+/* The label stays in the accessibility tree even though the button
+   shows only a glyph. */
+.sfx-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
 /* The top bar on a narrow screen. Nothing used to touch it, so four
    links, the brand, the sound toggle and the account chip all competed
