@@ -92,6 +92,27 @@ Set in **Netlify → Site configuration → Environment variables**:
 | `PA_JUDGE_MODEL` | no | Defaults to `claude-sonnet-5-5`. |
 | `PA_JUDGE_TIMEOUT_MS` | no | Defaults to 8000. A synchronous function has seconds, not minutes, and a learner is watching a button. |
 
+### Supabase auth URLs
+
+Sign-in sends the browser to Google and Google sends it back — but back
+*where* is decided by Supabase, not by this code. `signInWithOAuth`
+passes `redirectTo`, and Supabase honours it **only** if the URL matches
+an entry in the project's Redirect URLs. Otherwise it falls back,
+silently, to the project's Site URL.
+
+So a sign-in that completes and then lands on `http://localhost:3000`
+with a token in the fragment means Site URL is still the Supabase
+default. In **Authentication → URL Configuration**:
+
+| Field | Value |
+|---|---|
+| Site URL | `https://promptarcade.netlify.app` |
+| Redirect URLs | `https://promptarcade.netlify.app/**` (add `http://localhost:8888/**` to sign in against the dev server) |
+
+Google's own OAuth client needs the Supabase callback in its authorised
+redirect URIs — `https://<project-ref>.supabase.co/auth/v1/callback` —
+but that part does not change per environment.
+
 Supabase's project URL and anon key live in
 `public/js/supabase-config.js` and are committed deliberately: the anon
 key is publishable by design, and row-level security in
