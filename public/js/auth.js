@@ -143,9 +143,18 @@ const PA_Auth = (() => {
 
   async function signIn() {
     if (!client) return;
+    // Come back to the page they left, minus any existing hash or query
+    // — the provider appends its own fragment and two of them collide.
+    //
+    // Supabase only honours this if the URL matches an entry in the
+    // project's Redirect URLs; otherwise it silently falls back to the
+    // project's Site URL. A sign-in that lands on localhost:3000 means
+    // Site URL is still the Supabase default and this value was ignored,
+    // which is a dashboard setting, not something code can force.
+    const back = window.location.origin + window.location.pathname;
     const { error } = await client.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.href }
+      options: { redirectTo: back }
     });
     if (error) toast('Sign-in failed. Please try again.');
   }
@@ -222,7 +231,17 @@ const PA_Auth = (() => {
     if (!configured()) return;            // inert until credentials exist
     try {
       await loadSdk();
-      client = window.supabase.createClient(cfg().url, cfg().anonKey);
+      client = window.supabase.createClient(cfg().url, cfg().anonKey, {
+        auth: {
+          // Read the token out of the returning URL, then take it back
+          // out of the address bar so it is not sitting in history, in a
+          // screenshot, or in anything the person pastes to someone.
+          detectSessionInUrl: true,
+          persistSession: true,
+          autoRefreshToken: true,
+          flowType: 'pkce'
+        }
+      });
     } catch (e) {
       console.warn('[auth] disabled:', e.message);
       return;
