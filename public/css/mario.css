@@ -189,11 +189,11 @@ main.wrap > p {
 .prompt-area-wrap label, .bad-prompt-label, .reveal-pane h5,
 .cost-cell .label, .impact-stat .lbl, .hints-card h4 {
   font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  font-size: 16px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--text-faint); display: block; margin-bottom: 8px;
 }
 .section-eyebrow {
-  color: var(--ink-head); font-size: 13px;
+  color: var(--ink-head); font-size: 17px;
   text-shadow: 0 1px 0 rgba(255,255,255,.4);
   margin-bottom: 10px;
 }
@@ -258,8 +258,8 @@ main.wrap > p {
 /* ---- Tags: little pills ---- */
 .tag, .meta-pill, .sc-tier, .case-card .case-tag, .gold-tag, .lock-badge {
   display: inline-block; font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
-  padding: 4px 11px; border-radius: 999px;
+  font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 999px;
   background: #EEF1F4; color: var(--text-soft); border: none;
   box-shadow: 0 2px 0 rgba(0,0,0,.10);
 }
@@ -274,16 +274,59 @@ main.wrap > p {
 .hero h1 .squig { color: var(--red); display: inline; }
 .hero-sub { font-size: 18px; max-width: 620px; margin-top: 20px; color: var(--ink-head); font-weight: 600; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+/* Two columns once there is room for both. Below that the art would be
+   competing with the only button that matters, so it steps aside. */
+.hero-inner { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+.hero-art { display: none; position: relative; }
+.hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+@media (min-width: 1000px) {
+  .hero-inner { grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr); gap: 48px; }
+  .hero-art { display: block; }
+}
+
+/* The stamp was floating alone in the empty half. Now it is a sticker
+   on the artwork, which is what it always looked like it wanted to be. */
 .hero-stamp {
-  position: absolute; top: 56px; left: 62%; right: auto; max-width: 170px;
+  position: absolute; top: -20px; right: -14px; max-width: 170px;
   padding: 12px 16px; text-align: center;
   background: var(--coin); border: 4px solid #fff; border-radius: 18px;
   box-shadow: var(--drop); transform: rotate(5deg);
   font-family: 'Fredoka One', sans-serif; font-size: 15px;
-  color: #5A4000; line-height: 1.25;
+  color: #5A4000; line-height: 1.25; z-index: 2;
 }
-@media (max-width: 1150px) { .hero-stamp { left: auto; right: 2%; } }
-@media (max-width: 920px) { .hero-stamp { display: none; } }
+
+/* Motion: each layer breathes on its own offset, a handoff crosses
+   between the two agents, and the prompt cursor blinks. Slow and small
+   — this sits next to a call to action and must not pull against it. */
+.layer { animation: lyr-float 5.6s ease-in-out infinite; transform-origin: center; }
+.layer-2 { animation-delay: -1.9s; }
+.layer-3 { animation-delay: -3.8s; }
+@keyframes lyr-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+.hop { animation: lyr-hop 4.4s cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes lyr-hop {
+  0%, 10%   { transform: translate(132px, 91px) scale(.9); opacity: 0; }
+  18%       { transform: translate(140px, 91px) scale(1);  opacity: 1; }
+  62%       { transform: translate(228px, 91px) scale(1);  opacity: 1; }
+  72%, 100% { transform: translate(236px, 91px) scale(.9); opacity: 0; }
+}
+
+.cut { animation: lyr-cut 4.4s ease-in-out infinite; transform-origin: 282px 229px; }
+@keyframes lyr-cut {
+  0%, 40%   { opacity: 1; transform: scale(1); }
+  56%, 92%  { opacity: .35; transform: scale(.88); }
+  100%      { opacity: 1; transform: scale(1); }
+}
+
+.cursor { animation: lyr-blink 1.1s steps(1) infinite; }
+@keyframes lyr-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .layer, .hop, .cut, .cursor { animation: none; }
+  .hop { transform: translate(184px, 91px); }
+}
 
 /* ---- Ticker ---- */
 .ticker-card { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; overflow: hidden; }
@@ -313,9 +356,9 @@ main.wrap > p {
 /* ---- Disclosure ---- */
 .how-calc { margin-top: 18px; }
 .how-calc summary {
-  cursor: var(--glove); font-weight: 800; font-size: 13px; letter-spacing: .06em;
+  cursor: var(--glove); font-weight: 800; font-size: 16px; letter-spacing: .04em;
   text-transform: uppercase; color: #fff; list-style: none; user-select: none;
-  display: inline-block; padding: 8px 18px; border-radius: 999px;
+  display: inline-block; padding: 9px 20px; border-radius: 999px;
   background: var(--blue-btn); box-shadow: 0 4px 0 var(--blue-deep);
   transition: transform .2s var(--bounce);
 }
@@ -352,7 +395,7 @@ main.wrap > p {
 .case-card .body { font-size: 14px; margin-bottom: 14px; }
 .case-card .lesson { margin-top: auto; padding: 12px 16px; font-size: 13.5px; background: #F2FBF4; border-radius: 14px; border-left: 5px solid var(--green); }
 .case-card .lesson strong { display: block; margin-bottom: 4px; color: var(--green-deep); font-weight: 800; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-.case-card .src { font-size: 11.5px; margin-top: 12px; }
+.case-card .src { font-size: 13px; margin-top: 12px; }
 
 /* Field reports stay short by default; the rest sits behind a
    secondary control rather than on the card. */
@@ -406,7 +449,7 @@ main.wrap > p {
 .meter-row .num { font-size: 19px; color: var(--text);
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; }
 .meter-row.warn .num { color: var(--red-deep); }
-.meter-foot { font-size: 11.5px; line-height: 1.6; margin-top: 14px; padding-top: 12px; border-top: 2px dashed rgba(0,0,0,.08); }
+.meter-foot { font-size: 13px; line-height: 1.6; margin-top: 14px; padding-top: 12px; border-top: 2px dashed rgba(0,0,0,.08); }
 
 /* ---- Results ---- */
 .feedback { display: none; margin-top: 26px; }
@@ -528,10 +571,10 @@ main.wrap > p {
 .sp-card:hover { transform: translateY(-4px) scale(1.03); }
 .sp-card.active { background: #E4F0FF; border-color: var(--blue); }
 .sp-card.done   { background: #EDFBF1; }
-.sp-num { font-weight: 800; font-size: 11px; color: var(--text-faint); }
+.sp-num { font-weight: 800; font-size: 15px; color: var(--text-faint); }
 .sp-card.done .sp-num { color: var(--green-deep); }
-.sp-title { font-weight: 800; line-height: 1.3; font-size: 12.5px; color: var(--text); }
-.sp-brand { font-size: 11px; }
+.sp-title { font-weight: 800; line-height: 1.35; font-size: 16.5px; color: var(--text); }
+.sp-brand { font-size: 13px; }
 
 /* ---- Track picker (tracks.html) ----
    These were missed when only two pages were themed. .sub-card and
@@ -594,7 +637,7 @@ main.wrap > p {
 /* ---- Sound toggle ---- */
 .sfx-toggle {
   margin-left: 10px; padding: 7px 14px; font-family: 'Nunito', sans-serif;
-  font-weight: 800; font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  font-weight: 800; font-size: 14px; letter-spacing: .05em; text-transform: uppercase;
   background: #fff; color: var(--text-soft); border: none; border-radius: 999px;
   box-shadow: 0 3px 0 rgba(0,0,0,.15); cursor: var(--glove); white-space: nowrap;
   transition: transform .2s var(--bounce);
@@ -664,7 +707,7 @@ main.wrap > p {
 .studio-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
 .studio-tool {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+  font-size: 14px; font-weight: 700; padding: 5px 12px; border-radius: 999px;
   background: #fff; color: var(--text-soft); cursor: var(--glove);
   box-shadow: 0 2px 0 rgba(0,0,0,.10);
 }
@@ -685,19 +728,19 @@ main.wrap > p {
 .studio-opt:hover { transform: translateY(-3px); }
 .studio-opt.on { background: #E4F0FF; border-color: var(--blue); }
 
-.studio-switch { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; font-size: 13px; cursor: var(--glove); }
+.studio-switch { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; font-size: 14.5px; cursor: var(--glove); }
 .studio-switch input { margin-top: 3px; accent-color: var(--green); width: 18px; height: 18px; cursor: var(--glove); }
 
 .studio-checks { margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
-.studio-check { display: flex; gap: 9px; align-items: flex-start; font-size: 12px; line-height: 1.45; }
+.studio-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.5; }
 .studio-mark {
-  width: 20px; height: 20px; border-radius: 50%; flex: none;
+  width: 23px; height: 23px; border-radius: 50%; flex: none;
   display: inline-flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 12px;
+  font-weight: 800; font-size: 14px;
 }
 .studio-check.pass .studio-mark { background: var(--green); color: #14521F; }
 .studio-check.fail .studio-mark { background: #E4E9EE; color: var(--text-faint); }
-.studio-check-body strong { display: block; font-size: 12.5px; }
+.studio-check-body strong { display: block; font-size: 16px; margin-bottom: 2px; }
 .studio-check.pass .studio-check-body span { color: var(--text-soft); }
 .studio-check.fail .studio-check-body span { color: var(--red-deep); }
 
@@ -728,11 +771,11 @@ main.wrap > p {
   box-shadow: var(--drop);
 }
 .build-notes h3 { font-family: 'Fredoka One', sans-serif; color: var(--ink-head); text-shadow: none; font-size: 18px; }
-.build-notes dl { margin-top: 16px; display: grid; grid-template-columns: 170px 1fr; gap: 14px 24px; }
+.build-notes dl { margin-top: 16px; display: grid; grid-template-columns: 215px 1fr; gap: 16px 24px; }
 .build-notes dt {
   font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--blue-deep); padding-top: 3px;
+  font-size: 15px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--blue-deep); padding-top: 2px;
 }
 .build-notes dd { font-size: 13.5px; line-height: 1.65; color: var(--text); margin: 0; }
 .build-notes dd a { color: var(--blue-deep); text-decoration: underline; font-weight: 700; }
