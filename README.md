@@ -82,6 +82,25 @@ makes re-pressing Evaluate stable for as long as the function instance
 stays warm. That covers the case that matters; it is not a global
 guarantee and is not claimed as one.
 
+## Share card
+
+`scripts/thumbnail/card.html` is the landscape card used for the
+portfolio thumbnail and for link previews. It is built from the
+product's own tokens and its real hero artwork rather than drawn
+separately, so it cannot drift away from the thing it advertises, and
+regenerating it after a brand change is a command rather than a design
+job.
+
+```sh
+npm i --no-save playwright
+node scripts/thumbnail.mjs            # → scripts/thumbnail/out/*.png
+```
+
+Three sizes come out, all at 2x: 1200x630 (Open Graph and the portfolio
+card), 1600x900 (16:9), and 2400x1260. Both typefaces are committed as
+latin-subset woff2 beside the card, so a render can never quietly fall
+back to a different font — the script fails loudly instead.
+
 ## Configuration
 
 Set in **Netlify → Site configuration → Environment variables**:
