@@ -59,42 +59,31 @@
       <svg viewBox="0 0 380 436" role="presentation" focusable="false">
         <defs>
           <style>
-            .lyr-label { font-family: 'Fredoka One', 'Nunito', sans-serif; font-size: 19px; fill: #fff; letter-spacing: .5px; }
-            .lyr-num   { font-family: 'Fredoka One', 'Nunito', sans-serif; font-size: 15px; }
+            .lyr-label { font-family: 'Fredoka One', 'Nunito', sans-serif; font-size: 23px; fill: #fff; letter-spacing: .4px; }
+            .lyr-num   { font-family: 'Fredoka One', 'Nunito', sans-serif; font-size: 18px; }
             .ink { stroke: #16263A; stroke-width: 3; stroke-linejoin: round; }
           </style>
         </defs>
 
-        <!-- 3 · AGENTS — two units, one handoff -->
-        <g class="layer layer-3">
+        <!-- 1 · PROMPT — one message, done well -->
+        <g class="layer layer-1">
           <rect x="14" y="26" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
-          <rect x="8" y="16" width="352" height="112" rx="18" fill="#1B7A35" class="ink"/>
-          <circle cx="36" cy="44" r="13" fill="#FFF0A8" class="ink"/>
-          <text x="36" y="49" text-anchor="middle" class="lyr-num" fill="#5A4000">3</text>
-          <text x="58" y="50" class="lyr-label">AGENTS</text>
-          <!-- two workers and the envelope between them -->
-          <rect x="34" y="70" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
-          <circle cx="54" cy="91" r="6" fill="#1B7A35"/>
-          <rect x="68" y="85" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
-          <rect x="68" y="95" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
-          <rect x="248" y="70" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
-          <circle cx="268" cy="91" r="6" fill="#1B7A35"/>
-          <rect x="282" y="85" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
-          <rect x="282" y="95" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
-          <path d="M126 91 H242" stroke="#BFEFD0" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 9"/>
-          <g class="hop">
-            <rect x="-15" y="-11" width="30" height="22" rx="4" fill="#FFCE2B" class="ink"/>
-            <path d="M-15 -11 L0 1 L15 -11" fill="none" class="ink"/>
-          </g>
+          <rect x="8" y="16" width="352" height="112" rx="18" fill="#D12A20" class="ink"/>
+          <circle cx="36" cy="44" r="13" fill="#FFE2DF" class="ink"/>
+          <text x="36" y="50" text-anchor="middle" class="lyr-num" fill="#A81D16">1</text>
+          <text x="58" y="52" class="lyr-label">PROMPT</text>
+          <rect x="34" y="70" width="300" height="42" rx="11" fill="#FFF1EF" class="ink"/>
+          <rect x="48" y="81" width="196" height="6" rx="3" fill="#C06A63"/>
+          <rect x="48" y="95" width="128" height="6" rx="3" fill="#DCA9A4"/>
+          <g class="cursor"><rect x="252" y="78" width="4" height="26" rx="2" fill="#A81D16"/></g>
         </g>
-
         <!-- 2 · CONTEXT — the whole window, curated -->
         <g class="layer layer-2">
           <rect x="14" y="164" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
           <rect x="8" y="154" width="352" height="112" rx="18" fill="#D99E00" class="ink"/>
           <circle cx="36" cy="182" r="13" fill="#FFF8DF" class="ink"/>
-          <text x="36" y="187" text-anchor="middle" class="lyr-num" fill="#5A4000">2</text>
-          <text x="58" y="188" class="lyr-label">CONTEXT</text>
+          <text x="36" y="188" text-anchor="middle" class="lyr-num" fill="#5A4000">2</text>
+          <text x="58" y="190" class="lyr-label">CONTEXT</text>
           <!-- the window: some tiles kept, one dropped -->
           <rect x="34" y="208" width="300" height="42" rx="11" fill="#FFF8DF" class="ink"/>
           <rect x="46" y="218" width="54" height="22" rx="6" fill="#0059BF"/>
@@ -106,18 +95,29 @@
           </g>
         </g>
 
-        <!-- 1 · PROMPT — one message, done well -->
-        <g class="layer layer-1">
+        <!-- 3 · AGENTS — two units, one handoff -->
+        <g class="layer layer-3">
           <rect x="14" y="302" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
-          <rect x="8" y="292" width="352" height="112" rx="18" fill="#D12A20" class="ink"/>
-          <circle cx="36" cy="320" r="13" fill="#FFE2DF" class="ink"/>
-          <text x="36" y="325" text-anchor="middle" class="lyr-num" fill="#A81D16">1</text>
-          <text x="58" y="326" class="lyr-label">PROMPT</text>
-          <rect x="34" y="346" width="300" height="42" rx="11" fill="#FFF1EF" class="ink"/>
-          <rect x="48" y="357" width="196" height="6" rx="3" fill="#C06A63"/>
-          <rect x="48" y="371" width="128" height="6" rx="3" fill="#DCA9A4"/>
-          <g class="cursor"><rect x="252" y="354" width="4" height="26" rx="2" fill="#A81D16"/></g>
+          <rect x="8" y="292" width="352" height="112" rx="18" fill="#1B7A35" class="ink"/>
+          <circle cx="36" cy="320" r="13" fill="#FFF0A8" class="ink"/>
+          <text x="36" y="326" text-anchor="middle" class="lyr-num" fill="#5A4000">3</text>
+          <text x="58" y="328" class="lyr-label">AGENTS</text>
+          <!-- two workers and the envelope between them -->
+          <rect x="34" y="346" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
+          <circle cx="54" cy="367" r="6" fill="#1B7A35"/>
+          <rect x="68" y="361" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
+          <rect x="68" y="371" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
+          <rect x="248" y="346" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
+          <circle cx="268" cy="367" r="6" fill="#1B7A35"/>
+          <rect x="282" y="361" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
+          <rect x="282" y="371" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
+          <path d="M126 367 H242" stroke="#BFEFD0" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 9"/>
+          <g class="hop">
+            <rect x="-15" y="265" width="30" height="22" rx="4" fill="#FFCE2B" class="ink"/>
+            <path d="M-15 -11 L0 1 L15 -11" fill="none" class="ink"/>
+          </g>
         </g>
+
       </svg>
 
       <div class="hero-stamp">
