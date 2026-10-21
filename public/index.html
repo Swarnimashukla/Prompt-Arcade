@@ -183,14 +183,14 @@
     <div class="build-notes">
       <h3>How this was built</h3>
       <dl>
-        <dt>Slop audit</dt>
-        <dd>Scored against the twelve tells in <a href="https://github.com/iruhdam1/skills" target="_blank" rel="noopener">How to detect design slop</a>. The old build failed "one answer per row" in three rows at once: three typefaces, three competing accents, emoji standing in for icons. Now two typefaces with a stated job each, and colour reserved for controls and machine state. The emoji stayed — in a cartoon pastiche they are a decision, not a default, which is the distinction the guide is actually drawing.</dd>
-
         <dt>Accessibility</dt>
-        <dd>Every visible text node measured against its effective background across all five pages. 70 WCAG AA failures found, 59 fixed. White prose on the sky measured 2.15:1; near-black on the same sky measures about 9:1, so the first instinct was wrong. The 11 that remain are gold headings carried by a 2px outline the audit cannot see, and are reported rather than "fixed" into something less legible.</dd>
+        <dd>Every visible text node measured against its effective background across all five pages. 70 WCAG AA failures found, 58 fixed. White prose on the sky measured 2.15:1; near-black on the same sky measures about 9:1, so the first instinct was wrong. The 12 that remain are gold headings carried by a 2px outline the ratio formula cannot see, and are reported rather than "fixed" into something less legible.</dd>
 
         <dt>Scoring integrity</dt>
-        <dd>Scoring is deterministic: the same prompt always scores the same, instantly, free, with no model involved. It is regular expressions running in your browser, which also means it can be gamed by someone who pastes the vocabulary without the understanding, and that the rubrics are readable by anyone who opens the network tab. Server-side, evidence-grounded scoring is the next piece of work.</dd>
+        <dd>Scoring runs on the server, so the rubrics and the reference answer never reach the browser — the only way to find out what a level rewards is to attempt it. Two engines sit behind the same endpoint. The one running now is pattern matching, which is instant and free and cannot tell whether an instruction does what a criterion asks, only whether the words are present. The other reads the attempt and has to quote the span of your prompt that earned each point, with the server checking the quote is really there; it is built and switches on with an API key.</dd>
+
+        <dt>Gaming the scorer</dt>
+        <dd>Pasting a level's own brief back as the answer used to score 9/10 — across the 45 levels then live, it beat 8/10 on 28 of them. The rubric patterns had been written from each scenario, which made every scenario a near-perfect key for its own rubric. Both engines now ask a prior question — does this text instruct an assistant, or only describe a situation? — and a description lands on Draft however much of the vocabulary it reproduces. Tuned so the errors fall the safe way: it gates none of the 54 reference answers, and catches 48 of the 54 briefs.</dd>
       </dl>
     </div>
   </div>

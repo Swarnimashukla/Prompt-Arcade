@@ -213,7 +213,16 @@ main.wrap > p {
 .brand-dot { width: 15px; height: 15px; border-radius: 50%; flex: none;
   background: radial-gradient(circle at 34% 30%, #FFF0A8, var(--coin) 55%, #D9A400);
   box-shadow: 0 2px 0 rgba(0,0,0,.2); }
-.nav-links { display: flex; gap: 6px; margin-left: auto; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+/* overflow-x: auto is here so the four links scroll rather than wrap on a
+   narrow phone. The catch: once one axis scrolls, the other stops being
+   `visible` too, so the active pill's 3px drop shadow and the hover lift
+   were both being clipped by the scroll box. The padding gives them room
+   inside it; the negative margin keeps the bar the same height. */
+.nav-links {
+  display: flex; gap: 6px; margin-left: auto; flex-wrap: nowrap;
+  overflow-x: auto; scrollbar-width: none;
+  padding: 6px 2px; margin-top: -6px; margin-bottom: -6px;
+}
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-link {
   padding: 7px 16px; font-weight: 800; font-size: 14px; border-radius: 999px;
@@ -278,7 +287,13 @@ main.wrap > p {
 
 /* ---- Ticker ---- */
 .ticker-card { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; overflow: hidden; }
-.ticker-side { padding: 22px 26px; }
+/* The two sides are a comparison, so their stat rows have to line up —
+   and they did not, because the considered prompt runs to three or four
+   lines and the lazy one to one, pushing the right-hand rows ~44px
+   down. Growing the prompt box takes up the slack, so the rows that are
+   being compared sit on the same line whatever the text does. */
+.ticker-side { padding: 22px 26px; display: flex; flex-direction: column; }
+.ticker-side .ticker-prompt { flex: 1 0 auto; }
 .ticker-side + .ticker-side { border-left: 3px dashed rgba(0,0,0,.12); }
 .ticker-side.bad h4  { color: var(--red-deep); }
 .ticker-side.good h4 { color: var(--green-deep); }
@@ -567,7 +582,7 @@ main.wrap > p {
 /* ---- Footer ---- */
 .foot { margin-top: 64px; padding: 26px 24px; font-size: 13px; color: var(--text); font-weight: 600;
   background: rgba(255,255,255,.72); border-top: 4px solid #fff; }
-.foot p { max-width: 1120px; margin: 0 auto; }
+.foot p { max-width: 1120px; margin: 0 auto; text-align: center; }
 
 /* ---- Utility ---- */
 .spacer-32 { height: 32px; } .spacer-48 { height: 48px; }
@@ -585,6 +600,24 @@ main.wrap > p {
   transition: transform .2s var(--bounce);
 }
 .sfx-toggle:hover { transform: translateY(-2px) scale(1.05); }
+
+/* The top bar on a narrow screen. Nothing used to touch it, so four
+   links, the brand, the sound toggle and the account chip all competed
+   for 390px in one non-wrapping row: the brand broke onto two lines and
+   three of the four links were off-screen behind a scroll nobody can
+   see. Two rows instead — identity and controls, then navigation
+   across the full width, where all four fit without scrolling. */
+@media (max-width: 780px) {
+  .topbar-inner { flex-wrap: wrap; row-gap: 8px; gap: 10px; padding: 10px 16px; }
+  .brand { font-size: 16px; }
+  .brand-dot { width: 13px; height: 13px; }
+  .sfx-toggle { margin-left: auto; }
+  .nav-links {
+    order: 3; width: 100%; margin-left: 0;
+    justify-content: space-between; gap: 2px;
+  }
+  .nav-link { padding: 7px 12px; }
+}
 .sfx-toggle[aria-pressed="true"] { background: var(--green); color: #14521F; box-shadow: 0 3px 0 var(--green-deep); }
 
 @media (max-width: 660px) {
@@ -778,6 +811,5 @@ main.wrap > p {
 .page-tall { padding-top: 48px; padding-bottom: 60px; }
 
 .push-right { margin-left: auto; }
-.center     { text-align: center; }
 .faint      { color: var(--text-faint); }
 .soft       { color: var(--soot); }
