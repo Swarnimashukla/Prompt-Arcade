@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PromptArcade · share card</title>
+<style>
+  /* The two typefaces the product actually uses, loaded from disk so a
+     render never silently falls back to something else. */
+  @font-face { font-family: 'Fredoka One'; src: url('fredoka-one-latin.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Nunito'; src: url('nunito-latin.woff2') format('woff2'); font-weight: 700; }
+
+  /* Lifted from css/mario.css rather than re-picked by eye, so the card
+     cannot drift away from the product it is advertising. */
+  :root {
+    --sky: #5CB8FF;
+    --yellow: #FFCC00;
+    --red: #FF3B30;
+    --red-btn: #D12A20;
+    --coin: #FFD83D;
+    --ink: #16263A;
+    --green-deep: #1B7A35;
+    --amber-deep: #D99E00;
+    --blue-btn: #0059BF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 100%; height: 100%; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--sky);
+    background-image:
+      radial-gradient(ellipse 180px 60px at 10% 16%, rgba(255,255,255,.85), transparent 70%),
+      radial-gradient(ellipse 130px 48px at 18% 20%, rgba(255,255,255,.75), transparent 70%),
+      radial-gradient(ellipse 210px 66px at 84% 12%, rgba(255,255,255,.72), transparent 70%),
+      radial-gradient(ellipse 150px 52px at 93% 17%, rgba(255,255,255,.60), transparent 70%),
+      radial-gradient(ellipse 170px 56px at 8% 78%, rgba(255,255,255,.40), transparent 72%),
+      linear-gradient(180deg, #7FCBFF 0%, var(--sky) 40%, #8FD4FF 100%);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* The castle floor, same device as the site. */
+  body::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 38%; opacity: .13; pointer-events: none;
+    background-image: repeating-conic-gradient(rgba(255,255,255,.9) 0% 25%, transparent 0% 50%);
+    background-size: 64px 64px;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+            mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+  }
+
+  .card {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    display: grid; grid-template-columns: 1fr 0.62fr;
+    align-items: center; gap: 5%;
+    padding: 0 6.5%;
+  }
+
+  /* Headline: the product's own extruded treatment, scaled to the card
+     rather than to a viewport. */
+  h1 {
+    font-family: 'Fredoka One', sans-serif;
+    font-weight: 400;
+    font-size: var(--h1);
+    line-height: 1.08;
+    letter-spacing: .5px;
+    color: var(--yellow);
+    text-shadow:
+      calc(var(--h1) * -0.010) calc(var(--h1) * -0.010) 0 #000,
+      calc(var(--h1) *  0.010) calc(var(--h1) * -0.010) 0 #000,
+      calc(var(--h1) * -0.010) calc(var(--h1) *  0.010) 0 #000,
+      calc(var(--h1) *  0.010) calc(var(--h1) *  0.010) 0 #000,
+      calc(var(--h1) *  0.020) calc(var(--h1) *  0.020) 0 rgba(0,0,0,.28);
+  }
+  h1 .red { color: var(--red); }
+
+  .mark {
+    display: flex; align-items: center; gap: .5em;
+    margin-top: 1.1em;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: var(--mark); letter-spacing: .09em;
+    color: var(--red-btn);
+    text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+                 -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff,
+                  2px 3px 0 rgba(0,0,0,.16);
+  }
+  .coin {
+    width: .85em; height: .85em; border-radius: 50%; flex: none;
+    background: radial-gradient(circle at 34% 30%, #FFF0A8, var(--coin) 55%, #D9A400);
+    box-shadow: 0 2px 0 rgba(0,0,0,.2);
+  }
+
+  .art { position: relative; }
+  .art svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .stamp {
+    position: absolute; top: -7%; right: -5%;
+    background: var(--coin); border: 4px solid #fff; border-radius: 16px;
+    box-shadow: 0 7px 0 rgba(0,0,0,.15);
+    transform: rotate(5deg);
+    font-family: 'Fredoka One', sans-serif;
+    font-size: var(--stamp); line-height: 1.25; color: #5A4000;
+    padding: .55em .8em; text-align: center; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="copy">
+      <h1>Prompt like<br><span class="red">it actually matters.</span></h1>
+      <div class="mark"><span class="coin"></span>PROMPT ARCADE</div>
+    </div>
+
+    <div class="art">
+      <!-- The three layers, exactly as the product draws them. Reusing
+           the real artwork is what keeps this honest: the card shows
+           the thing, it does not illustrate the idea of the thing. -->
+      <svg viewBox="0 0 380 436" role="img" aria-label="Three layers: prompt, context, agents">
+        <defs><style>
+          .lbl { font-family: 'Fredoka One', sans-serif; font-size: 29px; fill: #fff; letter-spacing: .3px; }
+          .num { font-family: 'Fredoka One', sans-serif; font-size: 24px; }
+          .ink { stroke: #16263A; stroke-width: 3; stroke-linejoin: round; }
+        </style></defs>
+
+        <!-- 1 · PROMPT -->
+        <g>
+          <rect x="14" y="26" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
+          <rect x="8" y="16" width="352" height="112" rx="18" fill="#D12A20" class="ink"/>
+          <circle cx="38" cy="44" r="16" fill="#FFE2DF" class="ink"/>
+          <text x="38" y="52" text-anchor="middle" class="num" fill="#A81D16">1</text>
+          <text x="64" y="54" class="lbl">PROMPT</text>
+          <rect x="34" y="70" width="300" height="42" rx="11" fill="#FFF1EF" class="ink"/>
+          <rect x="48" y="81" width="196" height="6" rx="3" fill="#C06A63"/>
+          <rect x="48" y="95" width="128" height="6" rx="3" fill="#DCA9A4"/>
+          <rect x="252" y="78" width="4" height="26" rx="2" fill="#A81D16"/>
+        </g>
+
+        <!-- 2 · CONTEXT -->
+        <g>
+          <rect x="14" y="164" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
+          <rect x="8" y="154" width="352" height="112" rx="18" fill="#D99E00" class="ink"/>
+          <circle cx="38" cy="182" r="16" fill="#FFF8DF" class="ink"/>
+          <text x="38" y="190" text-anchor="middle" class="num" fill="#5A4000">2</text>
+          <text x="64" y="192" class="lbl">CONTEXT</text>
+          <rect x="34" y="208" width="300" height="42" rx="11" fill="#FFF8DF" class="ink"/>
+          <rect x="46" y="218" width="54" height="22" rx="6" fill="#0059BF"/>
+          <rect x="108" y="218" width="78" height="22" rx="6" fill="#0059BF"/>
+          <rect x="194" y="218" width="40" height="22" rx="6" fill="#0059BF"/>
+          <rect x="242" y="218" width="80" height="22" rx="6" fill="#E4E9EE"/>
+          <path d="M252 223 L312 235 M312 223 L252 235" stroke="#A81D16" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- 3 · AGENTS -->
+        <g>
+          <rect x="14" y="302" width="352" height="112" rx="18" fill="rgba(0,0,0,.16)"/>
+          <rect x="8" y="292" width="352" height="112" rx="18" fill="#1B7A35" class="ink"/>
+          <circle cx="38" cy="320" r="16" fill="#FFF0A8" class="ink"/>
+          <text x="38" y="328" text-anchor="middle" class="num" fill="#5A4000">3</text>
+          <text x="64" y="330" class="lbl">AGENTS</text>
+          <rect x="34" y="346" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
+          <circle cx="54" cy="367" r="6" fill="#1B7A35"/>
+          <rect x="68" y="361" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
+          <rect x="68" y="371" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
+          <rect x="248" y="346" width="86" height="42" rx="11" fill="#EAF7EE" class="ink"/>
+          <circle cx="268" cy="367" r="6" fill="#1B7A35"/>
+          <rect x="282" y="361" width="40" height="5" rx="2.5" fill="#9BB0BF"/>
+          <rect x="282" y="371" width="26" height="5" rx="2.5" fill="#C3D1DB"/>
+          <path d="M126 367 H242" stroke="#BFEFD0" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 9"/>
+          <g transform="translate(184 367)">
+            <rect x="-20" y="-14" width="40" height="28" rx="5" fill="#FFCE2B"
+                  stroke="#16263A" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M-20 -10 L0 6 L20 -10" fill="none"
+                  stroke="#16263A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </g>
+      </svg>
+
+      <div class="stamp">every word<br>has a cost</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -34,6 +34,18 @@
   --blue-btn:   #0059BF;   /* blue that passes AA under white text */
   --ink-head:   #16263A;   /* headings inside cards, and prose on the sky */
 
+  /* Spacing, named for what the gap MEANS. The old values accreted a
+     tag at a time — 6, 8, 10, 14, 16, 18, 20, 22, 24, 28, 30, 32, 36,
+     48, 60 — which is why nothing on the page read as grouped: every
+     gap was a fresh guess, so a gap inside a group and a gap between
+     two groups came out the same size. Pick by relationship. */
+  --space-xs:  4px;    /* inside a chip */
+  --space-sm:  8px;    /* a label and the thing it labels */
+  --space-md:  16px;   /* siblings inside one component */
+  --space-lg:  24px;   /* components inside a group */
+  --space-xl:  40px;   /* one group to the next */
+  --space-2xl: 64px;   /* one section to the next */
+
   --bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --drop:   0 8px 0 rgba(0,0,0,0.15);
   --drop-sm:0 4px 0 rgba(0,0,0,0.13);
@@ -122,7 +134,7 @@ a, button, summary, .track-card, .sub-card, .scenario-card, .sp-card, .lp-btn, .
 .why-card, .case-card, .reveal-pane, .meter-card, .cost-card,
 .track-card, .sub-card, .tier-cell, .impact-stat, .hints-card { padding: 20px 24px; }
 .scenario-card { padding: 16px 20px; border-radius: var(--radius-sm); }
-.sp-card { padding: 10px 12px; border-radius: 12px; box-shadow: var(--drop-sm); }
+.sp-card { padding: 14px 16px; border-radius: 12px; box-shadow: var(--drop-sm); }
 
 /* ---- Typography ----
    Fredoka One, extruded, for headings and labels only. */
@@ -135,8 +147,12 @@ h1, h2, h3, .brand, .score-num, .why-card .num, .tier-badge .tier-name,
 }
 h1, h2, h3 {
   color: var(--yellow);
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-               4px 4px 0 rgba(0,0,0,.3);
+  /* The outline is what makes gold legible on sky — 1.42:1 unaided.
+     At 0.5px it is a sub-pixel offset: crisp on a 2x screen, softened
+     into a grey halo by antialiasing on a 1x one. Kept at the weight
+     asked for; the tradeoff is recorded rather than silently undone. */
+  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000,
+               1px 1px 0 rgba(0,0,0,.28);
 }
 h1 { font-size: clamp(38px, 5.5vw, 62px); }
 h2 { font-size: clamp(27px, 3.4vw, 38px); }
@@ -188,14 +204,14 @@ main.wrap > p {
 .section-eyebrow, .ticker-side h4, .meter-card h4, .cost-card h4,
 .prompt-area-wrap label, .bad-prompt-label, .reveal-pane h5,
 .cost-cell .label, .impact-stat .lbl, .hints-card h4 {
-  font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 16px; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--text-faint); display: block; margin-bottom: 8px;
+  font-family: 'Nunito', sans-serif; font-weight: 700;
+  font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-faint); display: block; margin-bottom: var(--space-sm);
 }
 .section-eyebrow {
-  color: var(--ink-head); font-size: 17px;
+  color: var(--ink-head); font-size: 15px; font-weight: 700;
   text-shadow: 0 1px 0 rgba(255,255,255,.4);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 .section-eyebrow.lime, .section-eyebrow.uv { color: var(--ink-head); }
 
@@ -257,8 +273,8 @@ main.wrap > p {
 
 /* ---- Tags: little pills ---- */
 .tag, .meta-pill, .sc-tier, .case-card .case-tag, .gold-tag, .lock-badge {
-  display: inline-block; font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+  display: inline-block; font-family: 'Nunito', sans-serif; font-weight: 700;
+  font-size: 14px; letter-spacing: .05em; text-transform: uppercase;
   padding: 5px 14px; border-radius: 999px;
   background: #EEF1F4; color: var(--text-soft); border: none;
   box-shadow: 0 2px 0 rgba(0,0,0,.10);
@@ -414,11 +430,24 @@ main.wrap > p {
 .case-card .src { margin-top: auto; }
 
 /* ---- Level screen ---- */
-.level-shell { display: grid; grid-template-columns: 1fr 310px; gap: 26px; margin-top: 26px; align-items: start; }
+.level-shell { display: grid; grid-template-columns: 1fr 310px; gap: var(--space-lg); margin-top: var(--space-xl); align-items: start; }
 @media (max-width: 1020px) { .level-shell { grid-template-columns: 1fr; } }
-.level-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+
+/* Phase one: where you are, and what you can pick. One group. */
+.level-head { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-md); }
 .crumb { font-size: 13px; font-weight: 700; color: var(--ink-head); }
-.level-meta { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+
+/* The boundary between choosing a problem and working one. It gets the
+   largest gap on the page and a rule, because it is the only place
+   where the page changes what it is asking of you. */
+.level-divide { margin: var(--space-xl) 0; }
+
+/* Phase two: the problem you chose. Title, tags and persona are one
+   thing, so they sit close; the work area is the next thing, so it
+   does not. */
+.level-intro h2 { margin: 0; }
+.level-meta { display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md); }
+.level-intro .handwrit { margin-top: var(--space-sm); }
 .scenario .body p { font-size: 15.5px; margin-bottom: 14px; max-width: 70ch; }
 
 .bad-prompt {
@@ -460,7 +489,7 @@ main.wrap > p {
 
 .score-head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 3px dashed rgba(0,0,0,.12); }
 .score-num { font-size: 50px; color: var(--coin); line-height: 1;
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 4px 5px 0 rgba(0,0,0,.25); }
+  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000, 1px 2px 0 rgba(0,0,0,.25); }
 .score-lbl { font-size: 12px; color: var(--text-faint); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
 .stars { font-size: 26px; letter-spacing: 4px; }
 .star-on { color: var(--coin); } .star-off { color: #D6DCE2; }
@@ -567,15 +596,15 @@ main.wrap > p {
 .gold-foot { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
 
 /* ---- Scenario rail ---- */
-.scenario-picker { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin-top: 14px; }
-.sp-card { display: flex; flex-direction: column; gap: 4px; font-size: 12px;
+.scenario-picker { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: var(--space-md); margin-top: 0; }
+.sp-card { display: flex; flex-direction: column; gap: var(--space-xs); font-size: 12px;
   transition: transform .2s var(--bounce); }
 .sp-card:hover { transform: translateY(-4px) scale(1.03); }
 .sp-card.active { background: #E4F0FF; border-color: var(--blue); }
 .sp-card.done   { background: #EDFBF1; }
 .sp-num { font-weight: 800; font-size: 15px; color: var(--text-faint); }
 .sp-card.done .sp-num { color: var(--green-deep); }
-.sp-title { font-weight: 800; line-height: 1.35; font-size: 16.5px; color: var(--text); }
+.sp-title { font-weight: 700; line-height: 1.35; font-size: 16px; color: var(--text); margin-top: 2px; }
 .sp-brand { font-size: 13px; }
 
 /* ---- Track picker (tracks.html) ----
@@ -634,7 +663,9 @@ main.wrap > p {
 .center { text-align: center; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .divider { height: 3px; background: rgba(255,255,255,.6); border: none; border-radius: 999px; margin: 28px 0; }
-.how-section { margin-top: 28px; }
+.how-section { margin-top: var(--space-xl); }
+.section-divide { margin-top: var(--space-2xl); }
+.tip-low { margin-top: var(--space-lg); }
 
 /* ---- Sound toggle ---- */
 /* A control, not a call to action. It used to be a pill the size of the
@@ -789,8 +820,8 @@ main.wrap > p {
 .build-notes dl { margin-top: 16px; display: grid; grid-template-columns: 215px 1fr; gap: 16px 24px; }
 .build-notes dt {
   font-family: 'Nunito', sans-serif; font-weight: 800;
-  font-size: 15px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--blue-deep); padding-top: 2px;
+  font-size: 14px; letter-spacing: .05em; text-transform: uppercase;
+  font-weight: 700; color: var(--blue-deep); padding-top: 3px;
 }
 .build-notes dd { font-size: 13.5px; line-height: 1.65; color: var(--text); margin: 0; }
 .build-notes dd a { color: var(--blue-deep); text-decoration: underline; font-weight: 700; }

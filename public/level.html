@@ -37,9 +37,15 @@
   <!-- Scenario picker pinned at top -->
   <div class="scenario-picker" id="scenario-picker"></div>
 
-  <h2 class="mt-18" id="level-title">Loading…</h2>
-  <div class="level-meta" id="level-meta"></div>
-  <p class="handwrit fs-20 soft mt-6" id="level-persona"></p>
+  <!-- The page changes what it asks of you here: above, pick a problem;
+       below, work it. That is the one boundary worth drawing. -->
+  <div class="divider level-divide"></div>
+
+  <div class="level-intro">
+    <h2 id="level-title">Loading…</h2>
+    <div class="level-meta" id="level-meta"></div>
+    <p class="handwrit fs-20 soft" id="level-persona"></p>
+  </div>
 
   <div class="level-shell">
     <!-- LEFT: scenario + prompt -->
@@ -137,7 +143,7 @@
           </div>
         </div>
 
-        <p class="handwrit fs-18 mt-18 soft" id="tip-if-low"></p>
+        <p class="handwrit fs-18 soft tip-low" id="tip-if-low"></p>
       </div>
     </div>
 
@@ -169,7 +175,7 @@
   </div>
 
   <!-- HOW IT WORKS, at the bottom -->
-  <div class="divider mt-60"></div>
+  <div class="divider section-divide"></div>
   <section class="how-section">
     <div class="section-eyebrow uv">How this scoring works</div>
     <h3 class="mt-8">Four tiers. One feedback loop.</h3>
