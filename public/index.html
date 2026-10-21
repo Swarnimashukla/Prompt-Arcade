@@ -266,7 +266,7 @@
       <h3>How this was built</h3>
       <dl>
         <dt>Accessibility</dt>
-        <dd>Every visible text node measured against its effective background across all five pages. 70 WCAG AA failures found, 58 fixed. White prose on the sky measured 2.15:1; near-black on the same sky measures about 9:1, so the first instinct was wrong. The 12 that remain are gold headings carried by a 1px outline the ratio formula cannot see, and are reported rather than "fixed" into something less legible.</dd>
+        <dd>Every visible text node measured against its effective background across all five pages. 70 WCAG AA failures found, 58 fixed. White prose on the sky measured 2.15:1; near-black on the same sky measures about 9:1, so the first instinct was wrong. The 12 that remain are gold headings carried by a hairline outline the ratio formula cannot see, and are reported rather than "fixed" into something less legible.</dd>
 
         <dt>Scoring integrity</dt>
         <dd>Scoring runs on the server, so the rubrics and the reference answer never reach the browser — the only way to find out what a level rewards is to attempt it. Two engines sit behind the same endpoint. The one running now is pattern matching, which is instant and free and cannot tell whether an instruction does what a criterion asks, only whether the words are present. The other reads the attempt and has to quote the span of your prompt that earned each point, with the server checking the quote is really there; it is built and switches on with an API key.</dd>
